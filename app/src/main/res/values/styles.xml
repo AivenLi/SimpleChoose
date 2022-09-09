@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SimpleChooseView">
+        <!-- 题目字体大小 -->
+        <attr name="queSize" format="dimension" />
+        <!-- 题目字体颜色 -->
+        <attr name="queColor" format="color" />
+        <!-- 题目类型字体颜色 -->
+        <attr name="queTypeColor" format="color" />
+        <!-- 答案字体大小 -->
+        <attr name="ansSize" format="dimension" />
+        <!-- 答案字体颜色 -->
+        <attr name="ansColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="android:radius" />
+        <attr name="android:topLeftRadius" />
+        <attr name="android:topRightRadius" />
+        <attr name="android:bottomLeftRadius" />
+        <attr name="android:bottomRightRadius" />
+    </declare-styleable>
+
+</resources>
