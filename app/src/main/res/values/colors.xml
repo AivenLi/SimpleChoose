@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <color name="question">#ff484848</color>
-    <color name="answer">#ff787878</color>
-    <color name="answer_checked">#ff00bfff</color>
-    <color name="answer_un_checked">#ff999999</color>
-    <color name="single_mode">#ff999999</color>
-    <color name="multi_mode">#ff00bfff</color>
+    <color name="light_main">#ff00bfff</color>
+    <color name="night_main">#ff005777</color>
+    <color name="light_secondary">#ff87ceeb</color>
+    <color name="night_secondary">#ff436775</color>
+    <color name="light_page_title">#ffffffff</color>
+    <color name="night_page_title">#ffa0a0a0</color>
+    <color name="light_item_title">#ff484848</color>
+    <color name="night_item_title">#ff606060</color>
+    <color name="light_item_desc">#ff787878</color>
+    <color name="night_item_desc">#ff808080</color>
+    <color name="light_window">#ffffffff</color>
+    <color name="night_window">#ff303030</color>
+    <color name="light_split_line">#ffededed</color>
+    <color name="night_split_line">#ff767676</color>
+    <color name="light_warning">#ffd81e06</color>
+    <color name="night_warning">#ff860503</color>
 </resources>

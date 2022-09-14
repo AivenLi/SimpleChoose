@@ -3,19 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.15052083333333333" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_baseline_radio_button_checked_24.xml" value="0.12135416666666667" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_launcher_background.xml" value="0.12135416666666667" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_a0a0a0_bg.xml" value="0.12395833333333334" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_alpha_aa_black_bg.xml" value="0.16770833333333332" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_bottom_alpha_aa_black_bg.xml" value="0.15052083333333333" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_gray_bg.xml" value="0.16770833333333332" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_top_right_bottom_left_red_bg.xml" value="0.16770833333333332" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_home.xml" value="0.152" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_simple_choose.xml" value="0.13697916666666668" />
-        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_test_paper.xml" value="0.152" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_test_paper.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_choose.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_choose_answer.xml" value="0.264" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_test_paper.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_test_paper_home.xml" value="0.2" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/layout_multi_view_empty.xml" value="0.12604166666666666" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/layout_multi_view_error.xml" value="0.12604166666666666" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/layout_multi_view_load.xml" value="0.152" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/multi_view_empty.xml" value="0.176" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/multi_view_error.xml" value="0.12" />
       </map>
     </option>
   </component>

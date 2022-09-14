@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorMain" format="reference" />
+    <attr name="colorPageTitle" format="reference" />
+    <attr name="colorItemTitle" format="reference" />
+    <attr name="colorItemDesc" format="reference" />
+    <attr name="colorWindow" format="reference" />
+    <attr name="colorSplitLine" format="reference" />
+    <attr name="colorWarning" format="reference" />
+</resources>

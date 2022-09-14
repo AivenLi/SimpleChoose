@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.viewpager.widget.ViewPager
+import com.example.simplechoose.adapter.ViewPagerAdapter
 import com.example.simplechoose.bean.dto.AnswerDTO
 import com.example.simplechoose.bean.dto.QuestionDTO
 import com.example.simplechoose.view.SimpleChooseView

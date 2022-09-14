@@ -2,15 +2,33 @@
     <!-- Base application theme. -->
     <style name="Theme.SimpleChoose" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/light_main</item>
+        <item name="colorPrimaryVariant">@color/light_main</item>
+        <item name="colorOnPrimary">@color/light_main</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/light_secondary</item>
+        <item name="colorSecondaryVariant">@color/light_secondary</item>
+        <item name="colorOnSecondary">@color/light_secondary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorMain">@color/light_main</item>
+        <item name="colorPageTitle">@color/light_page_title</item>
+        <item name="colorItemTitle">@color/light_item_title</item>
+        <item name="colorItemDesc">@color/light_item_desc</item>
+        <item name="colorWindow">@color/light_window</item>
+        <item name="colorSplitLine">@color/light_split_line</item>
+        <item name="colorWarning">@color/light_warning</item>
+    </style>
+    
+    <style name="MultiStatView" parent="Theme.SimpleChoose">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="msv_animateViewChanges">false</item>
+        <item name="msv_emptyView">@layout/layout_multi_view_empty</item>
+        <item name="msv_errorView">@layout/layout_multi_view_error</item>
+        <item name="msv_loadingView">@layout/layout_multi_view_load</item>
+        <item name="msv_viewState">content</item>
+        <item name="android:background">@color/light_window</item>
     </style>
 </resources>

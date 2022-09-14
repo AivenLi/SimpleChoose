@@ -1,4 +1,4 @@
-package com.example.simplechoose
+package com.example.simplechoose.app
 
 import android.app.Application
 import com.scwang.smart.refresh.footer.ClassicsFooter

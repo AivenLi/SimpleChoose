@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_page_title">16dp</dimen>
+    <dimen name="text_item_title">14dp</dimen>
+    <dimen name="text_item_desc">12dp</dimen>
+    <dimen name="page_margin">12dp</dimen>
+    <dimen name="small_icon">24dp</dimen>
+    <dimen name="middle_icon">32dp</dimen>
+    <dimen name="title_bar_height">44dp</dimen>
+</resources>

@@ -1,4 +1,4 @@
-package com.example.simplechoose;
+package com.example.simplechoose.adapter;
 
 import android.util.Log
 import android.view.View;

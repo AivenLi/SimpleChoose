@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="12dp"
+    android:padding="@dimen/page_margin"
     android:background="@drawable/radius_10_gray_bg"
-    android:layout_marginTop="12dp"
+    android:layout_marginTop="@dimen/page_margin"
     >
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="哈哈哈哈"
-        android:textSize="14dp"
-        android:textColor="#ff484848"
+        android:textSize="@dimen/text_item_title"
+        android:textColor="?colorItemTitle"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,11 +21,12 @@
         />
     <ImageView
         android:id="@+id/img_goto"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:layout_width="@dimen/page_margin"
+        android:layout_height="@dimen/page_margin"
+        android:src="@drawable/ic_arrow_right"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:tint="?colorItemTitle"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

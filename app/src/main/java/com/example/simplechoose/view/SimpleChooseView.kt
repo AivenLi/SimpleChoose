@@ -119,9 +119,9 @@ class SimpleChooseView : FrameLayout {
                     ContextCompat.getColor(
                         context,
                         if (mode == 0) {
-                            R.color.single_mode
+                            R.color.light_main
                         } else {
-                            R.color.multi_mode
+                            R.color.light_secondary
                         }
                     )
                 ),

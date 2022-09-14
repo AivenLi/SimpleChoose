@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simplechoose.bean.dto.TestPaperDTO
 import com.example.simplechoose.databinding.ActivityTestPaperBinding
 import com.example.simplechoose.mvp.MVPActivity
+import com.example.simplechoose.net.callback.BaseError
 import com.example.simplechoose.pages.simpleChoose.adapter.TestPaperAdapter
 import com.google.gson.Gson
+import com.kennyc.view.MultiStateView
 
 class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperContract.View, TestPaperContract.Presenter>(
     ActivityTestPaperBinding::inflate
@@ -48,6 +50,7 @@ class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperCon
     }
 
     override fun initData() {
+        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_LOADING
         mPresenter.getTestPaperList(url)
     }
 
@@ -56,6 +59,10 @@ class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperCon
     }
 
     override fun getTestPaperListSuccess(testPaperDTOList: ArrayList<TestPaperDTO>) {
+        if (testPaperDTOList.isEmpty() && this.testPaperDTOList.isEmpty()) {
+            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            return
+        }
         if (this.testPaperDTOList.size == testPaperDTOList.size) {
             if (gson.toJson(this.testPaperDTOList) == gson.toJson(testPaperDTOList)) {
                 return
@@ -64,6 +71,14 @@ class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperCon
         this.testPaperDTOList.clear()
         this.testPaperDTOList.addAll(testPaperDTOList)
         testPaperAdapter.notifyDataSetChanged()
+        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_CONTENT
+    }
+
+    override fun onRequestError(baseError: BaseError) {
+        baseError.msg?.let { toast(it) }
+        if (testPaperDTOList.isEmpty()) {
+            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_ERROR
+        }
     }
 
     override fun onRequestFinish() {

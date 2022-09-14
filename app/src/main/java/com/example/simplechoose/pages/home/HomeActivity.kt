@@ -8,6 +8,7 @@ import com.example.simplechoose.mvp.MVPActivity
 import com.example.simplechoose.net.callback.BaseError
 import com.example.simplechoose.pages.home.adapter.TestPaperTypeAdapter
 import com.google.gson.Gson
+import com.kennyc.view.MultiStateView
 
 class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeContract.Presenter>(
     ActivityHomeBinding::inflate
@@ -31,6 +32,7 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
     }
 
     override fun initData() {
+        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_LOADING
         mPresenter.getQuestionTypeList()
     }
 
@@ -39,19 +41,26 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
     }
 
     override fun getQuestionListTypeSuccess(testPaperTypeDTOList: ArrayList<TestPaperTypeDTO>) {
+        if (testPaperTypeDTOList.isEmpty() && this.testPaperTypeDTOList.isEmpty()) {
+            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            return
+        }
         if (this.testPaperTypeDTOList.size == testPaperTypeDTOList.size) {
             if (gson.toJson(this.testPaperTypeDTOList) == gson.toJson(testPaperTypeDTOList)) {
-                Log.d(TAG, "数据一样")
                 return
             }
         }
         this.testPaperTypeDTOList.clear()
         this.testPaperTypeDTOList.addAll(testPaperTypeDTOList)
         testPaperTypeAdapter.notifyDataSetChanged()
+        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_CONTENT
     }
 
     override fun getQuestionListTypeFailure(baseError: BaseError) {
         toast(baseError.msg!!)
+        if (testPaperTypeDTOList.isEmpty()) {
+            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_ERROR
+        }
     }
 
     override fun onRequestFinish() {

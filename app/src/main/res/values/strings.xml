@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimpleChoose</string>
+    <string name="home">首页</string>
+    <string name="no_open_now">暂不开放</string>
+    <string name="empty_text">这颗星球没有您想要的数据</string>
+    <string name="error_text">哎，请求又失败了</string>
 </resources>
