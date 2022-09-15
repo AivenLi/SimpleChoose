@@ -16,6 +16,7 @@ import com.example.simplechoose.adapter.ChooseAnswerAdapter
 import com.example.simplechoose.bean.dto.AnswerDTO
 import com.example.simplechoose.bean.dto.QuestionDTO
 import com.example.simplechoose.databinding.ItemChooseBinding
+import com.example.simplechoose.utils.ThemeUtils
 
 /**
  * @author AivenLi
@@ -119,9 +120,17 @@ class SimpleChooseView : FrameLayout {
                     ContextCompat.getColor(
                         context,
                         if (mode == 0) {
-                            R.color.light_main
+                            if (ThemeUtils.isDarkMode(context)) {
+                                R.color.night_main
+                            } else {
+                                R.color.light_main
+                            }
                         } else {
-                            R.color.light_secondary
+                            if (ThemeUtils.isDarkMode(context)) {
+                                R.color.night_warning
+                            } else {
+                                R.color.light_warning
+                            }
                         }
                     )
                 ),

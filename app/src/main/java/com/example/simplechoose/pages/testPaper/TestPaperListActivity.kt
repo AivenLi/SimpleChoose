@@ -1,4 +1,4 @@
-package com.example.simplechoose.pages.simpleChoose
+package com.example.simplechoose.pages.testPaper
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,11 @@ import com.example.simplechoose.bean.dto.TestPaperDTO
 import com.example.simplechoose.databinding.ActivityTestPaperBinding
 import com.example.simplechoose.mvp.MVPActivity
 import com.example.simplechoose.net.callback.BaseError
-import com.example.simplechoose.pages.simpleChoose.adapter.TestPaperAdapter
+import com.example.simplechoose.pages.testPaper.adapter.TestPaperAdapter
+import com.example.simplechoose.utils.setSingleClickListener
 import com.google.gson.Gson
 import com.kennyc.view.MultiStateView
+import io.reactivex.rxjava3.disposables.Disposable
 
 class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperContract.View, TestPaperContract.Presenter>(
     ActivityTestPaperBinding::inflate
@@ -18,7 +20,7 @@ class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperCon
     private lateinit var url: String
     private val testPaperDTOList = ArrayList<TestPaperDTO>()
     private val testPaperAdapter by lazy {
-        TestPaperAdapter(testPaperDTOList)
+        TestPaperAdapter(this, testPaperDTOList)
     }
 
     private val gson by lazy {
@@ -37,15 +39,18 @@ class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperCon
     }
 
     override fun initView() {
-        url = intent.getStringExtra("url")!!
+        url = intent.getStringExtra("url") ?: ""
         viewBinding.tvPageTitle.text = intent.getStringExtra("title") ?: "试卷列表"
         viewBinding.recyclerView.adapter = testPaperAdapter
         viewBinding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun initClick() {
-        viewBinding.imgBack.setOnClickListener {
+        viewBinding.imgBack.setSingleClickListener {
             finish()
+        }
+        viewBinding.smartRefresh.setOnRefreshListener {
+            mPresenter.getTestPaperList(url)
         }
     }
 

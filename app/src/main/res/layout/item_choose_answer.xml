@@ -14,9 +14,9 @@
         />
     <ImageView
         android:id="@+id/img_check_box"
-        android:layout_width="@dimen/middle_icon"
-        android:layout_height="@dimen/middle_icon"
-        android:src="@drawable/ic_baseline_radio_button_unchecked_24"
+        android:layout_width="@dimen/small_icon"
+        android:layout_height="@dimen/small_icon"
+        android:src="@drawable/ic_unchecked"
         app:tint="?colorItemTitle"
         app:layout_constraintTop_toTopOf="@id/tv_title"
         app:layout_constraintBottom_toBottomOf="@id/tv_title"

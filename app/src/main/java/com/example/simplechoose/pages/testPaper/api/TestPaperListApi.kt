@@ -1,4 +1,4 @@
-package com.example.simplechoose.pages.simpleChoose.api
+package com.example.simplechoose.pages.testPaper.api
 
 import com.example.simplechoose.bean.dto.TestPaperDTO
 import com.example.simplechoose.net.callback.BaseResponse

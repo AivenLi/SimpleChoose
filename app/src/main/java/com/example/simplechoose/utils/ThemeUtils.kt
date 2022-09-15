@@ -8,8 +8,8 @@ class ThemeUtils {
 
     companion object {
         fun isDarkMode(config: Configuration): Boolean {
-            val uiMode = config.uiMode and Configuration.UI_MODE_NIGHT_MASK
-            return uiMode == Configuration.UI_MODE_NIGHT_MASK
+            val uiMode = config.uiMode and Configuration.UI_MODE_NIGHT_YES
+            return uiMode == Configuration.UI_MODE_NIGHT_YES
         }
 
         fun isDarkMode(context: Context): Boolean {

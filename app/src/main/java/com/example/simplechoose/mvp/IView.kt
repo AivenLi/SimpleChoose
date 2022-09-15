@@ -20,5 +20,5 @@ interface IView {
     /**
      * 请求完成
      * */
-    fun onRequestFinish()
+    fun onRequestFinish() {}
 }

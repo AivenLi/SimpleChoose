@@ -16,13 +16,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="这是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的题目"
-            android:textSize="@dimen/text_item_desc"
+            android:textSize="@dimen/text_item_title"
             android:textColor="?colorItemTitle"
             />
-        <com.example.simplechoose.view.AdapterImageView
+        <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            android:scaleType="fitCenter"
             />
         <TextView
             android:id="@+id/tv_second_title"

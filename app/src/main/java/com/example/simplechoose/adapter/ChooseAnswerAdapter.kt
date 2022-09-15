@@ -53,25 +53,23 @@ class ChooseAnswerAdapter(
             binding.viewTopLine.visibility = View.VISIBLE
         }
         binding.tvTitle.text = item.title
-        binding.imgCheckBox.setImageResource(
-            if (item.selected) {
-                binding.imgCheckBox.setColorFilter(
-                    ContextCompat.getColor(
-                        context,
-                        if (isDark) R.color.night_main else R.color.light_main
-                    )
+        if (item.selected) {
+            binding.imgCheckBox.setImageResource(R.drawable.ic_checked)
+            binding.imgCheckBox.setColorFilter(
+                ContextCompat.getColor(
+                    context,
+                    if (isDark) R.color.night_main else R.color.light_main
                 )
-                R.drawable.ic_baseline_radio_button_checked_24
-            } else {
-                binding.imgCheckBox.setColorFilter(
-                    ContextCompat.getColor(
-                        context,
-                        if (isDark) R.color.night_item_title else R.color.light_item_title
-                    )
+            )
+        } else {
+            binding.imgCheckBox.setImageResource(R.drawable.ic_unchecked)
+            binding.imgCheckBox.setColorFilter(
+                ContextCompat.getColor(
+                    context,
+                    if (isDark) R.color.night_item_desc else R.color.light_item_desc
                 )
-                R.drawable.ic_baseline_radio_button_unchecked_24
-            }
-        )
+            )
+        }
         binding.root.setOnClickListener {
             if (multiSelect) {
                 handleMultiSelect(item, position)

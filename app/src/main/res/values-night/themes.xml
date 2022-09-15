@@ -31,5 +31,11 @@
         <item name="msv_viewState">content</item>
         <item name="android:background">@color/night_window</item>
     </style>
-
+    <style name="ButtonNoShadow" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/text_item_title</item>
+    </style>
 </resources>

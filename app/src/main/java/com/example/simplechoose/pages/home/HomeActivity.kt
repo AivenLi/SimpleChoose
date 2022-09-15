@@ -7,8 +7,10 @@ import com.example.simplechoose.databinding.ActivityHomeBinding
 import com.example.simplechoose.mvp.MVPActivity
 import com.example.simplechoose.net.callback.BaseError
 import com.example.simplechoose.pages.home.adapter.TestPaperTypeAdapter
+import com.example.simplechoose.utils.ThemeUtils
 import com.google.gson.Gson
 import com.kennyc.view.MultiStateView
+import io.reactivex.rxjava3.disposables.Disposable
 
 class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeContract.Presenter>(
     ActivityHomeBinding::inflate
@@ -24,10 +26,15 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
     }
 
     override fun initView() {
+        if (ThemeUtils.isDarkMode(this)) {
+            Log.d(TAG, "黑夜模式")
+        } else {
+            Log.d(TAG, "正常模式")
+        }
         viewBinding.recyclerView.adapter = testPaperTypeAdapter
         viewBinding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         viewBinding.smartRefresh.setOnRefreshListener {
-            initData()
+            mPresenter.getQuestionTypeList()
         }
     }
 
@@ -47,6 +54,7 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
         }
         if (this.testPaperTypeDTOList.size == testPaperTypeDTOList.size) {
             if (gson.toJson(this.testPaperTypeDTOList) == gson.toJson(testPaperTypeDTOList)) {
+                Log.d(TAG, "数据一样，返回")
                 return
             }
         }
