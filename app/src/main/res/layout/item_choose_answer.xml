@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常的标题这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常的标题"
-        android:textSize="@dimen/text_item_desc"
+        android:textSize="@dimen/text_item_title"
         android:textColor="?colorItemDesc"
         app:layout_constraintTop_toBottomOf="@id/view_top_line"
         app:layout_constraintStart_toEndOf="@id/img_check_box"

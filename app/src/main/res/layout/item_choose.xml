@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="这是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的题目"
-            android:textSize="@dimen/text_item_title"
+            android:textSize="@dimen/text_page_title"
             android:textColor="?colorItemTitle"
             />
         <ImageView
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="哈哈哈哈"
-            android:textSize="@dimen/text_item_title"
+            android:textSize="@dimen/text_page_title"
             android:textColor="?colorItemTitle"
             />
         <androidx.recyclerview.widget.RecyclerView
@@ -41,6 +41,15 @@
             android:scrollbars="none"
             android:overScrollMode="never"
             android:layout_marginTop="@dimen/page_margin"
+            />
+        <TextView
+            android:id="@+id/tv_parse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="大多数"
+            android:textSize="@dimen/text_item_title"
+            android:textColor="?colorMain"
+            android:layout_marginTop="4dp"
             />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

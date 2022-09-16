@@ -10,6 +10,7 @@ import com.example.simplechoose.R
 import com.example.simplechoose.bean.dto.AnswerDTO
 import com.example.simplechoose.databinding.ItemChooseAnswerBinding
 import com.example.simplechoose.utils.ThemeUtils
+import com.example.simplechoose.view.SimpleChooseView
 
 /**
  * @author AivenLi
@@ -28,11 +29,48 @@ import com.example.simplechoose.utils.ThemeUtils
 class ChooseAnswerAdapter(
     private val context: Context,
     private val data: ArrayList<AnswerDTO>,
-    var multiSelect: Boolean = false,
+    var multiSelect: Boolean = false
 ) : RecyclerView.Adapter<ChooseAnswerAdapter.ViewHolder>()
 {
     private val isDark = ThemeUtils.isDarkMode(context)
     private var preSelectedPos = -1
+    private var mode = SimpleChooseView.MODE_TEST
+
+    companion object {
+        val indexMap = mapOf<Int, String>(
+            Pair(0, "A"),
+            Pair(1, "B"),
+            Pair(2, "C"),
+            Pair(3, "D"),
+            Pair(4, "E"),
+            Pair(5, "F"),
+            Pair(6, "G"),
+            Pair(7, "H"),
+            Pair(8, "I"),
+            Pair(9, "J"),
+            Pair(10, "K"),
+            Pair(11, "L"),
+            Pair(12, "M"),
+            Pair(13, "N"),
+            Pair(14, "O"),
+            Pair(15, "P"),
+            Pair(16, "Q"),
+            Pair(17, "R"),
+            Pair(18, "S"),
+            Pair(19, "T"),
+            Pair(20, "U"),
+            Pair(21, "V"),
+            Pair(22, "W"),
+            Pair(23, "X"),
+            Pair(24, "Y"),
+            Pair(25, "Z")
+        )
+    }
+
+    fun setAnswerEnable(mode: Int) {
+        this.mode = mode
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemChooseAnswerBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -52,7 +90,7 @@ class ChooseAnswerAdapter(
         } else {
             binding.viewTopLine.visibility = View.VISIBLE
         }
-        binding.tvTitle.text = item.title
+        binding.tvTitle.text = context.getString(R.string.arg_2_string_string, indexMap[position], item.title)
         if (item.selected) {
             binding.imgCheckBox.setImageResource(R.drawable.ic_checked)
             binding.imgCheckBox.setColorFilter(
@@ -71,6 +109,9 @@ class ChooseAnswerAdapter(
             )
         }
         binding.root.setOnClickListener {
+            if (mode == SimpleChooseView.MODE_PARSE) {
+                return@setOnClickListener
+            }
             if (multiSelect) {
                 handleMultiSelect(item, position)
             } else {

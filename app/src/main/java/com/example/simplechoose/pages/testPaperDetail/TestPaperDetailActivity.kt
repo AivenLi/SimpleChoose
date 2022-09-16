@@ -65,6 +65,13 @@ class TestPaperDetailActivity :
                 context.startActivity(this)
             }
         }
+
+        fun start(context: Context, questionDTOList: ArrayList<QuestionDTO>) {
+            Intent(context, TestPaperDetailActivity::class.java).run {
+                putExtra("question_list", questionDTOList)
+                context.startActivity(this)
+            }
+        }
     }
 
     override fun createPresenter(): TestPaperDetailContract.Presenter {
@@ -82,7 +89,23 @@ class TestPaperDetailActivity :
             SimpleChooseView(this),
             SimpleChooseView(this)
         )
-        questionAdapter = ViewPagerAdapter(questionViewList, questionBeanList)
+        val questionDTOList = intent.getParcelableArrayListExtra<QuestionDTO>("question_list")
+        if (!questionDTOList.isNullOrEmpty()) {
+            viewBinding.tvPageTitle.text = getString(R.string.show_parse)
+            questionBeanList.addAll(questionDTOList)
+        }
+        questionAdapter =
+            ViewPagerAdapter(
+                questionViewList,
+                questionBeanList,
+                if (questionBeanList.isEmpty()) {
+                    Log.d(TAG, "考试模式")
+                    SimpleChooseView.MODE_TEST
+                } else {
+                    Log.d(TAG, "解析模式")
+                    SimpleChooseView.MODE_PARSE
+                }
+            )
         viewBinding.viewPager.offscreenPageLimit = 1
         viewBinding.viewPager.adapter = questionAdapter
         url = intent.getStringExtra("url") ?: ""
@@ -122,8 +145,16 @@ class TestPaperDetailActivity :
     }
 
     override fun initData() {
-        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_LOADING
-        mPresenter.getTestPaperDetail(url)
+        if (questionBeanList.isEmpty()) {
+            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_LOADING
+            mPresenter.getTestPaperDetail(url)
+        } else {
+            viewBinding.smartRefresh.setEnableRefresh(false)
+            viewBinding.lytOptContainer.visibility = View.VISIBLE
+            viewBinding.pgbPercent.visibility = View.VISIBLE
+            viewBinding.lytOptBottomContainer.visibility = View.GONE
+            questionAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun getTestPaperDetailSuccess(questionDTOList: ArrayList<QuestionDTO>) {
@@ -141,7 +172,8 @@ class TestPaperDetailActivity :
     }
 
     override fun getTestPaperResultSuccess(resultBean: ResultBean) {
-        ResultActivity.start(this, resultBean)
+        ResultActivity.start(this, resultBean, questionBeanList)
+        finish()
     }
 
     override fun onRequestError(baseError: BaseError) {

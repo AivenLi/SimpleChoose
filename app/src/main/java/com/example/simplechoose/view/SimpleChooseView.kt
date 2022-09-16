@@ -36,6 +36,8 @@ class SimpleChooseView : FrameLayout {
      * */
     private val chooseList = ArrayList<AnswerDTO>()
 
+    private val isDark: Boolean
+
     private val binding: ItemChooseBinding =
         ItemChooseBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -44,14 +46,18 @@ class SimpleChooseView : FrameLayout {
          * 当题目中包含图片时，在图片的位置加上该标志。
          * */
         const val IMAGE_FLAG = "[image]"
-        const val SINGLE_MODE_STR = "【单选】"
-        const val MULTI_MODE_STR  = "【多选】"
+        const val SINGLE_MODE_STR = "【单选题】"
+        const val MULTI_MODE_STR  = "【多选题】"
+        const val TYPE_SINGLE = 0
+        const val TYPE_MULTI = 1
+        const val MODE_TEST = 0
+        const val MODE_PARSE = 1
     }
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
-
+        isDark = ThemeUtils.isDarkMode(context)
         chooseAnswerAdapter = ChooseAnswerAdapter(
             context,
             chooseList,
@@ -63,14 +69,21 @@ class SimpleChooseView : FrameLayout {
     }
 
     fun initData(
-        questionDTO: QuestionDTO
+        questionDTO: QuestionDTO,
+        position: Int,
+        mode: Int
     ) {
         parseTitle(
-            if (questionDTO.mode == 0) {
-                "【单选题】${questionDTO.title}"
-            } else {
-                "【多选题】${questionDTO.title}"
-            },
+            context.getString(
+                R.string.arg_3_string_number_string,
+                if (questionDTO.mode == TYPE_SINGLE) {
+                    SINGLE_MODE_STR
+                } else {
+                    MULTI_MODE_STR
+                },
+                position + 1,
+                questionDTO.title
+            ),
             questionDTO.mode
         )
         if (questionDTO.imageUrl.isNullOrEmpty()) {
@@ -85,7 +98,13 @@ class SimpleChooseView : FrameLayout {
         chooseList.clear()
         chooseList.addAll(questionDTO.chooseList)
         chooseAnswerAdapter.multiSelect = questionDTO.mode != 0
-        chooseAnswerAdapter.notifyDataSetChanged()
+        chooseAnswerAdapter.setAnswerEnable(mode)
+        if (mode == MODE_PARSE) {
+            binding.tvParse.visibility = View.VISIBLE
+            binding.tvParse.text = questionDTO.parse ?: context.getString(R.string.no_parse)
+        } else {
+            binding.tvParse.visibility = View.GONE
+        }
     }
 
     private fun parseTitle(title: String, mode: Int) {
@@ -119,14 +138,14 @@ class SimpleChooseView : FrameLayout {
                 ForegroundColorSpan(
                     ContextCompat.getColor(
                         context,
-                        if (mode == 0) {
-                            if (ThemeUtils.isDarkMode(context)) {
+                        if (mode == TYPE_SINGLE) {
+                            if (isDark) {
                                 R.color.night_main
                             } else {
                                 R.color.light_main
                             }
                         } else {
-                            if (ThemeUtils.isDarkMode(context)) {
+                            if (isDark) {
                                 R.color.night_warning
                             } else {
                                 R.color.light_warning
@@ -135,11 +154,11 @@ class SimpleChooseView : FrameLayout {
                     )
                 ),
                 0,
-                if (mode == 0) {
+                if (mode == TYPE_SINGLE) {
                     SINGLE_MODE_STR.length
                 } else {
                     MULTI_MODE_STR.length
-                } + 1,
+                },
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }

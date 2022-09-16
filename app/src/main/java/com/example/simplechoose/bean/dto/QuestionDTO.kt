@@ -1,5 +1,9 @@
 package com.example.simplechoose.bean.dto
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class QuestionDTO(
     // 题目
     val title: String,
@@ -12,5 +16,6 @@ data class QuestionDTO(
     // 答案列表，mode为1时有效
     val answerList: ArrayList<Int>? = null,
     // 图片链接，可以为null。
-    val imageUrl: String? = null
-)
+    val imageUrl: String? = null,
+    val parse: String? = null
+) : Parcelable

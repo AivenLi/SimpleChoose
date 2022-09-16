@@ -10,7 +10,8 @@ import com.example.simplechoose.view.SimpleChooseView
 
 class ViewPagerAdapter(
     private val viewList: ArrayList<View>,
-    private val dataList: ArrayList<QuestionDTO>
+    private val dataList: ArrayList<QuestionDTO>,
+    private val mode: Int
 ) : PagerAdapter() {
 
     companion object {
@@ -29,7 +30,7 @@ class ViewPagerAdapter(
         Log.d("SimpleChooseView", "Add Position: ${position}")
         val viewIndex = position % MAX_PAGE_SIZE
         container.addView((viewList[viewIndex] as SimpleChooseView).apply {
-            initData(dataList[position])
+            initData(dataList[position], position, mode)
         })
         return viewList[viewIndex]
     }
