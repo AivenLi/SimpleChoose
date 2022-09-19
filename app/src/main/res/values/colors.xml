@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">#00000000</color>
     <color name="light_main">#ff00bfff</color>
     <color name="night_main">#ff005777</color>
     <color name="light_secondary">#ff87ceeb</color>
@@ -16,4 +17,6 @@
     <color name="night_split_line">#ff767676</color>
     <color name="light_warning">#ffd81e06</color>
     <color name="night_warning">#ff860503</color>
+    <color name="light_deep_title">#ff333333</color>
+    <color name="night_deep_title">#ff787878</color>
 </resources>
