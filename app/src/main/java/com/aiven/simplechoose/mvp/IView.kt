@@ -9,7 +9,7 @@ interface IView {
      * 开始请求
      * @param d
      * */
-    fun onRequestStart(d: Disposable) {}
+    fun onRequestStart(d: Disposable?) {}
 
     /**
      * 请求错误

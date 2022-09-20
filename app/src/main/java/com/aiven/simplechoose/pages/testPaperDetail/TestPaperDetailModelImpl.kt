@@ -2,10 +2,11 @@ package com.aiven.simplechoose.pages.testPaperDetail
 
 import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.mvp.BaseModel
+import com.aiven.simplechoose.net.BaseRequest
 import com.aiven.simplechoose.net.callback.RequestCallback
-import com.aiven.simplechoose.net.request.BaseRequest
 import com.aiven.simplechoose.pages.result.bean.ResultBean
 import com.aiven.simplechoose.pages.testPaperDetail.api.TestPaperDetailApi
+import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
@@ -15,11 +16,18 @@ import kotlin.math.roundToInt
 
 class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi::class.java), TestPaperDetailContract.Model {
 
+    private val type = object : TypeToken<ArrayList<QuestionDTO>>(){}.type
+
     override fun getTestPaperDetail(
         url: String,
         requestCallback: RequestCallback<ArrayList<QuestionDTO>>
     ) {
-        BaseRequest.request(service.getTestPaperDetail(url), requestCallback)
+        BaseRequest.requestWithCache(
+            observable = service.getTestPaperDetail(url),
+            key = url,
+            type = type,
+            requestCallback = requestCallback
+        )
     }
 
     override fun submitTestPaper(

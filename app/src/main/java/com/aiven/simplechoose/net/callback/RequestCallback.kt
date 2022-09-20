@@ -7,7 +7,7 @@ interface RequestCallback<T> {
     /**
      * 开始请求
      * */
-    fun onRequestStart(d: Disposable) {}
+    fun onRequestStart(d: Disposable?) {}
 
     /**
      * 请求成功

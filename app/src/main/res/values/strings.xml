@@ -17,6 +17,7 @@
     <string name="left_title">错误：</string>
     <string name="uncheck_title">未选：</string>
     <string name="use_time_title">用时：</string>
+    <string name="checked">已选：</string>
     <string name="parse">解析：</string>
     <string name="show_parse">查看解析</string>
     <string name="number_2_bit">%1$.2f</string>
@@ -31,4 +32,9 @@
     <string name="exit_test_paper_desc">是否确定退出考试？</string>
     <string name="has_un_check_title">提示</string>
     <string name="has_un_check_desc">您还有未答的题目，是否确认交卷？</string>
+    
+    <string name="socket_timeout">请求超时</string>
+    <string name="no_net">无网络</string>
+    <string name="http_server_error">服务器错误，请稍后再试！</string>
+    <string name="http_not_found">无法连接服务器，请稍后再试！</string>
 </resources>

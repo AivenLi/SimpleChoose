@@ -20,7 +20,7 @@ class HomePresenter: BasePresenter<HomeContract.Model, HomeContract.View>(), Hom
         }
         isLoading = true
         mModel?.getQuestionTypeList(object : RequestCallback<ArrayList<TestPaperTypeDTO>> {
-            override fun onRequestStart(d: Disposable) {
+            override fun onRequestStart(d: Disposable?) {
                 mView?.onRequestStart(d)
             }
             override fun onSuccess(data: ArrayList<TestPaperTypeDTO>?) {

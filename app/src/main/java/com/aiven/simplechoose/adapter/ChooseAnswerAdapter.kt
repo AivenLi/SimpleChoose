@@ -72,6 +72,11 @@ class ChooseAnswerAdapter(
         notifyDataSetChanged()
     }
 
+    private var onSingleClickListener: OnSingleClickListener? = null
+    fun setOnSingleClickListener(listener: OnSingleClickListener?) {
+        onSingleClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ChooseAnswerAdapter.ViewHolder(
             ItemChooseAnswerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -128,16 +133,14 @@ class ChooseAnswerAdapter(
     }
 
     private fun handleSingleSelect(item: AnswerDTO, position: Int) {
-        if (position == preSelectedPos) {
-            return
-        }
-        item.selected = true
-        notifyItemChanged(position)
         if (preSelectedPos != -1) {
             data[preSelectedPos].selected = false
             notifyItemChanged(preSelectedPos)
         }
+        item.selected = true
+        notifyItemChanged(position)
         preSelectedPos = position
+        onSingleClickListener?.onSingleClickListener(position)
     }
 
     class ViewHolder(val binding: ItemChooseAnswerBinding) : RecyclerView.ViewHolder(binding.root)

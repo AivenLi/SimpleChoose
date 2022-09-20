@@ -1,5 +1,7 @@
 package com.aiven.simplechoose.net
 
+import com.aiven.simplechoose.app.task.Task
+import com.aiven.simplechoose.app.task.TaskApp
 import com.aiven.simplechoose.net.api.ServiceApi
 import com.aiven.simplechoose.net.interceptors.LogInterceptor
 import okhttp3.OkHttpClient
@@ -9,12 +11,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 
-object RetrofitUtils {
+object RetrofitUtil: Task {
 
     private var retrofit: Retrofit? = null
     const val TIME_OUT = 8000L
 
-    fun getRetrofit() : Retrofit {
+    private var isInit = false
+
+    override fun run(app: TaskApp) {
+        if (isInit) {
+            return
+        }
+        isInit = true
+        getRetrofit()
+    }
+
+    private fun getRetrofit() : Retrofit {
         if (retrofit == null) {
             retrofit = Retrofit.Builder().baseUrl("https://aivenli.github.io/cputest/")
                 .client(getOkhttpClient())

@@ -28,15 +28,18 @@ class ViewPagerAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         Log.d("SimpleChooseView", "Add Position: ${position}")
-        val viewIndex = position % MAX_PAGE_SIZE
-        container.addView((viewList[viewIndex] as SimpleChooseView).apply {
-            initData(dataList[position], position, mode)
-        })
-        return viewList[viewIndex]
+//        val viewIndex = position % MAX_PAGE_SIZE
+//        container.addView((viewList[viewIndex] as SimpleChooseView).apply {
+//            initData(dataList[position], position, mode)
+//        })
+        (viewList[position] as SimpleChooseView).initData(dataList[position], position, mode)
+        container.addView(viewList[position])
+        return viewList[position]
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         Log.d("SimpleChooseView", "Remove Position $position")
-        container.removeView(viewList[position % MAX_PAGE_SIZE])
+        //container.removeView(viewList[position % MAX_PAGE_SIZE])
+        container.removeView(viewList[position])
     }
 }

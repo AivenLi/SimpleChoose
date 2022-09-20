@@ -9,4 +9,8 @@ interface HomeApi {
 
     @GET("question-list.json")
     fun getQuestionTypeList() : Observable<BaseResponse<ArrayList<TestPaperTypeDTO>>>
+
+    companion object {
+        const val CACHE_KEY_QUESTION_LIST_JSON = "question-list.json"
+    }
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.ChooseAnswerAdapter
+import com.aiven.simplechoose.adapter.OnSingleClickListener
 import com.aiven.simplechoose.bean.dto.AnswerDTO
 import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.databinding.ItemChooseBinding
@@ -52,6 +53,10 @@ class SimpleChooseView : FrameLayout {
         const val TYPE_MULTI = 1
         const val MODE_TEST = 0
         const val MODE_PARSE = 1
+    }
+
+    fun setOnSingleClickListener(listener: OnSingleClickListener?) {
+        chooseAnswerAdapter.setOnSingleClickListener(listener)
     }
 
     constructor(context: Context) : this(context, null)

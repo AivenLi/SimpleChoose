@@ -8,4 +8,6 @@
     <attr name="colorSplitLine" format="reference" />
     <attr name="colorWarning" format="reference" />
     <attr name="colorDeepTitle" format="reference" />
+    <attr name="colorChecked" format="reference" />
+    <attr name="colorUnCheck" format="reference" />
 </resources>

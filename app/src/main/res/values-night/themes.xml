@@ -20,6 +20,8 @@
         <item name="colorSplitLine">@color/night_split_line</item>
         <item name="colorWarning">@color/night_warning</item>
         <item name="colorDeepTitle">@color/night_deep_title</item>
+        <item name="colorChecked">@color/night_checked</item>
+        <item name="colorUnCheck">@color/night_un_check</item>
     </style>
 
     <style name="MultiStatView" parent="Theme.SimpleChoose">

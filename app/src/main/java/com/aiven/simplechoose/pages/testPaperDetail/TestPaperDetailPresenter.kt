@@ -24,7 +24,7 @@ class TestPaperDetailPresenter: BasePresenter<TestPaperDetailContract.Model, Tes
         }
         isLoading = true
         mModel?.getTestPaperDetail(url, object : RequestCallback<ArrayList<QuestionDTO>> {
-            override fun onRequestStart(d: Disposable) {
+            override fun onRequestStart(d: Disposable?) {
                 mView?.onRequestStart(d)
             }
 

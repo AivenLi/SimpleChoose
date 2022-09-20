@@ -9,14 +9,18 @@ import android.os.Message
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.aiven.simplechoose.R
+import com.aiven.simplechoose.adapter.OnSingleClickListener
+import com.aiven.simplechoose.adapter.TestPaperCheckAdapter
 import com.aiven.simplechoose.adapter.ViewPagerAdapter
 import com.aiven.simplechoose.bean.dto.AnswerDTO
 import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.databinding.ActivityTestPaperDetailBinding
 import com.aiven.simplechoose.databinding.DialogLoadingBinding
+import com.aiven.simplechoose.databinding.DialogShowTestPaperCheckListBinding
 import com.aiven.simplechoose.databinding.DialogYesNoBinding
 import com.aiven.simplechoose.mvp.MVPActivity
 import com.aiven.simplechoose.net.callback.BaseError
@@ -37,13 +41,14 @@ class TestPaperDetailActivity :
         ActivityTestPaperDetailBinding::inflate
     ), TestPaperDetailContract.View {
 
-    private var yesnoAction = DIALOG_YES_NO_TEST
+    private var isTest = false
     private var startTime = 0L
     private lateinit var title: String
     private lateinit var url: String
     private lateinit var questionViewList: ArrayList<View>
     private val questionBeanList = ArrayList<QuestionDTO>()
     private lateinit var questionAdapter: ViewPagerAdapter
+    private var onSingleClickListener: OnSingleClickListener? = null
     private val onPagerChangeListener: ViewPager.OnPageChangeListener by lazy {
         object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
@@ -51,7 +56,6 @@ class TestPaperDetailActivity :
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-
             }
 
             override fun onPageSelected(position: Int) {
@@ -62,12 +66,12 @@ class TestPaperDetailActivity :
             }
 
             override fun onPageScrollStateChanged(state: Int) {
-
             }
         }
     }
 
     private var handler: Handler? = null
+
     private val dialogYesNo by lazy {
         CustomDialog<DialogYesNoBinding>(
             this,
@@ -80,6 +84,25 @@ class TestPaperDetailActivity :
             this,
             DialogLoadingBinding::inflate
         )
+    }
+
+    private lateinit var checkAnswerMap: HashMap<Int, Boolean>
+
+    private val testPaperCheckAdapter by lazy {
+        TestPaperCheckAdapter(
+            this,
+            checkAnswerMap
+        )
+    }
+
+    private val dialogCheckDetail by lazy {
+        CustomDialog<DialogShowTestPaperCheckListBinding>(
+            this,
+            DialogShowTestPaperCheckListBinding::inflate
+        ).apply {
+            binding.recyclerView.layoutManager = GridLayoutManager(this@TestPaperDetailActivity, 5)
+            binding.recyclerView.adapter = testPaperCheckAdapter
+        }
     }
 
     companion object {
@@ -115,24 +138,23 @@ class TestPaperDetailActivity :
 
     override fun initView() {
         questionViewList = arrayListOf(
-            SimpleChooseView(this),
-            SimpleChooseView(this),
-            SimpleChooseView(this),
-            SimpleChooseView(this)
+//            SimpleChooseView(this),
+//            SimpleChooseView(this),
+//            SimpleChooseView(this),
+//            SimpleChooseView(this)
         )
         val questionDTOList = intent.getParcelableArrayListExtra<QuestionDTO>("question_list")
         if (!questionDTOList.isNullOrEmpty()) {
-            yesnoAction = DIALOG_YES_NO_BACK
+            isTest = false
             viewBinding.tvPageTitle.text = getString(R.string.show_parse)
             viewBinding.tvTimeCountTitle.visibility = View.GONE
             viewBinding.tvTimeCountValue.visibility = View.GONE
             questionBeanList.addAll(questionDTOList)
         } else {
-            yesnoAction = DIALOG_YES_NO_TEST
+            isTest = true
             viewBinding.tvTimeCountTitle.visibility = View.VISIBLE
             viewBinding.tvTimeCountValue.visibility = View.VISIBLE
             viewBinding.tvTimeCountValue.text = "---"
-            initHandler()
         }
         questionAdapter =
             ViewPagerAdapter(
@@ -178,31 +200,42 @@ class TestPaperDetailActivity :
             }
         }
         viewBinding.btnDetail.setSingleClickListener {
-
+            testPaperCheckAdapter.notifyDataSetChanged()
+            dialogCheckDetail.show()
         }
         viewBinding.btnSubmit.setSingleClickListener {
             submitTestPaper(false)
         }
         dialogYesNo.binding.tvYesNoYes.setSingleClickListener {
             dialogYesNo.hide()
-            if (yesnoAction == DIALOG_YES_NO_TEST) {
-                finish()
-            } else {
-                handler?.let {
-                    it.sendMessage(
-                        it.obtainMessage(
-                            1234,
-                            DEFAULT_TIME_COUNT
-                        )
-                    )
+            when (dialogYesNo.binding.tvYesNoTitle.text.toString()) {
+                getString(R.string.exit_test_paper_title) -> {
+                    finish()
                 }
-                startTime = System.currentTimeMillis()
+                getString(R.string.click_yes_to_test_paper) -> {
+                    initHandler()
+                    initCheckAnswerList()
+                    handler?.let {
+                        it.sendMessage(
+                            it.obtainMessage(
+                                1234,
+                                DEFAULT_TIME_COUNT
+                            )
+                        )
+                    }
+                    startTime = System.currentTimeMillis()
+                }
+                getString(R.string.has_un_check_title) -> {
+                    submitTestPaper(false)
+                }
             }
         }
         dialogYesNo.binding.tvYesNoCancel.setSingleClickListener {
             dialogYesNo.hide()
-            if (!isExit) {
-                finish()
+            when (dialogYesNo.binding.tvYesNoTitle.text.toString()) {
+                getString(R.string.click_yes_to_test_paper) -> {
+                    finish()
+                }
             }
         }
     }
@@ -221,6 +254,18 @@ class TestPaperDetailActivity :
     }
 
     override fun getTestPaperDetailSuccess(questionDTOList: ArrayList<QuestionDTO>) {
+        if (questionBeanList.isEmpty() && questionDTOList.isEmpty()) {
+            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            return
+        }
+        if (questionViewList.size < questionDTOList.size) {
+            for (i in 0 until (questionDTOList.size - questionViewList.size)) {
+                questionViewList.add(
+                    SimpleChooseView(this@TestPaperDetailActivity)
+                )
+            }
+        }
+        questionBeanList.clear()
         questionBeanList.addAll(questionDTOList)
         questionAdapter.notifyDataSetChanged()
         viewBinding.smartRefresh.postDelayed(
@@ -234,7 +279,6 @@ class TestPaperDetailActivity :
         viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_CONTENT
         dialogYesNo.binding.tvYesNoTitle.text = getString(R.string.click_yes_to_test_paper)
         dialogYesNo.binding.tvContent.visibility = View.GONE
-        isExit = false
         dialogYesNo.show(false)
     }
 
@@ -263,7 +307,7 @@ class TestPaperDetailActivity :
     }
 
     override fun onBackPressed() {
-        if (yesnoAction == DIALOG_YES_NO_TEST) {
+        if (isTest) {
             showExitDialog()
         } else {
             super.onBackPressed()
@@ -271,7 +315,6 @@ class TestPaperDetailActivity :
     }
 
     private fun showExitDialog() {
-        isExit = true
         dialogYesNo.binding.tvYesNoTitle.text = getString(R.string.exit_test_paper_title)
         dialogYesNo.binding.tvContent.text = getString(R.string.exit_test_paper_desc)
         dialogYesNo.binding.tvContent.visibility = View.VISIBLE
@@ -285,9 +328,41 @@ class TestPaperDetailActivity :
         super.onDestroy()
     }
 
+    private fun initCheckAnswerList() {
+        if (onSingleClickListener != null) {
+            return
+        }
+        onSingleClickListener = object : OnSingleClickListener {
+            override fun onSingleClickListener(position: Int) {
+                checkAnswerMap[position] = true
+                val ct = viewBinding.viewPager.currentItem
+                if (ct < questionBeanList.size - 1) {
+                    viewBinding.viewPager.currentItem = ct + 1
+                }
+            }
+        }
+        checkAnswerMap = HashMap()
+        testPaperCheckAdapter.setOnSingleClickListener(object : OnSingleClickListener {
+            override fun onSingleClickListener(position: Int) {
+                viewBinding.viewPager.setCurrentItem(position, false)
+                viewBinding.viewPager.setCurrentItem(position, true)
+                dialogCheckDetail.hide()
+            }
+        })
+        for (i in 0 until questionBeanList.size) {
+            checkAnswerMap[i] = false
+        }
+        for (simpleChooseView in questionViewList) {
+            (simpleChooseView as SimpleChooseView).setOnSingleClickListener(onSingleClickListener)
+        }
+    }
+
     private lateinit var stringBuffer: StringBuffer
     private var isDark = false
     private fun initHandler() {
+        if (handler != null) {
+            return
+        }
         isDark = ThemeUtils.isDarkMode(this@TestPaperDetailActivity)
         stringBuffer = StringBuffer()
         handler = object : Handler(Looper.getMainLooper()) {
@@ -341,27 +416,29 @@ class TestPaperDetailActivity :
         }
     }
 
+    private var isSubmit = false
     private fun submitTestPaper(timeout: Boolean) {
+        if (isSubmit) {
+            return
+        }
+        isSubmit = true
         if (!timeout) {
-            var hasUnCheck = false
             for (questionBean in questionBeanList) {
+                var checked = false
                 for (answerDTO in questionBean.chooseList) {
                     if (answerDTO.selected) {
-                        hasUnCheck = true
+                        checked = true
                         break
                     }
                 }
-                if (hasUnCheck) {
-                    break
+                if (!checked) {
+                    dialogYesNo.binding.tvYesNoTitle.text = getString(R.string.has_un_check_title)
+                    dialogYesNo.binding.tvContent.text = getString(R.string.has_un_check_desc)
+                    dialogYesNo.binding.tvContent.visibility = View.VISIBLE
+                    dialogYesNo.show(false)
+                    isSubmit = false
+                    return
                 }
-            }
-            if (hasUnCheck) {
-                yesnoAction = DIALOG_YES_NO_UN_CHECK
-                dialogYesNo.binding.tvYesNoTitle.text = getString(R.string.has_un_check_title)
-                dialogYesNo.binding.tvContent.text = getString(R.string.has_un_check_desc)
-                dialogYesNo.binding.tvContent.visibility = View.VISIBLE
-                dialogYesNo.show(false)
-                return
             }
         }
         dialogYesNo.hide()
