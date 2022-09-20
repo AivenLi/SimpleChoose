@@ -27,12 +27,49 @@
             />
         <TextView
             android:id="@+id/tv_page_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/page_title_test_paper"
             android:textSize="@dimen/text_page_title"
             android:textColor="?colorPageTitle"
-            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_back"
+            android:layout_marginStart="@dimen/page_margin"
+            />
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="子标题"
+            android:textColor="?colorPageTitle"
+            android:textSize="@dimen/text_item_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_page_title"
+            app:layout_constraintStart_toStartOf="@id/tv_page_title"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/tv_time_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_count_title"
+            android:textSize="@dimen/text_page_title"
+            android:textColor="?colorPageTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_time_count_value"
+            />
+        <TextView
+            android:id="@+id/tv_time_count_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:32"
+            android:textSize="@dimen/text_page_title"
+            android:textColor="?colorPageTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/page_margin"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ProgressBar

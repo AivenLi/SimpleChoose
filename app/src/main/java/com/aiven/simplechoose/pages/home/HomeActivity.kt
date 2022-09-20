@@ -2,12 +2,16 @@ package com.aiven.simplechoose.pages.home
 
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aiven.simplechoose.R
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.databinding.ActivityHomeBinding
+import com.aiven.simplechoose.databinding.DialogLoadingBinding
 import com.aiven.simplechoose.mvp.MVPActivity
 import com.aiven.simplechoose.net.callback.BaseError
+import com.aiven.simplechoose.pages.CustomDialog
 import com.aiven.simplechoose.pages.home.adapter.TestPaperTypeAdapter
 import com.aiven.simplechoose.utils.ThemeUtils
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.kennyc.view.MultiStateView
 import io.reactivex.rxjava3.disposables.Disposable

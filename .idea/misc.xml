@@ -15,13 +15,16 @@
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_bottom_alpha_aa_black_bg.xml" value="0.15052083333333333" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_gray_bg.xml" value="0.16770833333333332" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_top_right_bottom_left_red_bg.xml" value="0.16770833333333332" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_20_alpha_black_bg.xml" value="0.16614583333333333" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_50_ededed_bg.xml" value="0.11822916666666666" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_home.xml" value="0.152" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_result.xml" value="0.1" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_simple_choose.xml" value="0.13697916666666668" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_test_paper.xml" value="0.12" />
-        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_test_paper_detail.xml" value="0.12" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_test_paper_detail.xml" value="0.2" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/dialog_loading.xml" value="0.15" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/dialog_yes_no.xml" value="0.152" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_choose.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_choose_answer.xml" value="0.264" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_test_paper.xml" value="0.176" />

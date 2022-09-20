@@ -43,6 +43,15 @@
             android:layout_marginTop="@dimen/page_margin"
             />
         <TextView
+            android:id="@+id/tv_parse_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parse"
+            android:textColor="?colorItemTitle"
+            android:textSize="@dimen/text_page_title"
+            android:layout_marginTop="4dp"
+            />
+        <TextView
             android:id="@+id/tv_parse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

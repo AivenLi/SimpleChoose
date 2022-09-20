@@ -7,6 +7,7 @@
     <string name="empty_text">这颗星球没有您想要的数据</string>
     <string name="error_text">我又失败了，呜呜呜…</string>
     <string name="page_title_test_paper">考试</string>
+    <string name="click_yes_to_test_paper">点击确定开始考试</string>
     <string name="prev_question">上一题</string>
     <string name="next_question">下一题</string>
     <string name="show_test_detail">答题情况</string>
@@ -16,9 +17,18 @@
     <string name="left_title">错误：</string>
     <string name="uncheck_title">未选：</string>
     <string name="use_time_title">用时：</string>
+    <string name="parse">解析：</string>
     <string name="show_parse">查看解析</string>
     <string name="number_2_bit">%1$.2f</string>
     <string name="arg_2_string_string">%1$s. %2$s</string>
     <string name="arg_3_string_number_string">%1$s%2$d. %3$s</string>
     <string name="no_parse">暂无解析</string>
+    <string name="first_line_space">\u3000\u3000%1$s</string>
+    <string name="time_count_title">剩余时间：</string>
+    <string name="loading">加载中…</string>
+    <string name="calculate_score">评分中…</string>
+    <string name="exit_test_paper_title">退出考试</string>
+    <string name="exit_test_paper_desc">是否确定退出考试？</string>
+    <string name="has_un_check_title">提示</string>
+    <string name="has_un_check_desc">您还有未答的题目，是否确认交卷？</string>
 </resources>

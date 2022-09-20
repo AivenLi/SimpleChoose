@@ -100,9 +100,16 @@ class SimpleChooseView : FrameLayout {
         chooseAnswerAdapter.multiSelect = questionDTO.mode != 0
         chooseAnswerAdapter.setAnswerEnable(mode)
         if (mode == MODE_PARSE) {
+            binding.tvParseTitle.visibility = View.VISIBLE
             binding.tvParse.visibility = View.VISIBLE
-            binding.tvParse.text = questionDTO.parse ?: context.getString(R.string.no_parse)
+            binding.tvParse.text =
+                if (questionDTO.parse.isNullOrEmpty()) {
+                    context.getString(R.string.first_line_space, context.getString(R.string.no_parse))
+                } else {
+                    context.getString(R.string.first_line_space, questionDTO.parse)
+                }
         } else {
+            binding.tvParseTitle.visibility = View.GONE
             binding.tvParse.visibility = View.GONE
         }
     }

@@ -62,7 +62,11 @@ class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding
             finish()
         }
         viewBinding.btnShowParse.setSingleClickListener {
-            TestPaperDetailActivity.start(this@ResultActivity, questionDTOList!!)
+            TestPaperDetailActivity.start(
+                this@ResultActivity,
+                questionDTOList!!,
+                viewBinding.tvTestPaperValue.text.toString()
+            )
         }
     }
 
