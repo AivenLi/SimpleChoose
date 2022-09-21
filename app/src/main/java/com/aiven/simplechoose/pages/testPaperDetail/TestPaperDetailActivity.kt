@@ -386,7 +386,6 @@ class TestPaperDetailActivity :
                     val minutes = timecount / 60
                     if (minutes < 10) {
                         stringBuffer.append("0")
-                        stringBuffer.append(minutes)
                     }
                     stringBuffer.append(minutes)
                     stringBuffer.append(":")
