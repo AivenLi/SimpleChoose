@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import cc.shinichi.library.ImagePreview
 import com.bumptech.glide.Glide
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.ChooseAnswerAdapter
@@ -18,6 +19,7 @@ import com.aiven.simplechoose.bean.dto.AnswerDTO
 import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.databinding.ItemChooseBinding
 import com.aiven.simplechoose.utils.ThemeUtils
+import com.aiven.simplechoose.utils.setSingleClickListener
 
 /**
  * @author AivenLi
@@ -99,6 +101,18 @@ class SimpleChooseView : FrameLayout {
                 .placeholder(R.drawable.ic_error)
                 .into(binding.imageView)
             binding.imageView.visibility = View.VISIBLE
+            binding.imageView.setSingleClickListener {
+                ImagePreview.getInstance()
+                    .setContext(context)
+                    .setImage(questionDTO.imageUrl)
+                    .setEnableClickClose(true)
+                    .setEnableDragClose(true)
+                    .setEnableUpDragClose(true)
+                    .setShowCloseButton(true)
+                    .setShowDownButton(false)
+                    .setShowErrorToast(true)
+                    .start()
+            }
         }
         chooseList.clear()
         chooseList.addAll(questionDTO.chooseList)

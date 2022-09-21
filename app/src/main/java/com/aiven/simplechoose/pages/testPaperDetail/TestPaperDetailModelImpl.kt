@@ -5,6 +5,7 @@ import com.aiven.simplechoose.mvp.BaseModel
 import com.aiven.simplechoose.net.BaseRequest
 import com.aiven.simplechoose.net.callback.RequestCallback
 import com.aiven.simplechoose.pages.result.bean.ResultBean
+import com.aiven.simplechoose.pages.result.bean.enums.AnswerResult
 import com.aiven.simplechoose.pages.testPaperDetail.api.TestPaperDetailApi
 import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -40,6 +41,7 @@ class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi
             var rightNum = 0
             var leftNum = 0
             var unCheckNum = 0
+            val answerResultList = ArrayList<AnswerResult>()
             for (questionDTO in questionDTOList) {
                 if (questionDTO.mode == 0) {
                     var checked = false
@@ -48,14 +50,17 @@ class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi
                             checked = true
                             if (answer.index == questionDTO.answer) {
                                 rightNum++
+                                answerResultList.add(AnswerResult.RIGHT)
                             } else {
                                 leftNum++
+                                answerResultList.add(AnswerResult.LEFT)
                             }
                             break
                         }
                     }
                     if (!checked) {
                         unCheckNum++
+                        answerResultList.add(AnswerResult.UNCHECK)
                     }
                 } else {
                     var checked = false
@@ -73,10 +78,13 @@ class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi
                     }
                     if (!checked) {
                         unCheckNum++
+                        answerResultList.add(AnswerResult.UNCHECK)
                     } else if (checkRightNum == questionDTO.answerList!!.size) {
                         rightNum++
+                        answerResultList.add(AnswerResult.RIGHT)
                     } else {
                         leftNum++
+                        answerResultList.add(AnswerResult.LEFT)
                     }
                 }
             }
@@ -88,7 +96,8 @@ class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi
                     rightNum = rightNum,
                     leftNum = leftNum,
                     unCheckNum = unCheckNum,
-                    useTime = useTime
+                    useTime = useTime,
+                    answerList = answerResultList
                 )
             )
         }

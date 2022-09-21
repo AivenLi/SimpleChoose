@@ -8,6 +8,26 @@ plugins {
 android {
     compileSdk 32
 
+    signingConfigs {
+        debug {
+            storeFile file('simplechoose.jks')
+            storePassword '3345678990'
+            keyAlias 'simple'
+            keyPassword '3345678990'
+        }
+        release {
+            storeFile file('simplechoose.jks')
+            storePassword '3345678990'
+            keyAlias 'simple'
+            keyPassword '3345678990'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
     defaultConfig {
         applicationId "com.aiven.simplechoose"
         minSdk 23

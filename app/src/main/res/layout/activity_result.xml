@@ -78,7 +78,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="@dimen/page_margin"
                     />
                 <TextView
                     android:id="@+id/tv_test_paper_value"
@@ -173,6 +173,81 @@
                     android:textColor="?colorItemDesc"
                     app:layout_constraintBottom_toBottomOf="@id/tv_use_time_title"
                     app:layout_constraintStart_toEndOf="@id/tv_use_time_title"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="?colorSplitLine"
+                    app:layout_constraintTop_toBottomOf="@id/tv_use_time_title"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    />
+                <LinearLayout
+                    android:id="@+id/lyt_check_prompt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/tv_use_time_title"
+                    app:layout_constraintStart_toStartOf="@id/tv_test_paper_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="@dimen/page_margin"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/right_title"
+                        android:textSize="@dimen/text_item_title"
+                        android:textColor="?colorDeepTitle"
+                        android:layout_marginStart="10dp"
+                        />
+                    <View
+                        android:id="@+id/view_checked_color"
+                        android:layout_width="@dimen/small_icon"
+                        android:layout_height="@dimen/small_icon"
+                        android:background="?colorChecked"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/left_title"
+                        android:textSize="@dimen/text_item_title"
+                        android:textColor="?colorDeepTitle"
+                        android:layout_marginStart="10dp"
+                        />
+                    <View
+                        android:id="@+id/view_left_check_color"
+                        android:layout_width="@dimen/small_icon"
+                        android:layout_height="@dimen/small_icon"
+                        android:background="?colorUnCheck"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/uncheck_title"
+                        android:textSize="@dimen/text_item_title"
+                        android:textColor="?colorDeepTitle"
+                        android:layout_marginStart="10dp"
+                        />
+                    <View
+                        android:id="@+id/view_un_check_color"
+                        android:layout_width="@dimen/small_icon"
+                        android:layout_height="@dimen/small_icon"
+                        android:background="?colorItemDesc"
+                        />
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    app:layout_constraintTop_toBottomOf="@id/lyt_check_prompt"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/page_margin"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <Button

@@ -6,10 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.GridLayoutManager
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.databinding.ActivityResultBinding
 import com.aiven.simplechoose.pages.BaseActivity
+import com.aiven.simplechoose.pages.result.adapter.AnswerResultAdapter
 import com.aiven.simplechoose.pages.result.bean.ResultBean
 import com.aiven.simplechoose.pages.testPaperDetail.TestPaperDetailActivity
 import com.aiven.simplechoose.utils.TimeUtils
@@ -54,6 +56,8 @@ class ResultActivity : BaseActivity<ActivityResultBinding>(ActivityResultBinding
             viewBinding.tvLeftValue.text = resultBean.leftNum.toString()
             viewBinding.tvUncheckValue.text = resultBean.unCheckNum.toString()
             viewBinding.tvUseTimeValue.text = TimeUtils.millionToHourMinuteSecond(resultBean.useTime)
+            viewBinding.recyclerView.layoutManager = GridLayoutManager(this@ResultActivity, 8)
+            viewBinding.recyclerView.adapter = AnswerResultAdapter(this@ResultActivity, resultBean.answerList)
         }
     }
 

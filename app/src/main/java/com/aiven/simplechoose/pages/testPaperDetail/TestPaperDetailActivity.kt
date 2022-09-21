@@ -42,6 +42,7 @@ class TestPaperDetailActivity :
     ), TestPaperDetailContract.View {
 
     private var isTest = false
+    private var uncheckSubmit = false
     private var startTime = 0L
     private lateinit var title: String
     private lateinit var url: String
@@ -150,6 +151,8 @@ class TestPaperDetailActivity :
             viewBinding.tvTimeCountTitle.visibility = View.GONE
             viewBinding.tvTimeCountValue.visibility = View.GONE
             questionBeanList.addAll(questionDTOList)
+            createSimpleChooseView(questionDTOList.size)
+            initCheckAnswerList()
         } else {
             isTest = true
             viewBinding.tvTimeCountTitle.visibility = View.VISIBLE
@@ -214,7 +217,6 @@ class TestPaperDetailActivity :
                 }
                 getString(R.string.click_yes_to_test_paper) -> {
                     initHandler()
-                    initCheckAnswerList()
                     handler?.let {
                         it.sendMessage(
                             it.obtainMessage(
@@ -226,6 +228,7 @@ class TestPaperDetailActivity :
                     startTime = System.currentTimeMillis()
                 }
                 getString(R.string.has_un_check_title) -> {
+                    uncheckSubmit = true
                     submitTestPaper(false)
                 }
             }
@@ -248,7 +251,8 @@ class TestPaperDetailActivity :
             viewBinding.smartRefresh.setEnableRefresh(false)
             viewBinding.lytOptContainer.visibility = View.VISIBLE
             viewBinding.pgbPercent.visibility = View.VISIBLE
-            viewBinding.lytOptBottomContainer.visibility = View.GONE
+            //viewBinding.lytOptBottomContainer.visibility = View.GONE
+            viewBinding.btnSubmit.visibility = View.GONE
             questionAdapter.notifyDataSetChanged()
         }
     }
@@ -258,13 +262,7 @@ class TestPaperDetailActivity :
             viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_EMPTY
             return
         }
-        if (questionViewList.size < questionDTOList.size) {
-            for (i in 0 until (questionDTOList.size - questionViewList.size)) {
-                questionViewList.add(
-                    SimpleChooseView(this@TestPaperDetailActivity)
-                )
-            }
-        }
+        createSimpleChooseView(questionDTOList.size)
         questionBeanList.clear()
         questionBeanList.addAll(questionDTOList)
         questionAdapter.notifyDataSetChanged()
@@ -279,6 +277,7 @@ class TestPaperDetailActivity :
         viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_CONTENT
         dialogYesNo.binding.tvYesNoTitle.text = getString(R.string.click_yes_to_test_paper)
         dialogYesNo.binding.tvContent.visibility = View.GONE
+        initCheckAnswerList()
         dialogYesNo.show(false)
     }
 
@@ -332,16 +331,36 @@ class TestPaperDetailActivity :
         if (onSingleClickListener != null) {
             return
         }
-        onSingleClickListener = object : OnSingleClickListener {
-            override fun onSingleClickListener(position: Int) {
-                checkAnswerMap[position] = true
-                val ct = viewBinding.viewPager.currentItem
-                if (ct < questionBeanList.size - 1) {
-                    viewBinding.viewPager.currentItem = ct + 1
+        checkAnswerMap = HashMap()
+        if (isTest) {
+            onSingleClickListener = object : OnSingleClickListener {
+                override fun onSingleClickListener(position: Int) {
+                    Log.d(TAG, "Position: $position")
+                    checkAnswerMap[viewBinding.viewPager.currentItem] = true
+                    val ct = viewBinding.viewPager.currentItem
+                    if (ct < questionBeanList.size - 1) {
+                        viewBinding.viewPager.currentItem = ct + 1
+                    }
                 }
             }
+            for (i in 0 until questionBeanList.size) {
+                checkAnswerMap[i] = false
+            }
+            for (simpleChooseView in questionViewList) {
+                (simpleChooseView as SimpleChooseView).setOnSingleClickListener(onSingleClickListener)
+            }
+        } else {
+            for ((index, value) in questionBeanList.withIndex()) {
+                var checked = false
+                for (answer in value.chooseList) {
+                    if (answer.selected) {
+                        checked = true
+                        break
+                    }
+                }
+                checkAnswerMap[index] = checked
+            }
         }
-        checkAnswerMap = HashMap()
         testPaperCheckAdapter.setOnSingleClickListener(object : OnSingleClickListener {
             override fun onSingleClickListener(position: Int) {
                 viewBinding.viewPager.setCurrentItem(position, false)
@@ -349,12 +368,6 @@ class TestPaperDetailActivity :
                 dialogCheckDetail.hide()
             }
         })
-        for (i in 0 until questionBeanList.size) {
-            checkAnswerMap[i] = false
-        }
-        for (simpleChooseView in questionViewList) {
-            (simpleChooseView as SimpleChooseView).setOnSingleClickListener(onSingleClickListener)
-        }
     }
 
     private lateinit var stringBuffer: StringBuffer
@@ -422,7 +435,7 @@ class TestPaperDetailActivity :
             return
         }
         isSubmit = true
-        if (!timeout) {
+        if (!timeout && !uncheckSubmit) {
             for (questionBean in questionBeanList) {
                 var checked = false
                 for (answerDTO in questionBean.chooseList) {
@@ -449,5 +462,15 @@ class TestPaperDetailActivity :
             System.currentTimeMillis() - startTime,
             questionBeanList
         )
+    }
+
+    private fun createSimpleChooseView(size: Int) {
+        if (questionViewList.size < size) {
+            for (i in 0 until (size - questionViewList.size)) {
+                questionViewList.add(
+                    SimpleChooseView(this@TestPaperDetailActivity)
+                )
+            }
+        }
     }
 }
