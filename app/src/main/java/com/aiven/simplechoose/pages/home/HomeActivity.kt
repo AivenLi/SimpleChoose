@@ -10,7 +10,9 @@ import com.aiven.simplechoose.mvp.MVPActivity
 import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.pages.CustomDialog
 import com.aiven.simplechoose.pages.home.adapter.TestPaperTypeAdapter
+import com.aiven.simplechoose.pages.setting.SettingActivity
 import com.aiven.simplechoose.utils.ThemeUtils
+import com.aiven.simplechoose.utils.setSingleClickListener
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.kennyc.view.MultiStateView
@@ -48,7 +50,9 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
     }
 
     override fun initClick() {
-
+        viewBinding.imgSetting.setSingleClickListener {
+            SettingActivity.start(this@HomeActivity)
+        }
     }
 
     override fun getQuestionListTypeSuccess(testPaperTypeDTOList: ArrayList<TestPaperTypeDTO>) {

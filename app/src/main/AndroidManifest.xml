@@ -12,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleChoose">
+        <activity android:name=".pages.setting.SettingActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
+            android:exported="false"
+            android:launchMode="singleTop"
+            />
         <activity android:name=".pages.result.ResultActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
             android:exported="false"

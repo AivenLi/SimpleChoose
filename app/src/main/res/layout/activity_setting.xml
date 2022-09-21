@@ -12,48 +12,46 @@
         android:background="?colorMain"
         app:layout_constraintTop_toTopOf="parent"
         >
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="@dimen/small_icon"
+            android:layout_height="@dimen/small_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_back"
+            android:layout_marginStart="@dimen/page_margin"
+            app:tint="?colorPageTitle"
+            android:padding="3dp"
+            />
         <TextView
             android:id="@+id/tv_page_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/home"
+            android:text="@string/setting"
             android:textSize="@dimen/text_page_title"
             android:textColor="?colorPageTitle"
             android:gravity="center"
-            />
-        <ImageView
-            android:id="@+id/img_setting"
-            android:layout_width="@dimen/small_icon"
-            android:layout_height="@dimen/small_icon"
-            android:src="@drawable/ic_setting"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/page_margin"
-            app:tint="?colorPageTitle"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/smart_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:srlEnableLoadMore="false"
+        app:srlEnablePureScrollMode="true"
+        app:srlDragRate="0.75"
         app:layout_constraintTop_toBottomOf="@id/clt_title_bar"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="?colorWindow"
         >
-        <com.kennyc.view.MultiStateView
-            android:id="@+id/multi_stat_view"
-            style="@style/MultiStatView"
-            >
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:overScrollMode="never"
-                android:layout_marginBottom="@dimen/page_margin"
-                android:padding="@dimen/page_margin"
-                />
-        </com.kennyc.view.MultiStateView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:layout_marginBottom="@dimen/page_margin"
+            android:padding="@dimen/page_margin"
+            />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
