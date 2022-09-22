@@ -2,26 +2,32 @@
     <!-- Base application theme. -->
     <style name="Theme.SimpleChoose" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/night_main</item>
-        <item name="colorPrimaryVariant">@color/night_main</item>
-        <item name="colorOnPrimary">@color/night_main</item>
+        <item name="colorPrimary">@color/main</item>
+        <item name="colorPrimaryVariant">@color/main</item>
+        <item name="colorOnPrimary">@color/main</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/night_secondary</item>
-        <item name="colorSecondaryVariant">@color/night_secondary</item>
-        <item name="colorOnSecondary">@color/night_secondary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary</item>
+        <item name="colorOnSecondary">@color/secondary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="colorMain">@color/night_main</item>
-        <item name="colorPageTitle">@color/night_page_title</item>
-        <item name="colorItemTitle">@color/night_item_title</item>
-        <item name="colorItemDesc">@color/night_item_desc</item>
-        <item name="colorWindow">@color/night_window</item>
-        <item name="colorSplitLine">@color/night_split_line</item>
-        <item name="colorWarning">@color/night_warning</item>
-        <item name="colorDeepTitle">@color/night_deep_title</item>
-        <item name="colorChecked">@color/night_checked</item>
-        <item name="colorUnCheck">@color/night_un_check</item>
+        <item name="colorMain">@color/main</item>
+        <item name="colorPageTitle">@color/page_title</item>
+        <item name="colorItemTitle">@color/item_title</item>
+        <item name="colorItemDesc">@color/item_desc</item>
+        <item name="colorWindow">@color/window</item>
+        <item name="colorSplitLine">@color/split_line</item>
+        <item name="colorWarning">@color/warning</item>
+        <item name="colorDeepTitle">@color/deep_title</item>
+        <item name="colorChecked">@color/checked</item>
+        <item name="colorUnCheck">@color/un_check</item>
+    </style>
+
+    <style name="SwitchCompat" parent="Theme.SimpleChoose">
+        <item name="colorControlActivated">@color/main</item>
+        <item name="colorSwitchThumbNormal">@color/item_desc</item>
+        <item name="android:colorForeground">@color/item_title</item>
     </style>
 
     <style name="MultiStatView" parent="Theme.SimpleChoose">
@@ -32,7 +38,7 @@
         <item name="msv_errorView">@layout/layout_multi_view_error</item>
         <item name="msv_loadingView">@layout/layout_multi_view_load</item>
         <item name="msv_viewState">content</item>
-        <item name="android:background">@color/night_window</item>
+        <item name="android:background">@color/window</item>
     </style>
     <style name="ButtonNoShadow" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">0dp</item>

@@ -19,8 +19,6 @@ class AnswerResultAdapter(
     private val data: ArrayList<AnswerResult>
 ) : RecyclerView.Adapter<AnswerResultAdapter.ViewHolder>() {
 
-    private val isDark = ThemeUtils.isDarkMode(context)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ItemTestPaperCheckSmallBinding.inflate(
@@ -36,25 +34,13 @@ class AnswerResultAdapter(
         holder.binding.tvIndex.setBackgroundColor(
             when (data[position]) {
                 AnswerResult.RIGHT -> {
-                    if (isDark) {
-                        getColor(R.color.night_checked)
-                    } else {
-                        getColor(R.color.light_checked)
-                    }
+                    getColor(R.color.checked)
                 }
                 AnswerResult.LEFT -> {
-                    if (isDark) {
-                        getColor(R.color.night_un_check)
-                    } else {
-                        getColor(R.color.light_un_check)
-                    }
+                    getColor(R.color.un_check)
                 }
                 else -> {
-                    if (isDark) {
-                        getColor(R.color.night_item_desc)
-                    } else {
-                        getColor(R.color.light_item_desc)
-                    }
+                    getColor(R.color.item_desc)
                 }
             }
         )

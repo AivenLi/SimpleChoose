@@ -82,13 +82,16 @@
                     />
                 <TextView
                     android:id="@+id/tv_test_paper_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="测试"
                     android:textSize="@dimen/text_page_title"
                     android:textColor="?colorItemDesc"
                     app:layout_constraintStart_toEndOf="@id/tv_test_paper_title"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_test_paper_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_test_paper_title"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     />
                 <TextView
                     android:id="@+id/tv_right_title"
@@ -97,7 +100,7 @@
                     android:text="@string/right_title"
                     android:textSize="@dimen/text_page_title"
                     android:textColor="?colorItemTitle"
-                    app:layout_constraintTop_toBottomOf="@id/tv_test_paper_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_test_paper_value"
                     app:layout_constraintEnd_toEndOf="@id/tv_test_paper_title"
                     android:layout_marginTop="10dp"
                     />

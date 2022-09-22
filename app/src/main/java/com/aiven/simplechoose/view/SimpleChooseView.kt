@@ -39,8 +39,6 @@ class SimpleChooseView : FrameLayout {
      * */
     private val chooseList = ArrayList<AnswerDTO>()
 
-    private val isDark: Boolean
-
     private val binding: ItemChooseBinding =
         ItemChooseBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -64,7 +62,6 @@ class SimpleChooseView : FrameLayout {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
-        isDark = ThemeUtils.isDarkMode(context)
         chooseAnswerAdapter = ChooseAnswerAdapter(
             context,
             chooseList,
@@ -165,17 +162,9 @@ class SimpleChooseView : FrameLayout {
                     ContextCompat.getColor(
                         context,
                         if (mode == TYPE_SINGLE) {
-                            if (isDark) {
-                                R.color.night_main
-                            } else {
-                                R.color.light_main
-                            }
+                            R.color.main
                         } else {
-                            if (isDark) {
-                                R.color.night_warning
-                            } else {
-                                R.color.light_warning
-                            }
+                            R.color.warning
                         }
                     )
                 ),

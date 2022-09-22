@@ -16,7 +16,7 @@ class App : TaskApp() {
 
     init {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(DefaultRefreshHeaderCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.night_main, R.color.night_page_title)
+            layout.setPrimaryColorsId(R.color.normal_refresh_bg, R.color.normal_refresh_txt)
             ClassicsHeader(context)
         })
         SmartRefreshLayout.setDefaultRefreshFooterCreator(DefaultRefreshFooterCreator { context, _ ->

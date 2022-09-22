@@ -80,6 +80,58 @@ class BaseRequest {
         }
 
         /**
+         * 请求数据，先从缓存中获取，等待接口请求回来。
+         * 数据以接口返回的为准，如果接口请求失败，则
+         * 返回缓存数据，如果缓存数据为空，则返回失败。
+         * @param observable
+         * @param key
+         * @param type
+         * @param requestCallback
+         * */
+        fun <D, T: BaseResponse<D>> requestWithCacheWaitNet(
+            observable: Observable<T>,
+            key: String,
+            type: Type,
+            requestCallback: RequestCallback<D>
+        ) {
+            var cacheData: D? = null
+            CacheUtil.get(key, type, object : CacheListener<D> {
+                override fun getDataStart() {
+                    requestCallback.onRequestStart(null)
+                }
+                override fun getDataSuccess(data: D) {
+                    cacheData = data
+                }
+
+                override fun getDataFailure(error: String) {
+                }
+
+                override fun getDataFinish() {
+                    observable.compose(SwitchScheduleNet<T>())
+                        .subscribe(object : DataObserver<D>() {
+
+                            override fun onSuccess(data: D?) {
+                                requestCallback.onSuccess(data)
+                                requestCallback.onRequestFinish()
+                                data?.let {
+                                    CacheUtil.save(key, it)
+                                }
+                            }
+
+                            override fun onFailure(error: BaseError) {
+                                if (cacheData == null) {
+                                    requestCallback.onFailure(error)
+                                } else {
+                                    requestCallback.onSuccess(cacheData)
+                                }
+                                requestCallback.onRequestFinish()
+                            }
+                        })
+                }
+            })
+        }
+
+        /**
          * 请求数据，数据保存到缓存中。
          * @param observable
          * @param key

@@ -42,4 +42,7 @@
     <string name="test_paper_times">考试时间</string>
     <string name="minute">分钟</string>
     <string name="arg_minute">%1$d分钟</string>
+    <string name="choose_time">选择时间</string>
+    <string name="click_item_choose_goto_next">选择后自动跳到下一题</string>
+    <string name="multi_choose_no_goto_next">多选题不会自动跳下一题</string>
 </resources>

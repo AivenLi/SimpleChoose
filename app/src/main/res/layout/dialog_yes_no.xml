@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="200dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/radius_20_white_bg"
+    android:background="@drawable/radius_20_dialog_color_bg"
     android:gravity="center"
     >
     <TextView
@@ -54,7 +54,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="20dp"
-            android:background="#ffededed"
+            android:background="?colorSplitLine"
             />
         <TextView
             android:id="@+id/tv_yes_no_cancel"

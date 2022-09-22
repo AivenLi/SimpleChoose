@@ -27,12 +27,14 @@ import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.pages.CustomDialog
 import com.aiven.simplechoose.pages.result.ResultActivity
 import com.aiven.simplechoose.pages.result.bean.ResultBean
+import com.aiven.simplechoose.utils.Constant
 import com.aiven.simplechoose.utils.ThemeUtils
 import com.aiven.simplechoose.utils.TimeUtils
 import com.aiven.simplechoose.utils.setSingleClickListener
 import com.aiven.simplechoose.view.SimpleChooseView
 import com.bumptech.glide.Glide
 import com.kennyc.view.MultiStateView
+import com.tencent.mmkv.MMKV
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlin.math.roundToInt
 
@@ -123,10 +125,6 @@ class TestPaperDetailActivity :
                 context.startActivity(this)
             }
         }
-        /**
-         * 30分钟
-         * */
-        const val DEFAULT_TIME_COUNT = 30L * 60L
 
         const val DIALOG_YES_NO_TEST = 0
         const val DIALOG_YES_NO_UN_CHECK = 1
@@ -180,7 +178,7 @@ class TestPaperDetailActivity :
 
     override fun initClick() {
         viewBinding.imgBack.setSingleClickListener {
-            if (isTest) {
+            if (isTest && questionBeanList.isNotEmpty()) {
                 showExitDialog()
             } else {
                 finish()
@@ -217,11 +215,12 @@ class TestPaperDetailActivity :
                 }
                 getString(R.string.click_yes_to_test_paper) -> {
                     initHandler()
+                    val mmkv = MMKV.mmkvWithID(Constant.MMKV_FILE)
                     handler?.let {
                         it.sendMessage(
                             it.obtainMessage(
                                 1234,
-                                DEFAULT_TIME_COUNT
+                                mmkv.decodeLong(Constant.MMKV_TEST_PAPER_TIME_KEY, 30L * 60L)
                             )
                         )
                     }
@@ -306,7 +305,7 @@ class TestPaperDetailActivity :
     }
 
     override fun onBackPressed() {
-        if (isTest) {
+        if (isTest && questionBeanList.isNotEmpty()) {
             showExitDialog()
         } else {
             super.onBackPressed()
@@ -346,8 +345,13 @@ class TestPaperDetailActivity :
             for (i in 0 until questionBeanList.size) {
                 checkAnswerMap[i] = false
             }
-            for (simpleChooseView in questionViewList) {
-                (simpleChooseView as SimpleChooseView).setOnSingleClickListener(onSingleClickListener)
+            val mmkv = MMKV.mmkvWithID(Constant.MMKV_FILE)
+            if (mmkv.decodeBool(Constant.MMKV_CLCIK_GOTO_NEXT_QUESTION_KEY, true)) {
+                for (simpleChooseView in questionViewList) {
+                    (simpleChooseView as SimpleChooseView).setOnSingleClickListener(
+                        onSingleClickListener
+                    )
+                }
             }
         } else {
             for ((index, value) in questionBeanList.withIndex()) {
@@ -371,12 +375,10 @@ class TestPaperDetailActivity :
     }
 
     private lateinit var stringBuffer: StringBuffer
-    private var isDark = false
     private fun initHandler() {
         if (handler != null) {
             return
         }
-        isDark = ThemeUtils.isDarkMode(this@TestPaperDetailActivity)
         stringBuffer = StringBuffer()
         handler = object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
@@ -397,19 +399,11 @@ class TestPaperDetailActivity :
                     viewBinding.tvTimeCountValue.text = stringBuffer.toString()
                     if (timecount < 5 * 60) {
                         viewBinding.tvTimeCountValue.setTextColor(
-                            if (isDark) {
-                                ContextCompat.getColor(this@TestPaperDetailActivity, R.color.night_warning)
-                            } else {
-                                ContextCompat.getColor(this@TestPaperDetailActivity, R.color.light_warning)
-                            }
+                            ContextCompat.getColor(this@TestPaperDetailActivity, R.color.warning)
                         )
                     } else {
                         viewBinding.tvTimeCountValue.setTextColor(
-                            if (isDark) {
-                                ContextCompat.getColor(this@TestPaperDetailActivity, R.color.night_page_title)
-                            } else {
-                                ContextCompat.getColor(this@TestPaperDetailActivity, R.color.light_page_title)
-                            }
+                            ContextCompat.getColor(this@TestPaperDetailActivity, R.color.page_title)
                         )
                     }
                     if (timecount == 0L) {

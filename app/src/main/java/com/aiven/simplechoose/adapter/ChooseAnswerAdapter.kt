@@ -103,7 +103,7 @@ class ChooseAnswerAdapter(
             binding.imgCheckBox.setColorFilter(
                 ContextCompat.getColor(
                     context,
-                    if (isDark) R.color.night_main else R.color.light_main
+                    R.color.main
                 )
             )
         } else {
@@ -111,7 +111,7 @@ class ChooseAnswerAdapter(
             binding.imgCheckBox.setColorFilter(
                 ContextCompat.getColor(
                     context,
-                    if (isDark) R.color.night_item_desc else R.color.light_item_desc
+                    R.color.item_desc
                 )
             )
         }

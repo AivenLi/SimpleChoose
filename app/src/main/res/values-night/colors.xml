@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="main">#ff005777</color>
+    <color name="secondary">#ff436775</color>
+    <color name="page_title">#ffa0a0a0</color>
+    <color name="item_title">#ff808080</color>
+    <color name="item_desc">#ff606060</color>
+    <color name="window">#ff303030</color>
+    <color name="split_line">#ff404040</color>
+    <color name="warning">#ff860503</color>
+    <color name="deep_title">#ff787878</color>
+    <color name="checked">#ff005777</color>
+    <color name="un_check">#ff860503</color>
+    <color name="normal_refresh_bg">#ff005777</color>
+    <color name="normal_refresh_txt">#ffa0a0a0</color>
+    <color name="dialog_universal_bg">#ff303030</color>
+</resources>

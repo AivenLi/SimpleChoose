@@ -23,7 +23,7 @@ class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi
         url: String,
         requestCallback: RequestCallback<ArrayList<QuestionDTO>>
     ) {
-        BaseRequest.requestWithCache(
+        BaseRequest.requestWithCacheWaitNet(
             observable = service.getTestPaperDetail(url),
             key = url,
             type = type,
