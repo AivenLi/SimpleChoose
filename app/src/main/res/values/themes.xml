@@ -24,6 +24,11 @@
         <item name="colorUnCheck">@color/un_check</item>
     </style>
 
+    <style name="BottomNavigation" parent="Theme.SimpleChoose">
+        <item name="colorPrimary">@color/main</item>
+        <item name="android:textColorSecondary">@color/item_desc</item>
+    </style>
+
     <style name="SwitchCompat" parent="Theme.SimpleChoose">
         <item name="colorControlActivated">@color/main</item>
         <item name="colorSwitchThumbNormal">@color/item_desc</item>

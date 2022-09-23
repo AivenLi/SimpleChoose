@@ -6,5 +6,6 @@
     <dimen name="page_margin">12dp</dimen>
     <dimen name="small_icon">24dp</dimen>
     <dimen name="middle_icon">32dp</dimen>
+    <dimen name="big_icon">64dp</dimen>
     <dimen name="title_bar_height">44dp</dimen>
 </resources>
