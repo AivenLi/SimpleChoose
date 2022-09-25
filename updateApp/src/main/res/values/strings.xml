@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ExtraTranslation"
+    >
+    <string name="update_app">App更新</string>
+    <string name="updating">正在下载…</string>
+    <string name="new_version">v%1$s</string>
+    <string name="app_size_title_number">安装包大小：%1$s</string>
+    <string name="version_desc_title">版本特性：</string>
+    <string name="version_desc_content">\u3000\u3000%1$s</string>
+    <string name="update_now">现在更新</string>
+    <string name="update_after">以后再说</string>
+    <string name="percent">%1$.2f%%</string>
+    <string name="background_download">后台下载</string>
+    <string name="background_download_percent">正在下载SimpleChoose(%1$d%%)</string>
+    <string name="download_failure_reason">下载失败：%1$s</string>
+    <string name="md5_no_equals">文件被篡改，请重新下载！！！</string>
+    <string name="start_download">立即下载</string>
+    <string name="go_on_download">继续下载</string>
+    <string name="try_again_download">重试</string>
+    <string name="click_to_install_download">下载完成，点击安装</string>
+    <string name="app_update_destroy_title">下载中断</string>
+    <string name="app_update_destroy_desc">App更新被中断，请重新更新</string>
+</resources>

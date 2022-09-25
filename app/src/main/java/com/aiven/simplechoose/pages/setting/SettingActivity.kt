@@ -3,7 +3,6 @@ package com.aiven.simplechoose.pages.setting
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aiven.simplechoose.R
@@ -11,15 +10,11 @@ import com.aiven.simplechoose.adapter.OnSingleClickListener
 import com.aiven.simplechoose.databinding.ActivitySettingBinding
 import com.aiven.simplechoose.pages.BaseActivity
 import com.aiven.simplechoose.pages.setting.adapter.SettingAdapter
-import com.aiven.simplechoose.pages.setting.bean.SettingBean
-import com.aiven.simplechoose.pages.setting.bean.SettingType
+import com.aiven.simplechoose.bean.dto.SettingBean
+import com.aiven.simplechoose.bean.dto.SettingType
 import com.aiven.simplechoose.utils.Constant
-import com.aiven.simplechoose.utils.ThemeUtils
 import com.aiven.simplechoose.utils.setSingleClickListener
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
-import com.bigkoo.pickerview.configure.PickerOptions
-import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.tencent.mmkv.MMKV
 

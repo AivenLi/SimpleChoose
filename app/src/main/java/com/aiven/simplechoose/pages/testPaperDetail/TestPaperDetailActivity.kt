@@ -2,7 +2,6 @@ package com.aiven.simplechoose.pages.testPaperDetail
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -10,13 +9,11 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.OnSingleClickListener
 import com.aiven.simplechoose.adapter.TestPaperCheckAdapter
 import com.aiven.simplechoose.adapter.ViewPagerAdapter
-import com.aiven.simplechoose.bean.dto.AnswerDTO
 import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.databinding.ActivityTestPaperDetailBinding
 import com.aiven.simplechoose.databinding.DialogLoadingBinding
@@ -26,17 +23,12 @@ import com.aiven.simplechoose.mvp.MVPActivity
 import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.pages.CustomDialog
 import com.aiven.simplechoose.pages.result.ResultActivity
-import com.aiven.simplechoose.pages.result.bean.ResultBean
+import com.aiven.simplechoose.bean.dto.ResultBean
 import com.aiven.simplechoose.utils.Constant
-import com.aiven.simplechoose.utils.ThemeUtils
-import com.aiven.simplechoose.utils.TimeUtils
 import com.aiven.simplechoose.utils.setSingleClickListener
 import com.aiven.simplechoose.view.SimpleChooseView
-import com.bumptech.glide.Glide
 import com.kennyc.view.MultiStateView
 import com.tencent.mmkv.MMKV
-import io.reactivex.rxjava3.disposables.Disposable
-import kotlin.math.roundToInt
 
 class TestPaperDetailActivity :
     MVPActivity<ActivityTestPaperDetailBinding, TestPaperDetailContract.View, TestPaperDetailContract.Presenter>(
@@ -244,7 +236,7 @@ class TestPaperDetailActivity :
 
     override fun initData() {
         if (questionBeanList.isEmpty()) {
-            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_LOADING
+            viewBinding.multiStatView.viewState = MultiStateView.ViewState.LOADING
             mPresenter.getTestPaperDetail(url)
         } else {
             viewBinding.smartRefresh.setEnableRefresh(false)
@@ -258,7 +250,7 @@ class TestPaperDetailActivity :
 
     override fun getTestPaperDetailSuccess(questionDTOList: ArrayList<QuestionDTO>) {
         if (questionBeanList.isEmpty() && questionDTOList.isEmpty()) {
-            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            viewBinding.multiStatView.viewState = MultiStateView.ViewState.EMPTY
             return
         }
         createSimpleChooseView(questionDTOList.size)
@@ -273,7 +265,7 @@ class TestPaperDetailActivity :
         )
         viewBinding.lytOptContainer.visibility = View.VISIBLE
         viewBinding.pgbPercent.visibility = View.VISIBLE
-        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_CONTENT
+        viewBinding.multiStatView.viewState = MultiStateView.ViewState.CONTENT
         dialogYesNo.binding.tvYesNoTitle.text = getString(R.string.click_yes_to_test_paper)
         dialogYesNo.binding.tvContent.visibility = View.GONE
         initCheckAnswerList()
@@ -291,7 +283,7 @@ class TestPaperDetailActivity :
         }
         viewBinding.lytOptContainer.visibility = View.GONE
         viewBinding.pgbPercent.visibility = View.GONE
-        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_ERROR
+        viewBinding.multiStatView.viewState = MultiStateView.ViewState.ERROR
     }
 
     override fun onRequestFinish() {
@@ -326,32 +318,34 @@ class TestPaperDetailActivity :
         super.onDestroy()
     }
 
+    private var choosedNext = false
     private fun initCheckAnswerList() {
         if (onSingleClickListener != null) {
             return
         }
         checkAnswerMap = HashMap()
         if (isTest) {
+            val mmkv = MMKV.mmkvWithID(Constant.MMKV_FILE)
+            choosedNext = mmkv.decodeBool(Constant.MMKV_CLCIK_GOTO_NEXT_QUESTION_KEY, true)
             onSingleClickListener = object : OnSingleClickListener {
                 override fun onSingleClickListener(position: Int) {
                     Log.d(TAG, "Position: $position")
                     checkAnswerMap[viewBinding.viewPager.currentItem] = true
-                    val ct = viewBinding.viewPager.currentItem
-                    if (ct < questionBeanList.size - 1) {
-                        viewBinding.viewPager.currentItem = ct + 1
+                    if (choosedNext) {
+                        val ct = viewBinding.viewPager.currentItem
+                        if (ct < questionBeanList.size - 1) {
+                            viewBinding.viewPager.currentItem = ct + 1
+                        }
                     }
                 }
             }
             for (i in 0 until questionBeanList.size) {
                 checkAnswerMap[i] = false
             }
-            val mmkv = MMKV.mmkvWithID(Constant.MMKV_FILE)
-            if (mmkv.decodeBool(Constant.MMKV_CLCIK_GOTO_NEXT_QUESTION_KEY, true)) {
-                for (simpleChooseView in questionViewList) {
-                    (simpleChooseView as SimpleChooseView).setOnSingleClickListener(
-                        onSingleClickListener
-                    )
-                }
+            for (simpleChooseView in questionViewList) {
+                (simpleChooseView as SimpleChooseView).setOnSingleClickListener(
+                    onSingleClickListener
+                )
             }
         } else {
             for ((index, value) in questionBeanList.withIndex()) {

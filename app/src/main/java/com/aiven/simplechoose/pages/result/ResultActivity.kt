@@ -1,6 +1,5 @@
 package com.aiven.simplechoose.pages.result
 
-import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
@@ -12,7 +11,7 @@ import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.databinding.ActivityResultBinding
 import com.aiven.simplechoose.pages.BaseActivity
 import com.aiven.simplechoose.pages.result.adapter.AnswerResultAdapter
-import com.aiven.simplechoose.pages.result.bean.ResultBean
+import com.aiven.simplechoose.bean.dto.ResultBean
 import com.aiven.simplechoose.pages.testPaperDetail.TestPaperDetailActivity
 import com.aiven.simplechoose.utils.TimeUtils
 import com.aiven.simplechoose.utils.setSingleClickListener

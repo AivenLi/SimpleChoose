@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="progressColor" format="color" />
+    <attr name="maxValue" format="integer" />
+    <attr name="value" format="integer" />
+    <attr name="showPercent" format="boolean" />
+
+    <declare-styleable name="LinearProgressView">
+        <attr name="progressBgColor" format="color" />
+        <attr name="progressColor" />
+        <attr name="textColor" format="color" />
+        <attr name="maxValue" />
+        <attr name="value" />
+        <attr name="progressWidth" format="dimension" />
+        <attr name="showPercent" />
+    </declare-styleable>
+
+    <declare-styleable name="ProgressButton">
+        <!-- 进度条颜色 -->
+        <attr name="progressColor"  />
+        <!-- 背景颜色 -->
+        <attr name="backgroundColor" format="color" />
+        <!-- 正常下载时字体颜色 -->
+        <attr name="normalTextColor" format="color" />
+        <!-- 失败时字体颜色 -->
+        <attr name="failedTextColor" format="color" />
+        <!-- 失败时进度条颜色 -->
+        <attr name="failedProgressColor" format="color" />
+        <!-- 边框颜色 -->
+        <attr name="borderColor" format="color" />
+        <!-- 边框宽度 -->
+        <attr name="borderWidth" format="dimension" />
+        <!-- 是否显示边框 -->
+        <attr name="showBorder" format="boolean" />
+        <!-- 字体大小 -->
+        <attr name="android:textSize" format="dimension" />
+        <!-- 失败时显示文字 -->
+        <attr name="failedText" format="string" />
+        <!-- 0%时显示的文字 -->
+        <attr name="startText" format="string" />
+        <!-- 暂停文字 -->
+        <attr name="pauseText" format="string" />
+        <!-- 下载完成文字 -->
+        <attr name="doneText" format="string" />
+        <!-- 圆角半径 -->
+        <attr name="android:radius" />
+        <!-- 最大值，默认100 -->
+        <attr name="maxValue" />
+        <!-- 当前值 -->
+        <attr name="value" />
+        <!-- 是否显示百分比 -->
+        <attr name="showPercent" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="android:radius" />
+        <attr name="android:topLeftRadius" />
+        <attr name="android:topRightRadius" />
+        <attr name="android:bottomLeftRadius" />
+        <attr name="android:bottomRightRadius" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundTextView">
+        <attr name="android:radius" />
+        <attr name="android:topLeftRadius" />
+        <attr name="android:topRightRadius" />
+        <attr name="android:bottomLeftRadius" />
+        <attr name="android:bottomRightRadius" />
+    </declare-styleable>
+</resources>

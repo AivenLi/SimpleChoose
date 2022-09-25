@@ -8,10 +8,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.TestPaperCheckAdapter
+import com.aiven.simplechoose.bean.enums.AnswerResult
 import com.aiven.simplechoose.databinding.ItemChooseAnswerBinding
 import com.aiven.simplechoose.databinding.ItemTestPaperCheckBinding
 import com.aiven.simplechoose.databinding.ItemTestPaperCheckSmallBinding
-import com.aiven.simplechoose.pages.result.bean.enums.AnswerResult
 import com.aiven.simplechoose.utils.ThemeUtils
 
 class AnswerResultAdapter(

@@ -4,7 +4,7 @@ import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.mvp.BasePresenter
 import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.net.callback.RequestCallback
-import com.aiven.simplechoose.pages.result.bean.ResultBean
+import com.aiven.simplechoose.bean.dto.ResultBean
 import io.reactivex.rxjava3.disposables.Disposable
 
 class TestPaperDetailPresenter: BasePresenter<TestPaperDetailContract.Model, TestPaperDetailContract.View>(), TestPaperDetailContract.Presenter {

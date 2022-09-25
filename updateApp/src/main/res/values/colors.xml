@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="version_title">#ff585858</color>
+    <color name="version_desc">#ff787878</color>
+    <color name="split">#ffededed</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="default_progress_color_bg">#88fe3509</color>
+    <color name="default_progress_color">#fffe3509</color>
+    <color name="default_failed_progress_color">#ffa0a0a0</color>
+    <color name="default_normal_text_color">#ffffffff</color>
+    <color name="default_failed_text_color">#fffe3509</color>
+</resources>

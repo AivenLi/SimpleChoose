@@ -1,6 +1,7 @@
 package com.aiven.simplechoose.pages.home
 
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
+import com.aiven.simplechoose.bean.dto.UpdateAppDTO
 import com.aiven.simplechoose.mvp.BasePresenter
 import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.net.callback.RequestCallback
@@ -34,6 +35,18 @@ class HomePresenter: BasePresenter<HomeContract.Model, HomeContract.View>(), Hom
             override fun onRequestFinish() {
                 isLoading = false
                 mView?.onRequestFinish()
+            }
+        })
+    }
+
+    override fun checkAppUpdate() {
+        mModel?.checkAppUpdate(object : RequestCallback<UpdateAppDTO> {
+            override fun onSuccess(data: UpdateAppDTO?) {
+                data?.let { mView?.checkAppUpdateSuccess(it) }
+            }
+
+            override fun onFailure(error: BaseError) {
+
             }
         })
     }

@@ -4,8 +4,8 @@ import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.mvp.BaseModel
 import com.aiven.simplechoose.net.BaseRequest
 import com.aiven.simplechoose.net.callback.RequestCallback
-import com.aiven.simplechoose.pages.result.bean.ResultBean
-import com.aiven.simplechoose.pages.result.bean.enums.AnswerResult
+import com.aiven.simplechoose.bean.dto.ResultBean
+import com.aiven.simplechoose.bean.enums.AnswerResult
 import com.aiven.simplechoose.pages.testPaperDetail.api.TestPaperDetailApi
 import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -13,7 +13,6 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlin.math.roundToInt
 
 class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi::class.java), TestPaperDetailContract.Model {
 

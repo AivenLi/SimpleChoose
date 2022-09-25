@@ -1,6 +1,7 @@
 package com.aiven.simplechoose.pages.home
 
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
+import com.aiven.simplechoose.bean.dto.UpdateAppDTO
 import com.aiven.simplechoose.mvp.BaseModel
 import com.aiven.simplechoose.net.BaseRequest
 import com.aiven.simplechoose.net.callback.RequestCallback
@@ -17,6 +18,13 @@ class HomeModelImpl: BaseModel<HomeApi>(HomeApi::class.java), HomeContract.Model
             key = HomeApi.CACHE_KEY_QUESTION_LIST_JSON,
             type = type,
             requestCallback = requestCallback
+        )
+    }
+
+    override fun checkAppUpdate(requestCallback: RequestCallback<UpdateAppDTO>) {
+        BaseRequest.request(
+            service.checkAppUpdate(),
+            requestCallback
         )
     }
 }

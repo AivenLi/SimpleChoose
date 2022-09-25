@@ -5,7 +5,7 @@ import com.aiven.simplechoose.mvp.IModel
 import com.aiven.simplechoose.mvp.IPresenter
 import com.aiven.simplechoose.mvp.IView
 import com.aiven.simplechoose.net.callback.RequestCallback
-import com.aiven.simplechoose.pages.result.bean.ResultBean
+import com.aiven.simplechoose.bean.dto.ResultBean
 
 interface TestPaperDetailContract {
 

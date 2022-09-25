@@ -2,14 +2,13 @@ package com.aiven.simplechoose.pages.setting.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aiven.simplechoose.adapter.OnSingleClickListener
 import com.aiven.simplechoose.databinding.ItemSettingClickBinding
 import com.aiven.simplechoose.databinding.ItemSettingSwitchBinding
-import com.aiven.simplechoose.pages.setting.bean.SettingBean
-import com.aiven.simplechoose.pages.setting.bean.SettingType
+import com.aiven.simplechoose.bean.dto.SettingBean
+import com.aiven.simplechoose.bean.dto.SettingType
 import com.aiven.simplechoose.utils.setSingleClickListener
 
 class SettingAdapter(

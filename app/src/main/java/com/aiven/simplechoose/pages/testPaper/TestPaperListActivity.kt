@@ -55,7 +55,7 @@ class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperCon
     }
 
     override fun initData() {
-        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_LOADING
+        viewBinding.multiStatView.viewState = MultiStateView.ViewState.LOADING
         mPresenter.getTestPaperList(url)
     }
 
@@ -65,7 +65,7 @@ class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperCon
 
     override fun getTestPaperListSuccess(testPaperDTOList: ArrayList<TestPaperDTO>) {
         if (testPaperDTOList.isEmpty() && this.testPaperDTOList.isEmpty()) {
-            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            viewBinding.multiStatView.viewState = MultiStateView.ViewState.EMPTY
             return
         }
         if (this.testPaperDTOList.size == testPaperDTOList.size) {
@@ -76,13 +76,13 @@ class TestPaperListActivity : MVPActivity<ActivityTestPaperBinding, TestPaperCon
         this.testPaperDTOList.clear()
         this.testPaperDTOList.addAll(testPaperDTOList)
         testPaperAdapter.notifyDataSetChanged()
-        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_CONTENT
+        viewBinding.multiStatView.viewState = MultiStateView.ViewState.CONTENT
     }
 
     override fun onRequestError(baseError: BaseError) {
         baseError.msg?.let { toast(it) }
         if (testPaperDTOList.isEmpty()) {
-            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_ERROR
+            viewBinding.multiStatView.viewState = MultiStateView.ViewState.ERROR
         }
     }
 
