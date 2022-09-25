@@ -1,5 +1,7 @@
 package com.aiven.simplechoose.pages.home
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aiven.simplechoose.R
@@ -33,6 +35,17 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
 
     private val gson by lazy {
         Gson()
+    }
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(
+                Intent(
+                    context,
+                    HomeActivity::class.java
+                )
+            )
+        }
     }
 
     override fun initView() {

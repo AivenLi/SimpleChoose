@@ -4585,6 +4585,8 @@ com.aiven.simplechoose.databinding.ActivitySettingBinding:
     public final androidx.constraintlayout.widget.ConstraintLayout cltTitleBar
     public final com.scwang.smart.refresh.layout.SmartRefreshLayout smartRefresh
     public final android.widget.TextView tvPageTitle
+com.aiven.simplechoose.databinding.ActivitySplashBinding:
+    public final android.widget.ImageView imgIcon
 com.aiven.simplechoose.databinding.ActivityTestPaperBinding:
     public final androidx.constraintlayout.widget.ConstraintLayout cltTitleBar
 com.aiven.simplechoose.databinding.ActivityTestPaperDetailBinding:

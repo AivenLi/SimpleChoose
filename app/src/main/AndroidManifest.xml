@@ -13,6 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleChoose">
+        <activity android:name=".pages.splash.SplashActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Splash"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".pages.setting.SettingActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
             android:exported="false"
@@ -37,13 +49,7 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
             android:exported="true"
             android:launchMode="singleTop"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

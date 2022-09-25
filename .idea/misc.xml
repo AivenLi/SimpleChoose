@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/activity_home.xml" value="0.24375" />
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/activity_splash.xml" value="0.24270833333333333" />
         <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/dialog_show_test_paper_check_list.xml" value="0.24270833333333333" />
         <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/dialog_yes_no.xml" value="0.18072916666666666" />
         <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/item_test_paper_check.xml" value="0.24270833333333333" />

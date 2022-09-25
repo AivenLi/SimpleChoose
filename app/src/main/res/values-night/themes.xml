@@ -24,6 +24,15 @@
         <item name="colorUnCheck">@color/un_check</item>
     </style>
 
+    <style name="Theme.Splash" parent="Theme.SimpleChoose">
+        <!-- 全屏显示 -->
+        <item name="android:windowFullscreen">true</item>
+        <!-- 背景 -->
+        <!--        <item name="android:windowBackground">@drawable/splash_bg</item>-->
+        <!-- 透明导航栏 -->
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
     <style name="SwitchCompat" parent="Theme.SimpleChoose">
         <item name="colorControlActivated">@color/main</item>
         <item name="colorSwitchThumbNormal">@color/item_desc</item>

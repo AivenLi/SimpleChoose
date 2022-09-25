@@ -45,4 +45,9 @@
     <string name="choose_time">选择时间</string>
     <string name="click_item_choose_goto_next">选择后自动跳到下一题</string>
     <string name="multi_choose_no_goto_next">多选题不会自动跳下一题</string>
+    <string name="first_run_accept_title">使用说明</string>
+    <string name="first_run_accept_desc">
+        1. 本App仅用于学习交流，不得用于商业用途，否则造成的后果自负。\n
+        2. 本App所展示的数据均来自网上，收集于此以供学习交流使用。如有侵权，请联系删除，邮箱：604952198@qq.com。\n
+    </string>
 </resources>
