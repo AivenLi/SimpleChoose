@@ -11,3 +11,4 @@ dependencyResolutionManagement {
 rootProject.name = "SimpleChoose"
 include ':app'
 include ':updateApp'
+include ':http-float-log'

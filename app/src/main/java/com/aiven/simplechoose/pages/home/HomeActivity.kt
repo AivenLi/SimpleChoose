@@ -2,8 +2,15 @@ package com.aiven.simplechoose.pages.home
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import com.aiven.hfl.util.DeviceUtil
+import com.aiven.hfl.util.FloatManager
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.bean.dto.UpdateAppDTO
@@ -23,6 +30,12 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.kennyc.view.MultiStateView
 import io.reactivex.rxjava3.disposables.Disposable
+import android.os.Build
+import android.provider.ContactsContract
+
+import android.provider.Settings
+import androidx.annotation.Nullable
+
 
 class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeContract.Presenter>(
     ActivityHomeBinding::inflate
@@ -48,6 +61,8 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
         }
     }
 
+    private lateinit var textView: TextView
+
     override fun initView() {
         if (ThemeUtils.isDarkMode(this)) {
             Log.d(TAG, "黑夜模式")
@@ -58,6 +73,33 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
         viewBinding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         viewBinding.smartRefresh.setOnRefreshListener {
             mPresenter.getQuestionTypeList()
+        }
+        textView = TextView(this);
+        textView.text = "This is a float window test";
+        textView.textSize = DeviceUtil.sp2px(this, 20.0f);
+        textView.setTextColor(ContextCompat.getColor(this, R.color.white))
+        textView.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+        textView.gravity = Gravity.CENTER
+        val lp = LinearLayout.LayoutParams(DeviceUtil.dp2px(this, 200),DeviceUtil.dp2px(this, 200))
+        textView.layoutParams = lp
+
+        if (!Settings.canDrawOverlays(this)) {
+            val intent =
+                Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
+            startActivityForResult(intent, 10000)
+        } else {
+            val floatManager = FloatManager.getInstance(this)
+            floatManager.startFloat(textView)
+            floatManager.setFloatViewVisible()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 10000 && Settings.canDrawOverlays(this)) {
+            val floatManager = FloatManager.getInstance(this)
+            floatManager.startFloat(textView)
+            floatManager.setFloatViewVisible()
         }
     }
 
