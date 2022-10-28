@@ -34,6 +34,7 @@ import android.os.Build
 import android.provider.ContactsContract
 
 import android.provider.Settings
+import android.view.MotionEvent
 import androidx.annotation.Nullable
 
 
@@ -61,8 +62,6 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
         }
     }
 
-    private lateinit var textView: TextView
-
     override fun initView() {
         if (ThemeUtils.isDarkMode(this)) {
             Log.d(TAG, "黑夜模式")
@@ -74,22 +73,13 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
         viewBinding.smartRefresh.setOnRefreshListener {
             mPresenter.getQuestionTypeList()
         }
-        textView = TextView(this);
-        textView.text = "This is a float window test";
-        textView.textSize = DeviceUtil.sp2px(this, 20.0f);
-        textView.setTextColor(ContextCompat.getColor(this, R.color.white))
-        textView.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
-        textView.gravity = Gravity.CENTER
-        val lp = LinearLayout.LayoutParams(DeviceUtil.dp2px(this, 200),DeviceUtil.dp2px(this, 200))
-        textView.layoutParams = lp
-
         if (!Settings.canDrawOverlays(this)) {
             val intent =
                 Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
             startActivityForResult(intent, 10000)
         } else {
             val floatManager = FloatManager.getInstance(this)
-            floatManager.startFloat(textView)
+            floatManager.startFloat()
             floatManager.setFloatViewVisible()
         }
     }
@@ -98,7 +88,7 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 10000 && Settings.canDrawOverlays(this)) {
             val floatManager = FloatManager.getInstance(this)
-            floatManager.startFloat(textView)
+            floatManager.startFloat()
             floatManager.setFloatViewVisible()
         }
     }

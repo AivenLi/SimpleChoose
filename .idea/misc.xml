@@ -46,7 +46,10 @@
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/layout_multi_view_load.xml" value="0.152" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/multi_view_empty.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/multi_view_error.xml" value="0.12" />
+        <entry key="..\:/android_demo/SimpleChoose/http-float-log/src/main/res/drawable/ic_baseline_close_24.xml" value="0.10572916666666667" />
+        <entry key="..\:/android_demo/SimpleChoose/http-float-log/src/main/res/drawable/radius_50_blue_bg.xml" value="0.14791666666666667" />
         <entry key="..\:/android_demo/SimpleChoose/http-float-log/src/main/res/drawable/shape_float_window_background.xml" value="0.1" />
+        <entry key="..\:/android_demo/SimpleChoose/http-float-log/src/main/res/drawable/shape_float_window_nothing_bg.xml" value="0.13072916666666667" />
       </map>
     </option>
   </component>

@@ -1,5 +1,7 @@
 package com.aiven.simplechoose.net
 
+import android.content.Context
+import com.aiven.hfl.util.FloatManager
 import com.aiven.simplechoose.app.task.Task
 import com.aiven.simplechoose.app.task.TaskApp
 import com.aiven.simplechoose.net.api.ServiceApi
@@ -49,7 +51,7 @@ object RetrofitUtil: Task {
         return OkHttpClient.Builder()
             .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
             .readTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
-            .addInterceptor(LogInterceptor())
+            .addInterceptor(LogInterceptor(FloatManager.getInstance(null).handler))
             .build()
     }
 }
