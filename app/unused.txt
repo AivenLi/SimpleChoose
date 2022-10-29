@@ -266,6 +266,48 @@ cc.shinichi.library.view.photoview.PhotoViewAttacher:
     public void setZoomInterpolator(android.view.animation.Interpolator)
 cc.shinichi.library.view.photoview.Util:
     void <init>()
+com.aiven.hfl.BuildConfig
+com.aiven.hfl.LogInterceptor:
+    private static final java.lang.String TAG
+com.aiven.hfl.R
+com.aiven.hfl.adapter.HttpLogAdapter:
+    public void appendData(java.util.List)
+    private java.lang.String getString(int)
+    public void updateData(java.util.List)
+com.aiven.hfl.util.DeviceUtil:
+    public static final int NETWORK_CLOSED
+    public static final int NETWORK_ETHERNET
+    public static final int NETWORK_MOBILE
+    public static final int NETWORK_UNKNOWN
+    public static final int NETWORK_WIFI
+    public static final int NO_NETWORK
+    public void <init>()
+    public static float dp2px(android.content.Context,float)
+    public static int dp2px(android.content.Context,int)
+    public static int getNavigationBarHeight(android.content.Context)
+    public static int getNetworkType(android.content.Context)
+    public static int getScreenHeight(android.content.Context,boolean)
+    public static int getScreenWidth(android.content.Context,boolean)
+    public static double getStatusBarHeightPortrait(android.content.Context)
+    public static boolean hasNavigationBar(android.content.Context)
+    public static boolean isEdge(android.content.Context,android.view.MotionEvent)
+    public static android.app.Activity scanForActivity(android.content.Context)
+    public static float sp2px(android.content.Context,float)
+    public static int sp2px(android.content.Context,int)
+com.aiven.hfl.util.FloatManager:
+    public static final int HTTP_LOG_WHAT
+    private java.lang.Class aClass
+    public java.lang.Class getActClass()
+    public void release()
+    private void removeViewFromParent(android.view.View)
+    public void setActClass(java.lang.Class)
+    public void startFloat(android.view.View)
+    public void stopFloat()
+com.aiven.hfl.view.FloatView:
+    private static final java.lang.String TAG
+    public void hide()
+    public boolean removeViewFromWindow()
+    public void show()
 com.aiven.simplechoose.BuildConfig
 com.aiven.simplechoose.R
 com.aiven.simplechoose.databinding.ItemChooseAnswerBinding:
@@ -4565,6 +4607,13 @@ cc.shinichi.library.view.nine.AnimatorProxy:
     public final android.graphics.RectF mAfter
     public final android.graphics.RectF mBefore
     public final android.graphics.Matrix mTempMatrix
+com.aiven.hfl.util.FloatManager:
+    public int position
+com.aiven.hfl.view.FloatView:
+    public int mDownX
+    public int mDownY
+    public boolean moveFloatCirView
+    public final int windownY
 com.aiven.simplechoose.databinding.ActivityHomeBinding:
     public final androidx.constraintlayout.widget.ConstraintLayout cltTitleBar
     public final android.widget.TextView tvPageTitle

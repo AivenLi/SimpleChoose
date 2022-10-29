@@ -19,8 +19,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.aiven.hfl.R;
+import com.aiven.hfl.adapter.HttpLogAdapter;
+import com.aiven.hfl.bean.HttpLogBean;
 import com.aiven.hfl.util.DeviceUtil;
 
 public class FloatView extends FrameLayout {
@@ -30,10 +34,11 @@ public class FloatView extends FrameLayout {
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
 
+    private HttpLogAdapter adapter;
+    private RecyclerView recyclerView;
     private ImageView imgClose;
     private TextView tvTitle;
     private FrameLayout fltTitle;
-    private TextView tvLog;
     private boolean moveFloatCirView = false;
     private boolean isMove = false;
     private boolean showCirView = true;
@@ -133,13 +138,13 @@ public class FloatView extends FrameLayout {
     }
 
     private void initLogView(Context context) {
-        tvLog = new TextView(context);
-        tvLog.setTextSize(12);
-        tvLog.setTextColor(Color.WHITE);
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.topMargin = dp2px(32);
-        layoutParams.gravity = Gravity.CENTER;
-        tvLog.setLayoutParams(layoutParams);
+        adapter = new HttpLogAdapter(context);
+        recyclerView = new RecyclerView(context);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT);
+        lp.topMargin = dp2px(50);
+        recyclerView.setLayoutParams(lp);
     }
 
     public boolean addViewToWindow() {
@@ -217,8 +222,8 @@ public class FloatView extends FrameLayout {
                 if (!(fltTitle.getParent() instanceof FloatView)) {
                     addView(fltTitle);
                 }
-                if (!(tvLog.getParent() instanceof FloatView)) {
-                    addView(tvLog);
+                if (!(recyclerView.getParent() instanceof FloatView)) {
+                    addView(recyclerView);
                 }
                 setBackgroundResource(R.drawable.shape_float_window_background);
                 windowManager.updateViewLayout(this, layoutParams);
@@ -235,9 +240,12 @@ public class FloatView extends FrameLayout {
                 y >= imgClose.getY() && y <= (imgClose.getY() + imgClose.getHeight());
     }
 
-    public void setLogData(String log) {
-        Log.d(TAG, "更新数据：" + log);
-        tvLog.setText(log);
+    public void clear() {
+        adapter.clear();
+    }
+
+    public void setLogData(HttpLogBean httpLogBean) {
+        adapter.appendData(httpLogBean);
     }
 
     public void appToBackground() {

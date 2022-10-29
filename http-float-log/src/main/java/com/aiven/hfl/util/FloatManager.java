@@ -14,11 +14,13 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
+import com.aiven.hfl.bean.HttpLogBean;
 import com.aiven.hfl.view.FloatView;
 
 
 public class FloatManager {
 
+    public static final int HTTP_LOG_WHAT = 12345;
     private static FloatManager mInstance = null;
     private final FloatView mFloatView;
     private boolean isShowing = false;
@@ -54,10 +56,11 @@ public class FloatManager {
         handler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
-                if (msg.what == 12345) {
-                    String data = (String)msg.obj;
-                    Log.d("浮窗", data);
-                    if (!TextUtils.isEmpty(data)) {
+                if (msg.what == HTTP_LOG_WHAT) {
+                    HttpLogBean data = (HttpLogBean) msg.obj;
+                    if (data == null) {
+                        mFloatView.clear();
+                    } else {
                         mFloatView.setLogData(data);
                     }
                 }

@@ -1,3 +1,6 @@
 /build
 
 # src/test/java/*
+seeds.txt
+unused.txt
+mapping.txt

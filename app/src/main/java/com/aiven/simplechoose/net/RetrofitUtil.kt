@@ -51,7 +51,8 @@ object RetrofitUtil: Task {
         return OkHttpClient.Builder()
             .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
             .readTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
-            .addInterceptor(LogInterceptor(FloatManager.getInstance(null).handler))
+            //.addInterceptor(LogInterceptor(FloatManager.getInstance(null).handler))
+            .addInterceptor(com.aiven.hfl.LogInterceptor(FloatManager.getInstance(null).handler))
             .build()
     }
 }

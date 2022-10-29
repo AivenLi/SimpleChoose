@@ -26,7 +26,8 @@ public class FloatApp extends Application implements Application.ActivityLifecyc
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
-
+        Handler handler = FloatManager.getInstance(null).getHandler();
+        handler.sendMessage(handler.obtainMessage(FloatManager.HTTP_LOG_WHAT, null));
     }
 
     @Override

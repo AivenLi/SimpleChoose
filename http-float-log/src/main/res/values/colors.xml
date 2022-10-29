@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="http_log_bg_color">#ff000000</color>
+    <color name="http_log_title_color">#ffffffff</color>
+    <color name="http_log_value_color">#ffffffff</color>
+</resources>

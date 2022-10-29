@@ -4,4 +4,19 @@
         <item name="android:windowEnterAnimation">@anim/float_window_in</item>
         <item name="android:windowExitAnimation">@anim/float_window_out</item>
     </style>
+
+    <style name="HttpLogTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/http_log_title</item>
+        <item name="android:textColor">@color/http_log_title_color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HttpLogValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/http_log_value</item>
+        <item name="android:textColor">@color/http_log_value_color</item>
+    </style>
 </resources>
