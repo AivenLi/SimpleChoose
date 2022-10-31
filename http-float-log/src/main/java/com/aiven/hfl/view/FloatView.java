@@ -180,8 +180,10 @@ public class FloatView extends FrameLayout {
             case MotionEvent.ACTION_DOWN:
                 mDownRawX = (int) ev.getRawX();
                 mDownRawY = (int) ev.getRawY();
-                mDownX = (int) ev.getX();
-                mDownY = (int) (ev.getY());
+                mDownX = mDownRawX;
+                mDownY = mDownRawY;
+//                mDownX = (int) ev.getX();
+//                mDownY = (int) (ev.getY() + DeviceUtil.getStatusBarHeight(getContext()));
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (showCirView) {
@@ -212,6 +214,15 @@ public class FloatView extends FrameLayout {
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             isMove = true;
+            if (showCirView) {
+                int x = (int) event.getRawX();
+                int y = (int) event.getRawY();
+                layoutParams.x = layoutParams.x - x + mDownX;
+                layoutParams.y = layoutParams.y - y + mDownY;
+                mDownX = x;
+                mDownY = y;
+                windowManager.updateViewLayout(this, layoutParams);
+            }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             if (!isMove && !clickClose && showCirView) {
                 layoutParams.width = wWidth;
@@ -219,6 +230,7 @@ public class FloatView extends FrameLayout {
                 cx = layoutParams.x;
                 cy = layoutParams.y;
                 layoutParams.x = (widthPix - wWidth) / 2;
+                layoutParams.y = (heightPix - wHeight) / 2;
                 if (!(fltTitle.getParent() instanceof FloatView)) {
                     addView(fltTitle);
                 }
@@ -254,17 +266,6 @@ public class FloatView extends FrameLayout {
 
     public void appToForeground() {
         setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * 隐藏浮窗view，只保留小圆点
-     * */
-    public void hide() {
-
-    }
-
-    public void show() {
-
     }
 
     private float dp2px(float dp) {
