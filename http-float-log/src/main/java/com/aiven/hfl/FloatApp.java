@@ -26,15 +26,14 @@ public class FloatApp extends Application implements Application.ActivityLifecyc
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
-        Handler handler = FloatManager.getInstance(null).getHandler();
-        handler.sendMessage(handler.obtainMessage(FloatManager.HTTP_LOG_WHAT, null));
+//        Handler handler = FloatManager.getInstance(null).getHandler();
+//        handler.sendMessage(handler.obtainMessage(FloatManager.HTTP_LOG_WHAT, null));
     }
 
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
         activityCount++;
         if (activityCount > 0) {
-            Log.d("浮窗", "前台");
             FloatManager.getInstance(FloatApp.this).appToForeground();
         }
     }
@@ -48,7 +47,6 @@ public class FloatApp extends Application implements Application.ActivityLifecyc
     public void onActivityPaused(@NonNull Activity activity) {
         activityCount--;
         if (activityCount == 0) {
-            Log.d("浮窗", "后台");
             FloatManager.getInstance(FloatApp.this).appToBackground();
         }
     }

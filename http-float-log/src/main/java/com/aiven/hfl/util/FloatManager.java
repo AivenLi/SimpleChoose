@@ -4,15 +4,11 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
 
 import com.aiven.hfl.bean.HttpLogBean;
 import com.aiven.hfl.view.FloatView;

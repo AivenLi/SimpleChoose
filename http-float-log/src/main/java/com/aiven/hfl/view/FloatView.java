@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
-import android.util.EventLog;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,12 +11,9 @@ import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +33,7 @@ public class FloatView extends FrameLayout {
     private RecyclerView recyclerView;
     private ImageView imgClose;
     private TextView tvTitle;
+    private TextView tvClear;
     private FrameLayout fltTitle;
     private boolean moveFloatCirView = false;
     private boolean isMove = false;
@@ -72,7 +68,7 @@ public class FloatView extends FrameLayout {
         windownY = statusBarHeight + titleBarHeight;
         widthPix = context.getResources().getDisplayMetrics().widthPixels;
         heightPix = context.getResources().getDisplayMetrics().heightPixels;
-        Log.d(TAG, "w: " + widthPix + "h: " + heightPix);
+        //Log.d(TAG, "w: " + widthPix + "h: " + heightPix);
         CIR_X = CIR_WIDTH;
         CIR_Y = CIR_HEIGHT;
         // 设置悬浮窗口长宽数据
@@ -127,6 +123,14 @@ public class FloatView extends FrameLayout {
         LayoutParams tvTitleLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         tvTitleLp.gravity = Gravity.CENTER;
         tvTitle.setLayoutParams(tvTitleLp);
+        tvClear = new TextView(context);
+        tvClear.setText("Clear Log");
+        tvClear.setTextSize(12);
+        tvClear.setTextColor(0xff999999);
+        LayoutParams tvClearLp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        tvClearLp.gravity = Gravity.CENTER_VERTICAL | Gravity.START;
+        tvClearLp.leftMargin = dp2px(12);
+        tvClear.setLayoutParams(tvClearLp);
         imgClose = new ImageView(context);
         imgClose.setImageResource(R.drawable.ic_baseline_close_24);
         LayoutParams imgCloseLp = new LayoutParams(dp2px(24), dp2px(24));
@@ -135,6 +139,7 @@ public class FloatView extends FrameLayout {
         imgClose.setLayoutParams(imgCloseLp);
         fltTitle.addView(tvTitle);
         fltTitle.addView(imgClose);
+        fltTitle.addView(tvClear);
     }
 
     private void initLogView(Context context) {
@@ -204,12 +209,14 @@ public class FloatView extends FrameLayout {
             isMove = false;
             clickClose = false;
             if (!showCirView && isClickClose(event.getX(), event.getY())) {
-                Log.d(TAG, "点击关掉窗口");
+                //Log.d(TAG, "点击关掉窗口");
                 setViewToAPoint();
                 windowManager.updateViewLayout(this, layoutParams);
                 showCirView = true;
                 clickClose = true;
                 return true;
+            } else if (!showCirView && isClickClear(event.getX(), event.getY())) {
+                adapter.clear();
             }
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -243,13 +250,23 @@ public class FloatView extends FrameLayout {
                 return true;
             }
         }
-        Log.d(TAG, "不消费事件");
+        //Log.d(TAG, "不消费事件");
         return false;
     }
 
     private boolean isClickClose(float x, float y) {
-        return x >= imgClose.getX() && x <= (imgClose.getX() + imgClose.getWidth()) &&
-                y >= imgClose.getY() && y <= (imgClose.getY() + imgClose.getHeight());
+//        return x >= imgClose.getX() && x <= (imgClose.getX() + imgClose.getWidth()) &&
+//                y >= imgClose.getY() && y <= (imgClose.getY() + imgClose.getHeight());
+        return isClickView(imgClose, x, y);
+    }
+
+    private boolean isClickClear(float x, float y) {
+        return isClickView(tvClear, x, y);
+    }
+
+    private boolean isClickView(View view, float x, float y) {
+        return x >= view.getX() && x <= (view.getX() + view.getWidth()) &&
+                y >= view.getY() && y <= (view.getY() + view.getHeight());
     }
 
     public void clear() {

@@ -4,6 +4,13 @@ import android.os.Handler;
 
 import com.aiven.hfl.bean.HttpLogBean;
 import com.aiven.hfl.util.FloatManager;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -56,7 +63,16 @@ public class LogInterceptor implements Interceptor {
         ResponseBody responseBody = response.peekBody(1024 * 1024);
         httpLogBean.setCode(response.code());
         httpLogBean.setMilliseconds(t2 - t1);
-        httpLogBean.setData(responseBody.string());
+        String jsonStr = responseBody.string();
+        try {
+            JsonElement jsonParser = JsonParser.parseString(jsonStr);
+            JsonObject jsonObject = jsonParser.getAsJsonObject();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            jsonStr = gson.toJson(jsonObject);
+        } catch (JsonSyntaxException e) {
+
+        }
+        httpLogBean.setData(jsonStr);
         if (handler != null) {
             handler.sendMessage(handler.obtainMessage(FloatManager.HTTP_LOG_WHAT, httpLogBean));
         }
