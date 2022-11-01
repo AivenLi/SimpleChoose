@@ -1,130 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="12dp"
-    android:paddingStart="12dp"
-    android:paddingEnd="12dp"
+    android:orientation="vertical"
     android:background="@color/http_log_bg_color">
-    <TextView
-        android:id="@+id/tv_url_title"
-        android:text="URL: "
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/HttpLogTitle"
-        />
-    <TextView
-        android:id="@+id/tv_url_value"
-        tools:text="https://www.baidu.com"
-        app:layout_constraintTop_toTopOf="@id/tv_url_title"
-        app:layout_constraintStart_toEndOf="@id/tv_url_title"
-        style="@style/HttpLogValue"
-        />
-    <TextView
-        android:id="@+id/tv_method_title"
-        android:text="method: "
-        style="@style/HttpLogTitle"
-        app:layout_constraintTop_toBottomOf="@id/tv_url_value"
-        app:layout_constraintStart_toStartOf="@id/tv_url_title"
-        android:layout_marginTop="4dp"
-        />
-    <TextView
-        android:id="@+id/tv_method_value"
-        tools:text="GET"
-        style="@style/HttpLogValue"
-        app:layout_constraintTop_toTopOf="@id/tv_method_title"
-        app:layout_constraintStart_toEndOf="@id/tv_method_title"
-        />
-    <TextView
-        android:id="@+id/tv_code_title"
-        android:text="Code: "
-        style="@style/HttpLogTitle"
-        app:layout_constraintTop_toBottomOf="@id/tv_method_value"
-        app:layout_constraintStart_toStartOf="@id/tv_url_title"
-        android:layout_marginTop="4dp"
-        />
-    <TextView
-        android:id="@+id/tv_code_value"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="200"
-        style="@style/HttpLogValue"
-        app:layout_constraintTop_toTopOf="@id/tv_code_title"
-        app:layout_constraintStart_toEndOf="@id/tv_code_title"
-        />
-    <TextView
-        android:id="@+id/tv_headers_title"
-        android:text="Headers: "
-        style="@style/HttpLogTitle"
-        app:layout_constraintTop_toBottomOf="@id/tv_code_value"
-        app:layout_constraintStart_toStartOf="@id/tv_url_title"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        >
+        <TextView
+            android:id="@+id/tv_url_title"
+            android:text="URL: "
+            style="@style/HttpLogTitle"
+            />
+        <TextView
+            android:id="@+id/tv_url_value"
+            tools:text="abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+            style="@style/HttpLogValue"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginTop="4dp"
-        />
-    <TextView
-        android:id="@+id/tv_headers_value"
-        tools:text="Content-Type:application/json"
-        style="@style/HttpLogValue"
-        app:layout_constraintTop_toTopOf="@id/tv_headers_title"
-        app:layout_constraintStart_toEndOf="@id/tv_headers_title"
-        />
-    <TextView
-        android:id="@+id/tv_body_title"
-        android:text="Body: "
-        style="@style/HttpLogTitle"
-        app:layout_constraintTop_toBottomOf="@id/tv_headers_value"
-        app:layout_constraintStart_toStartOf="@id/tv_url_title"
+        >
+        <TextView
+            android:id="@+id/tv_method_title"
+            android:text="method: "
+            style="@style/HttpLogTitle"
+            />
+        <TextView
+            android:id="@+id/tv_method_value"
+            tools:text="GET"
+            style="@style/HttpLogValue"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginTop="4dp"
-        />
-    <TextView
-        android:id="@+id/tv_body_value"
-        tools:text="null"
-        style="@style/HttpLogValue"
-        app:layout_constraintTop_toTopOf="@id/tv_body_title"
-        app:layout_constraintStart_toEndOf="@id/tv_body_title"
-        />
-    <TextView
-        android:id="@+id/tv_times_title"
-        android:text="Times: "
-        style="@style/HttpLogTitle"
-        app:layout_constraintTop_toBottomOf="@id/tv_body_value"
-        app:layout_constraintStart_toStartOf="@id/tv_url_title"
+        >
+        <TextView
+            android:id="@+id/tv_code_title"
+            android:text="Code: "
+            style="@style/HttpLogTitle"
+            />
+        <TextView
+            android:id="@+id/tv_code_value"
+            tools:text="200"
+            style="@style/HttpLogValue"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginTop="4dp"
-        />
-    <TextView
-        android:id="@+id/tv_times_value"
-        tools:text="200ms"
-        style="@style/HttpLogValue"
-        app:layout_constraintTop_toTopOf="@id/tv_times_title"
-        app:layout_constraintStart_toEndOf="@id/tv_times_title"
-        />
-    <TextView
-        android:id="@+id/tv_data_title"
-        android:text="Data: "
-        style="@style/HttpLogTitle"
-        app:layout_constraintTop_toBottomOf="@id/tv_times_value"
-        app:layout_constraintStart_toStartOf="@id/tv_url_title"
+        >
+        <TextView
+            android:id="@+id/tv_headers_title"
+            android:text="Headers: "
+            style="@style/HttpLogTitle"
+            />
+        <TextView
+            android:id="@+id/tv_headers_value"
+            tools:text="Content-Type:application/json"
+            style="@style/HttpLogValue"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginTop="4dp"
-        />
-    <TextView
-        android:id="@+id/tv_data_value"
-        tools:text="www.baidu.com"
-        style="@style/HttpLogValue"
-        app:layout_constraintTop_toBottomOf="@id/tv_data_title"
-        app:layout_constraintStart_toEndOf="@id/tv_data_title"
-        />
+        >
+        <TextView
+            android:id="@+id/tv_body_title"
+            android:text="Body: "
+            style="@style/HttpLogTitle"
+            />
+        <TextView
+            android:id="@+id/tv_body_value"
+            tools:text="null"
+            style="@style/HttpLogValue"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="4dp"
+        >
+        <TextView
+            android:id="@+id/tv_times_title"
+            android:text="Times: "
+            style="@style/HttpLogTitle"
+            />
+        <TextView
+            android:id="@+id/tv_times_value"
+            tools:text="200ms"
+            style="@style/HttpLogValue"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="4dp"
+        >
+        <TextView
+            android:id="@+id/tv_data_title"
+            android:text="Data: "
+            style="@style/HttpLogTitle"
+            />
+        <TextView
+            android:id="@+id/tv_data_value"
+            tools:text="abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+            style="@style/HttpLogValue"
+            />
+    </LinearLayout>
     <Space
         android:id="@+id/space"
         android:layout_width="wrap_content"
         android:layout_height="11dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_data_value"
-        app:layout_constraintStart_toStartOf="parent"
         />
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/http_log_title_color"
-        app:layout_constraintTop_toBottomOf="@id/space"
         />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
