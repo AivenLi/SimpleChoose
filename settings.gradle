@@ -12,3 +12,4 @@ rootProject.name = "SimpleChoose"
 include ':app'
 include ':updateApp'
 include ':http-float-log'
+include ':file-download'

@@ -36,6 +36,9 @@ import android.provider.ContactsContract
 import android.provider.Settings
 import android.view.MotionEvent
 import androidx.annotation.Nullable
+import com.aiven.fdd.download.NetDownloadFactoryBuilder
+import com.aiven.fdd.listener.DownloadListener
+import java.io.File
 
 
 class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeContract.Presenter>(
@@ -97,6 +100,39 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
         viewBinding.multiStatView.viewState = MultiStateView.ViewState.LOADING
         mPresenter.getQuestionTypeList()
         mPresenter.checkAppUpdate()
+//        Thread {
+//            val factoryBuilder = NetDownloadFactoryBuilder()
+//                .setUrl("https://pps.sd-play.com/20220113/lrx120Zk/index.m3u8")
+//                .setPath("${cacheDir.absolutePath}${File.separator}testDownload")
+//                .setFilename("testFile")
+//                .setThreadCount(30)
+//                .setRetryTimes(5)
+//                .setTimeout(30000L)
+//                .setDownloadListener(object : DownloadListener {
+//                    override fun startDownload() {
+//                        Log.d(TAG, "开始下载")
+//                        Log.d(TAG, "当前线程：${Thread.currentThread()}")
+//                    }
+//
+//                    override fun onProgress(percent: Float, netSpeed: String) {
+//                        Log.d(TAG, "下载进度：%$percent, 速度：$netSpeed/s")
+//                    }
+//
+//                    override fun onError(error: String?) {
+//                        Log.d(TAG, "下载错误：$error")
+//                        Log.d(TAG, "当前线程：${Thread.currentThread()}")
+//                    }
+//
+//                    override fun onFinish(path: String?) {
+//                        Log.d(TAG, "下载完成：$path")
+//                    }
+//
+//                })
+//                .builder()
+//            factoryBuilder.startDownload()
+//            Thread.sleep(5000L)
+//            factoryBuilder.stopDownload(false)
+//        }.start()
     }
 
     override fun initClick() {
@@ -161,6 +197,6 @@ class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeCon
     }
 
     override fun getDebugTAG(): String {
-        return HomeActivity::class.java.simpleName
+        return "${HomeActivity::class.java.simpleName}Debug"
     }
 }

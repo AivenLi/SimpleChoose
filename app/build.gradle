@@ -132,4 +132,5 @@ dependencies {
 
     implementation project(path: ':updateApp')
     implementation project(path: ':http-float-log')
+    implementation project(path: ':file-download')
 }
