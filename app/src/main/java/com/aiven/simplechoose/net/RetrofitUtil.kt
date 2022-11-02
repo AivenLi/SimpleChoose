@@ -6,6 +6,7 @@ import com.aiven.simplechoose.app.task.Task
 import com.aiven.simplechoose.app.task.TaskApp
 import com.aiven.simplechoose.net.api.ServiceApi
 import com.aiven.simplechoose.net.interceptors.LogInterceptor
+import com.aiven.simplechoose.net.interceptors.TokenInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -51,7 +52,8 @@ object RetrofitUtil: Task {
         return OkHttpClient.Builder()
             .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
             .readTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
-            //.addInterceptor(LogInterceptor(FloatManager.getInstance(null).handler))
+            //.addInterceptor(TokenInterceptor())
+            //.addInterceptor(LogInterceptor())
             .addInterceptor(com.aiven.hfl.LogInterceptor(FloatManager.getInstance(null).handler))
             .build()
     }
