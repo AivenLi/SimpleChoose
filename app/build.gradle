@@ -117,6 +117,8 @@ dependencies {
     // Room数据库
     implementation rootProject.ext.dependencies.roomRuntime
     kapt rootProject.ext.dependencies.roomCompiler
+    implementation rootProject.ext.dependencies.roomRxJava
+    
     // 点击图片查看大图
     implementation rootProject.ext.dependencies.bigImageViewPager
 

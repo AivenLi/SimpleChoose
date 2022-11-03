@@ -15,4 +15,9 @@
     <color name="normal_refresh_bg">#ff005777</color>
     <color name="normal_refresh_txt">#ffa0a0a0</color>
     <color name="dialog_universal_bg">#ffffffff</color>
+    <color name="score_is_a">#ffff0000</color>
+    <color name="score_is_b">#ffcc0000</color>
+    <color name="score_is_c">#ff990000</color>
+    <color name="score_is_d">#ff660000</color>
+    <color name="score_is_other">#ff330000</color>
 </resources>

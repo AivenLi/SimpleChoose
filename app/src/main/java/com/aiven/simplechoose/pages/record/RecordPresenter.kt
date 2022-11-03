@@ -1,5 +1,6 @@
 package com.aiven.simplechoose.pages.record
 
+import com.aiven.simplechoose.db.DBCallback
 import com.aiven.simplechoose.db.entity.TestPaperRecord
 import com.aiven.simplechoose.mvp.BasePresenter
 import com.aiven.simplechoose.net.callback.BaseError
@@ -14,26 +15,53 @@ class RecordPresenter: BasePresenter<RecordContract.Model, RecordContract.View>(
         return RecordModelImpl()
     }
 
-    override fun getRecordSuccess(refresh: Boolean) {
+    override fun getRecord(refresh: Boolean) {
         if (refresh) {
             page = 0
         }
         mModel?.getRecordByPage(
             page = page,
             size = size,
-            requestCallback = object : RequestCallback<List<TestPaperRecord>> {
-                override fun onSuccess(data: List<TestPaperRecord>?) {
-                    data?.let { mView?.getRecordSuccess(it) }
+            object : DBCallback<List<TestPaperRecord>> {
+                override fun onDBResult(data: List<TestPaperRecord>?) {
+                    if (!data.isNullOrEmpty()) {
+                        mView?.getRecordSuccess(data, refresh)
+                        page++
+                    }
                 }
 
-                override fun onFailure(error: BaseError) {
-                    mView?.onRequestError(error)
+                override fun onDBError(error: String) {
+                    mView?.getRecordFailure(error)
                 }
 
-                override fun onRequestFinish() {
+                override fun onDBFinish() {
                     mView?.onRequestFinish()
                 }
             }
         )
+    }
+
+    override fun deleteRecord(id: Long) {
+        mModel?.deleteRecord(id, object : DBCallback<Unit> {
+            override fun onDBResult(data: Unit?) {
+                mView?.deleteRecordSuccess()
+            }
+
+            override fun onDBError(error: String) {
+                mView?.deleteRecordFailure(error)
+            }
+        })
+    }
+
+    override fun deleteRecord(record: TestPaperRecord) {
+        mModel?.deleteRecord(record, object : DBCallback<Unit> {
+            override fun onDBResult(data: Unit?) {
+                mView?.deleteRecordSuccess()
+            }
+
+            override fun onDBError(error: String) {
+                mView?.deleteRecordFailure(error)
+            }
+        })
     }
 }

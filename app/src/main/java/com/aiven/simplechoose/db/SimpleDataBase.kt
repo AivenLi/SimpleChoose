@@ -30,7 +30,7 @@ abstract class SimpleDataBase : RoomDatabase() {
                     SimpleDataBase::class.java,
                     "SIMPLE_CHOOSE_DB"
                 )
-                    .allowMainThreadQueries()
+                    //.allowMainThreadQueries()
                     .build()
         }
 
