@@ -1,16 +1,16 @@
 package com.aiven.simplechoose.pages.home
 
 
+import android.content.Context
+import android.content.Intent
 import android.view.MenuItem
 import android.view.View
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.ViewPager2FragmentAdapter
 import com.aiven.simplechoose.databinding.ActivityHomeBinding
 import com.aiven.simplechoose.pages.BaseActivity
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.navigation.NavigationBarView
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(
@@ -19,6 +19,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(
 
     private var curIndex = 0
     private var exitTime = 0L
+
+    companion object {
+        fun start(context: Context) {
+            Intent(context, HomeActivity::class.java).run {
+                context.startActivity(this)
+            }
+        }
+    }
 
     override fun initView() {
         val fragments = arrayListOf<Fragment>(

@@ -3,10 +3,14 @@ package com.aiven.simplechoose.pages.home
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
+import com.aiven.simplechoose.bean.dto.UpdateAppDTO
 import com.aiven.simplechoose.databinding.FragmentHomeBinding
 import com.aiven.simplechoose.mvp.MVPFragment
 import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.pages.home.adapter.TestPaperTypeAdapter
+import com.aiven.simplechoose.utils.Constant
+import com.aiven.updateapp.bean.UpdateAppBean
+import com.aiven.updateapp.util.UpdateAppUtil
 import com.google.gson.Gson
 import com.kennyc.view.MultiStateView
 
@@ -40,13 +44,14 @@ class HomeFragment : MVPFragment<FragmentHomeBinding, HomeContract.View, HomeCon
     }
 
     override fun initData() {
-        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_LOADING
+        viewBinding.multiStatView.viewState = MultiStateView.ViewState.LOADING
         mPresenter.getQuestionTypeList()
+        mPresenter.checkAppUpdate()
     }
 
     override fun getQuestionListTypeSuccess(testPaperTypeDTOList: ArrayList<TestPaperTypeDTO>) {
         if (testPaperTypeDTOList.isEmpty() && this.testPaperTypeDTOList.isEmpty()) {
-            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            viewBinding.multiStatView.viewState = MultiStateView.ViewState.EMPTY
             return
         }
         if (this.testPaperTypeDTOList.size == testPaperTypeDTOList.size) {
@@ -58,13 +63,34 @@ class HomeFragment : MVPFragment<FragmentHomeBinding, HomeContract.View, HomeCon
         this.testPaperTypeDTOList.clear()
         this.testPaperTypeDTOList.addAll(testPaperTypeDTOList)
         testPaperTypeAdapter.notifyDataSetChanged()
-        viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_CONTENT
+        viewBinding.multiStatView.viewState = MultiStateView.ViewState.CONTENT
     }
 
     override fun getQuestionListTypeFailure(baseError: BaseError) {
         toast(baseError.msg!!)
         if (testPaperTypeDTOList.isEmpty()) {
-            viewBinding.multiStatView.viewState = MultiStateView.VIEW_STATE_ERROR
+            viewBinding.multiStatView.viewState = MultiStateView.ViewState.ERROR
+        }
+    }
+
+    override fun checkAppUpdateSuccess(updateAppDTO: UpdateAppDTO) {
+        val mode = UpdateAppUtil.getUpdateMode(requireActivity(), updateAppDTO.minVersion, updateAppDTO.versionName)
+        if (mode != -1) {
+            val updateAppBean = UpdateAppBean()
+            updateAppBean.version = updateAppDTO.versionName
+            updateAppBean.minVersion = updateAppDTO.minVersion
+            updateAppBean.desc = updateAppDTO.desc
+            updateAppBean.url = updateAppDTO.url
+            updateAppBean.apkSize = updateAppDTO.apkSize
+            updateAppBean.md5 = updateAppDTO.md5
+            updateAppBean.mode = mode
+            UpdateAppUtil(
+                requireActivity(),
+                lifecycle
+            ).setDownloadTempFileTag(Constant.UPDATE_APP_TEMP_FILENAME)
+                .setDownloadDoneFileTag(Constant.UPDATE_APP_DONE_FILENAME)
+                .setDownloadPath(requireActivity().cacheDir.absolutePath)
+                .setUpdateAppBean(updateAppBean)
         }
     }
 

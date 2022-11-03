@@ -1,8 +1,13 @@
 package com.aiven.simplechoose.pages.splash
 
+import android.content.Intent
+import android.net.Uri
 import android.os.*
+import android.provider.Settings
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.Nullable
+import com.aiven.hfl.util.FloatManager
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.databinding.ActivitySplashBinding
 import com.aiven.simplechoose.databinding.DialogYesNoBinding
@@ -78,10 +83,30 @@ class SplashActivity: BaseActivity<ActivitySplashBinding>(ActivitySplashBinding:
         handler = object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
                 if (msg.what == 1023) {
-                    HomeActivity.start(this@SplashActivity)
-                    finish()
+                    if (!Settings.canDrawOverlays(this@SplashActivity)) {
+                        val intent =
+                            Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
+                        startActivityForResult(intent, 10000)
+                    } else {
+                        val floatManager = FloatManager.getInstance(this@SplashActivity)
+                        floatManager.startFloat()
+                        floatManager.setFloatViewVisible()
+                        HomeActivity.start(this@SplashActivity)
+                        finish()
+                    }
                 }
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 10000 && Settings.canDrawOverlays(this)) {
+            val floatManager = FloatManager.getInstance(this)
+            floatManager.startFloat()
+            floatManager.setFloatViewVisible()
+            HomeActivity.start(this@SplashActivity)
+            finish()
         }
     }
 

@@ -53,7 +53,7 @@ object RetrofitUtil: Task {
             .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
             .readTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
             //.addInterceptor(TokenInterceptor())
-            //.addInterceptor(LogInterceptor())
+            .addInterceptor(LogInterceptor())
             .addInterceptor(com.aiven.hfl.LogInterceptor(FloatManager.getInstance(null).handler))
             .build()
     }

@@ -3,14 +3,13 @@ package com.aiven.simplechoose.pages.home
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.OnSingleClickListener
+import com.aiven.simplechoose.bean.dto.SettingBean
+import com.aiven.simplechoose.bean.dto.SettingType
 import com.aiven.simplechoose.databinding.FragmentMineBinding
 import com.aiven.simplechoose.pages.BaseFragment
 import com.aiven.simplechoose.pages.home.adapter.MineAdapter
 import com.aiven.simplechoose.pages.record.RecordActivity
 import com.aiven.simplechoose.pages.setting.SettingActivity
-import com.aiven.simplechoose.pages.setting.adapter.SettingAdapter
-import com.aiven.simplechoose.pages.setting.bean.SettingBean
-import com.aiven.simplechoose.pages.setting.bean.SettingType
 
 class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::inflate) {
 

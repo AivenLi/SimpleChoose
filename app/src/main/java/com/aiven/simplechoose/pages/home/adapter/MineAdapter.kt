@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aiven.simplechoose.adapter.OnSingleClickListener
+import com.aiven.simplechoose.bean.dto.SettingBean
 import com.aiven.simplechoose.databinding.ItemMineBinding
-import com.aiven.simplechoose.pages.setting.bean.SettingBean
 import com.aiven.simplechoose.utils.setSingleClickListener
 
 class MineAdapter(
