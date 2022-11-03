@@ -1,202 +1,91 @@
 package com.aiven.simplechoose.pages.home
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
-import android.view.Gravity
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import com.aiven.hfl.util.DeviceUtil
-import com.aiven.hfl.util.FloatManager
+
+import android.view.MenuItem
+import android.view.View
+import androidx.core.view.get
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.aiven.simplechoose.R
-import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
-import com.aiven.simplechoose.bean.dto.UpdateAppDTO
+import com.aiven.simplechoose.adapter.ViewPager2FragmentAdapter
 import com.aiven.simplechoose.databinding.ActivityHomeBinding
-import com.aiven.simplechoose.databinding.DialogLoadingBinding
-import com.aiven.simplechoose.mvp.MVPActivity
-import com.aiven.simplechoose.net.callback.BaseError
-import com.aiven.simplechoose.pages.CustomDialog
-import com.aiven.simplechoose.pages.home.adapter.TestPaperTypeAdapter
-import com.aiven.simplechoose.pages.setting.SettingActivity
-import com.aiven.simplechoose.utils.Constant
-import com.aiven.simplechoose.utils.ThemeUtils
-import com.aiven.simplechoose.utils.setSingleClickListener
-import com.aiven.updateapp.bean.UpdateAppBean
-import com.aiven.updateapp.util.UpdateAppUtil
-import com.bumptech.glide.Glide
-import com.google.gson.Gson
-import com.kennyc.view.MultiStateView
-import io.reactivex.rxjava3.disposables.Disposable
-import android.os.Build
-import android.provider.ContactsContract
+import com.aiven.simplechoose.pages.BaseActivity
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.navigation.NavigationBarView
 
-import android.provider.Settings
-import android.view.MotionEvent
-import androidx.annotation.Nullable
-import com.aiven.fdd.download.NetDownloadFactoryBuilder
-import com.aiven.fdd.listener.DownloadListener
-import java.io.File
-
-
-class HomeActivity : MVPActivity<ActivityHomeBinding, HomeContract.View, HomeContract.Presenter>(
+class HomeActivity : BaseActivity<ActivityHomeBinding>(
     ActivityHomeBinding::inflate
-), HomeContract.View {
+), NavigationBarView.OnItemSelectedListener {
 
-    private val testPaperTypeDTOList = ArrayList<TestPaperTypeDTO>()
-    private val testPaperTypeAdapter by lazy {
-        TestPaperTypeAdapter(this, testPaperTypeDTOList)
-    }
-
-    private val gson by lazy {
-        Gson()
-    }
-
-    companion object {
-        fun start(context: Context) {
-            context.startActivity(
-                Intent(
-                    context,
-                    HomeActivity::class.java
-                )
-            )
-        }
-    }
+    private var curIndex = 0
+    private var exitTime = 0L
 
     override fun initView() {
-        if (ThemeUtils.isDarkMode(this)) {
-            Log.d(TAG, "黑夜模式")
-        } else {
-            Log.d(TAG, "正常模式")
-        }
-        viewBinding.recyclerView.adapter = testPaperTypeAdapter
-        viewBinding.recyclerView.layoutManager = GridLayoutManager(this, 2)
-        viewBinding.smartRefresh.setOnRefreshListener {
-            mPresenter.getQuestionTypeList()
-        }
-        if (!Settings.canDrawOverlays(this)) {
-            val intent =
-                Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
-            startActivityForResult(intent, 10000)
-        } else {
-            val floatManager = FloatManager.getInstance(this)
-            floatManager.startFloat()
-            floatManager.setFloatViewVisible()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 10000 && Settings.canDrawOverlays(this)) {
-            val floatManager = FloatManager.getInstance(this)
-            floatManager.startFloat()
-            floatManager.setFloatViewVisible()
-        }
-    }
-
-    override fun initData() {
-        viewBinding.multiStatView.viewState = MultiStateView.ViewState.LOADING
-        mPresenter.getQuestionTypeList()
-        mPresenter.checkAppUpdate()
-//        Thread {
-//            val factoryBuilder = NetDownloadFactoryBuilder()
-//                .setUrl("https://pps.sd-play.com/20220113/lrx120Zk/index.m3u8")
-//                .setPath("${cacheDir.absolutePath}${File.separator}testDownload")
-//                .setFilename("testFile")
-//                .setThreadCount(30)
-//                .setRetryTimes(5)
-//                .setTimeout(30000L)
-//                .setDownloadListener(object : DownloadListener {
-//                    override fun startDownload() {
-//                        Log.d(TAG, "开始下载")
-//                        Log.d(TAG, "当前线程：${Thread.currentThread()}")
-//                    }
-//
-//                    override fun onProgress(percent: Float, netSpeed: String) {
-//                        Log.d(TAG, "下载进度：%$percent, 速度：$netSpeed/s")
-//                    }
-//
-//                    override fun onError(error: String?) {
-//                        Log.d(TAG, "下载错误：$error")
-//                        Log.d(TAG, "当前线程：${Thread.currentThread()}")
-//                    }
-//
-//                    override fun onFinish(path: String?) {
-//                        Log.d(TAG, "下载完成：$path")
-//                    }
-//
-//                })
-//                .builder()
-//            factoryBuilder.startDownload()
-//            Thread.sleep(5000L)
-//            factoryBuilder.stopDownload(false)
-//        }.start()
+        val fragments = arrayListOf<Fragment>(
+            HomeFragment(),
+            MineFragment()
+        )
+        viewBinding.viewPager2.adapter = ViewPager2FragmentAdapter(
+            supportFragmentManager,
+            lifecycle,
+            fragments
+        )
+        viewBinding.navigationBottom.setOnItemSelectedListener(this)
+        viewBinding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                setBottomNavigationSelected(position)
+            }
+        })
+        removeNavigationBottomLongClickToast()
     }
 
     override fun initClick() {
-        viewBinding.imgSetting.setSingleClickListener {
-            SettingActivity.start(this@HomeActivity)
-        }
-    }
-
-    override fun getQuestionListTypeSuccess(testPaperTypeDTOList: ArrayList<TestPaperTypeDTO>) {
-        if (testPaperTypeDTOList.isEmpty() && this.testPaperTypeDTOList.isEmpty()) {
-            viewBinding.multiStatView.viewState = MultiStateView.ViewState.EMPTY
-            return
-        }
-        if (this.testPaperTypeDTOList.size == testPaperTypeDTOList.size) {
-            if (gson.toJson(this.testPaperTypeDTOList) == gson.toJson(testPaperTypeDTOList)) {
-                Log.d(TAG, "数据一样，返回")
-                return
-            }
-        }
-        this.testPaperTypeDTOList.clear()
-        this.testPaperTypeDTOList.addAll(testPaperTypeDTOList)
-        testPaperTypeAdapter.notifyDataSetChanged()
-        viewBinding.multiStatView.viewState = MultiStateView.ViewState.CONTENT
-    }
-
-    override fun getQuestionListTypeFailure(baseError: BaseError) {
-        toast(baseError.msg!!)
-        if (testPaperTypeDTOList.isEmpty()) {
-            viewBinding.multiStatView.viewState = MultiStateView.ViewState.ERROR
-        }
-    }
-
-    override fun onRequestFinish() {
-        if (viewBinding.smartRefresh.isRefreshing) {
-            viewBinding.smartRefresh.finishRefresh()
-        }
-    }
-
-    override fun checkAppUpdateSuccess(updateAppDTO: UpdateAppDTO) {
-        val mode = UpdateAppUtil.getUpdateMode(this@HomeActivity, updateAppDTO.minVersion, updateAppDTO.versionName)
-        if (mode != -1) {
-            val updateAppBean = UpdateAppBean()
-            updateAppBean.version = updateAppDTO.versionName
-            updateAppBean.minVersion = updateAppDTO.minVersion
-            updateAppBean.desc = updateAppDTO.desc
-            updateAppBean.url = updateAppDTO.url
-            updateAppBean.apkSize = updateAppDTO.apkSize
-            updateAppBean.md5 = updateAppDTO.md5
-            updateAppBean.mode = mode
-            UpdateAppUtil(
-                this@HomeActivity,
-                lifecycle
-            ).setDownloadTempFileTag(Constant.UPDATE_APP_TEMP_FILENAME)
-                .setDownloadDoneFileTag(Constant.UPDATE_APP_DONE_FILENAME)
-                .setDownloadPath(cacheDir.absolutePath)
-                .setUpdateAppBean(updateAppBean)
-        }
-    }
-
-    override fun createPresenter(): HomePresenter {
-        return HomePresenter()
     }
 
     override fun getDebugTAG(): String {
-        return "${HomeActivity::class.java.simpleName}Debug"
+        return HomeActivity::class.java.simpleName
+    }
+
+    override fun onBackPressed() {
+        exit()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        var index = curIndex
+        when (item.itemId) {
+            R.id.item_home -> index = 0
+            R.id.item_mine -> index = 1
+        }
+        if (index == curIndex) {
+            return false
+        }
+        curIndex = index
+        viewBinding.viewPager2.currentItem = index
+        return true
+    }
+
+    private fun removeNavigationBottomLongClickToast() {
+        val bottomNavigationView =  viewBinding.navigationBottom.getChildAt(0)
+        bottomNavigationView.findViewById<View>(R.id.item_home).setOnLongClickListener { true }
+        bottomNavigationView.findViewById<View>(R.id.item_mine).setOnLongClickListener { true }
+    }
+
+    private fun setBottomNavigationSelected(position: Int) {
+        if (position == 0) {
+            viewBinding.navigationBottom.selectedItemId = R.id.item_home
+        } else {
+            viewBinding.navigationBottom.selectedItemId = R.id.item_mine
+        }
+    }
+
+    private fun exit() {
+        val interval = System.currentTimeMillis() - exitTime
+        if (interval > 2000L) {
+            toast(getString(R.string.enter_to_exit_again))
+            exitTime = System.currentTimeMillis()
+        } else {
+            finish()
+        }
     }
 }

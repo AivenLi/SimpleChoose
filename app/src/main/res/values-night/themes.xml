@@ -33,6 +33,11 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <style name="BottomNavigation" parent="Theme.SimpleChoose">
+        <item name="colorPrimary">@color/main</item>
+        <item name="android:textColorSecondary">@color/secondary</item>
+    </style>
+
     <style name="SwitchCompat" parent="Theme.SimpleChoose">
         <item name="colorControlActivated">@color/main</item>
         <item name="colorSwitchThumbNormal">@color/item_desc</item>

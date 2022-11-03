@@ -3,57 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?colorSplitLine"
     >
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clt_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar_height"
-        android:background="?colorMain"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-        <TextView
-            android:id="@+id/tv_page_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/home"
-            android:textSize="@dimen/text_page_title"
-            android:textColor="?colorPageTitle"
-            android:gravity="center"
-            />
-        <ImageView
-            android:id="@+id/img_setting"
-            android:layout_width="@dimen/small_icon"
-            android:layout_height="@dimen/small_icon"
-            android:src="@drawable/ic_setting"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/page_margin"
-            app:tint="?colorPageTitle"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/smart_refresh"
-        android:layout_width="match_parent"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_2"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:srlEnableLoadMore="false"
-        app:layout_constraintTop_toBottomOf="@id/clt_title_bar"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigation_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation_bottom"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toBottomOf="@id/view_pager_2"
         app:layout_constraintBottom_toBottomOf="parent"
-        >
-        <com.kennyc.view.MultiStateView
-            android:id="@+id/multi_stat_view"
-            style="@style/MultiStatView"
-            >
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:overScrollMode="never"
-                android:layout_marginBottom="@dimen/page_margin"
-                android:padding="@dimen/page_margin"
-                />
-        </com.kennyc.view.MultiStateView>
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/home_bottom_navigation"
+        android:background="?colorSplitLine"
+        app:labelVisibilityMode="labeled"
+        android:theme="@style/BottomNavigation"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

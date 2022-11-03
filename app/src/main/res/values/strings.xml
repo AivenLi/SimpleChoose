@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">SimpleChoose</string>
     <string name="home">首页</string>
+    <string name="mine">我的</string>
     <string name="yes">确定</string>
     <string name="cancel">取消</string>
+    <string name="enter_to_exit_again">再按一次退出</string>
     <string name="no_open_now">暂不开放</string>
     <string name="empty_text">这颗星球没有您想要的数据</string>
     <string name="error_text">我又失败了，呜呜呜…</string>
@@ -45,6 +47,7 @@
     <string name="choose_time">选择时间</string>
     <string name="click_item_choose_goto_next">选择后自动跳到下一题</string>
     <string name="multi_choose_no_goto_next">多选题不会自动跳下一题</string>
+    <string name="test_paper_record">考试记录</string>
     <string name="first_run_accept_title">使用说明</string>
     <string name="first_run_accept_desc">
         1. 本App仅用于学习交流，不得用于商业用途，否则造成的后果自负。\n

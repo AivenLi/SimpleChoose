@@ -1,12 +1,15 @@
 package com.aiven.simplechoose.pages.testPaperDetail
 
 import com.aiven.simplechoose.bean.dto.QuestionDTO
+import com.aiven.simplechoose.db.SimpleDataBase
+import com.aiven.simplechoose.db.entity.TestPaperRecord
 import com.aiven.simplechoose.mvp.BaseModel
 import com.aiven.simplechoose.net.BaseRequest
 import com.aiven.simplechoose.net.callback.RequestCallback
 import com.aiven.simplechoose.bean.dto.ResultBean
 import com.aiven.simplechoose.bean.enums.AnswerResult
 import com.aiven.simplechoose.pages.testPaperDetail.api.TestPaperDetailApi
+import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -17,6 +20,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi::class.java), TestPaperDetailContract.Model {
 
     private val type = object : TypeToken<ArrayList<QuestionDTO>>(){}.type
+    private val gson = Gson()
 
     override fun getTestPaperDetail(
         url: String,
@@ -87,11 +91,20 @@ class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi
                     }
                 }
             }
+            val score = ((rightNum.toFloat() / (rightNum + leftNum + unCheckNum)) * 100f)
+            val testPaperRecord =
+                TestPaperRecord(
+                    title = title,
+                    timestamp = System.currentTimeMillis(),
+                    score = score,
+                    jsonStr = gson.toJson(questionDTOList)
+                )
+            SimpleDataBase.getInstance().testPaperRecordDao().insert(testPaperRecord)
             Thread.sleep(1000L)
             it.onNext(
                 ResultBean(
                     title = title,
-                    score = ((rightNum.toFloat() / (rightNum + leftNum + unCheckNum)) * 100f),
+                    score = score,
                     rightNum = rightNum,
                     leftNum = leftNum,
                     unCheckNum = unCheckNum,
