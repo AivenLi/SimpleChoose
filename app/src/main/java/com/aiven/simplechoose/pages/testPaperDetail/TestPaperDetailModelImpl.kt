@@ -9,6 +9,7 @@ import com.aiven.simplechoose.net.callback.RequestCallback
 import com.aiven.simplechoose.bean.dto.ResultBean
 import com.aiven.simplechoose.bean.enums.AnswerResult
 import com.aiven.simplechoose.pages.testPaperDetail.api.TestPaperDetailApi
+import com.aiven.simplechoose.utils.doSql
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -99,7 +100,7 @@ class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi
                     score = score,
                     jsonStr = gson.toJson(questionDTOList)
                 )
-            SimpleDataBase.getInstance().testPaperRecordDao().insert(testPaperRecord)
+            SimpleDataBase.getInstance().testPaperRecordDao().insert(testPaperRecord).doSql(null)
             Thread.sleep(1000L)
             it.onNext(
                 ResultBean(

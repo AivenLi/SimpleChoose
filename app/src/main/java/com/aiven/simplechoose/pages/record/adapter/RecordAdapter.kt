@@ -8,14 +8,25 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aiven.simplechoose.R
+import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.databinding.ItemRecordBinding
 import com.aiven.simplechoose.db.entity.TestPaperRecord
+import com.aiven.simplechoose.pages.testPaperDetail.TestPaperDetailActivity
+import com.aiven.simplechoose.utils.setSingleClickListener
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class RecordAdapter(
     private val context: Context
 ) : RecyclerView.Adapter<RecordAdapter.ViewHolder>() {
 
     private val mData = arrayListOf<TestPaperRecord>()
+    private val gson by lazy {
+        Gson()
+    }
+    private val type by lazy {
+        object : TypeToken<ArrayList<QuestionDTO>>(){}.type
+    }
 
     fun updateData(list: List<TestPaperRecord>) {
         mData.clear()
@@ -51,6 +62,13 @@ class RecordAdapter(
         viewBinding.tvName.text = item.title
         viewBinding.tvScore.text = context.getString(R.string.number_2_bit, item.score)
         viewBinding.tvScore.setTextColor(getScoreColor(item.score))
+        viewBinding.root.setSingleClickListener {
+            TestPaperDetailActivity.start(
+                context,
+                gson.fromJson<ArrayList<QuestionDTO>>(item.jsonStr, type),
+                item.title
+            )
+        }
     }
 
     @ColorInt

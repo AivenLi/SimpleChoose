@@ -25,21 +25,21 @@ inline fun <T: View> T.setSingleClickListener(timeout: Long = 1000, crossinline 
     }
 }
 
-fun Completable.doSql(dbCallback: DBCallback<Unit>) {
+fun Completable.doSql(dbCallback: DBCallback<Unit>?) {
     this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(object : CompletableObserver {
             override fun onSubscribe(d: Disposable) {
-                dbCallback.onDBStart(d)
+                dbCallback?.onDBStart(d)
             }
 
             override fun onComplete() {
-                dbCallback.onDBFinish()
+                dbCallback?.onDBFinish()
             }
 
             override fun onError(e: Throwable) {
-                dbCallback.onDBError(e.toString())
-                dbCallback.onDBFinish()
+                dbCallback?.onDBError(e.toString())
+                dbCallback?.onDBFinish()
             }
         })
 }

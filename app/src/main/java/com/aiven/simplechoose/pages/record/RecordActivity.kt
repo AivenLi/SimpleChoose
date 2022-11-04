@@ -55,7 +55,7 @@ class RecordActivity : MVPActivity<ActivityRecordBinding, RecordContract.View, R
     }
 
     override fun getRecordSuccess(records: List<TestPaperRecord>, isRefresh: Boolean) {
-        Log.d(TAG, "获取成功：${records.size}")
+        Log.d(TAG, "获取成功：${records.size}, data: $records")
         if (isRefresh) {
             recordAdapter.updateData(records)
         } else {

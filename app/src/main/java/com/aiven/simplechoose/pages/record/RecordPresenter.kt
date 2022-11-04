@@ -35,7 +35,7 @@ class RecordPresenter: BasePresenter<RecordContract.Model, RecordContract.View>(
                 }
 
                 override fun onDBFinish() {
-                    mView?.onRequestFinish()
+                    mView?.getRecordFinish()
                 }
             }
         )
