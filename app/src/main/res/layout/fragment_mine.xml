@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <View
         android:layout_width="match_parent"
         android:layout_height="400dp"
@@ -32,7 +33,7 @@
                     android:id="@+id/img_avatar"
                     android:layout_width="@dimen/big_icon"
                     android:layout_height="@dimen/big_icon"
-                    android:src="@mipmap/ic_launcher_round"
+                    android:src="@mipmap/ic_app"
                     />
                 <TextView
                     android:id="@+id/tv_name"
@@ -53,6 +54,9 @@
                 android:layout_marginStart="@dimen/page_margin"
                 android:layout_marginEnd="@dimen/page_margin"
                 android:layout_marginBottom="@dimen/page_margin"
+                tools:listitem="@layout/item_setting_click"
+                tools:itemCount="5"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
         </LinearLayout>
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>

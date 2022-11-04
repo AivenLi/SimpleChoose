@@ -26,19 +26,20 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                 action = MineAction.TEST_RECORD
             ),
             SettingBean(
-                title  = getString(R.string.setting),
-                desc   = null,
-                type   = SettingType.CLICK,
-                icon   = R.drawable.ic_setting,
-                action = MineAction.SETTING
-            ),
-            SettingBean(
                 title  = getString(R.string.qr_create),
                 desc   = null,
                 type   = SettingType.CLICK,
                 icon   = R.drawable.ic_baseline_qr_code_24,
                 action = MineAction.QR_CREATE
+            ),
+            SettingBean(
+                title  = getString(R.string.setting),
+                desc   = null,
+                type   = SettingType.CLICK,
+                icon   = R.drawable.ic_setting,
+                action = MineAction.SETTING
             )
+
         )
         viewBinding.recyclerView.adapter = MineAdapter(data).apply {
             setOnSingleClickListener {
