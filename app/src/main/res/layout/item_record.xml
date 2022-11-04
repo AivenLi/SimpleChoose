@@ -9,24 +9,36 @@
     >
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="测试1"
         android:textSize="@dimen/text_item_title"
         android:textColor="?colorItemTitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_score"
         android:layout_marginStart="@dimen/page_margin"
         />
     <TextView
-        android:id="@+id/tv_score"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="90"
+        tools:text="2022-04-05 12:00:00"
+        android:textSize="@dimen/text_item_desc"
+        android:textColor="?colorItemDesc"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_name"
+        android:layout_marginTop="4dp"
+        />
+    <TextView
+        android:id="@+id/tv_score"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        tools:text="分数：100.00"
         android:textSize="@dimen/text_item_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_date"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/page_margin"
         />

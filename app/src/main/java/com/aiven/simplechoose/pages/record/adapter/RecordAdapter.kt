@@ -12,6 +12,7 @@ import com.aiven.simplechoose.bean.dto.QuestionDTO
 import com.aiven.simplechoose.databinding.ItemRecordBinding
 import com.aiven.simplechoose.db.entity.TestPaperRecord
 import com.aiven.simplechoose.pages.testPaperDetail.TestPaperDetailActivity
+import com.aiven.simplechoose.utils.DateUtils
 import com.aiven.simplechoose.utils.setSingleClickListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -60,7 +61,8 @@ class RecordAdapter(
 
     private fun onBind(viewBinding: ItemRecordBinding, item: TestPaperRecord, position: Int) {
         viewBinding.tvName.text = item.title
-        viewBinding.tvScore.text = context.getString(R.string.number_2_bit, item.score)
+        viewBinding.tvDate.text = DateUtils.timestampToDateFormat(item.timestamp)
+        viewBinding.tvScore.text = context.getString(R.string.score, item.score)
         viewBinding.tvScore.setTextColor(getScoreColor(item.score))
         viewBinding.root.setSingleClickListener {
             TestPaperDetailActivity.start(

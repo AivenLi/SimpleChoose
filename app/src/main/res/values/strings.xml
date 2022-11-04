@@ -4,7 +4,7 @@
     <string name="mine">我的</string>
     <string name="yes">确定</string>
     <string name="cancel">取消</string>
-    <string name="enter_to_exit_again">再按一次退出</string>
+    <string name="enter_to_exit_again">再按一次退出程序</string>
     <string name="no_open_now">暂不开放</string>
     <string name="empty_text">这颗星球没有您想要的数据</string>
     <string name="error_text">我又失败了，呜呜呜…</string>
@@ -47,6 +47,7 @@
     <string name="you_need_granted_permission">您需要授予读写文件权限才能保存到相册中</string>
     <string name="save_success">保存成功：%1$s</string>
     <string name="save_failure">保存失败：%1$s</string>
+    <string name="score">分数：%1$.2f</string>
     <string name="minute">分钟</string>
     <string name="arg_minute">%1$d分钟</string>
     <string name="choose_time">选择时间</string>
