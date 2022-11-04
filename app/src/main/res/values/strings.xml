@@ -19,6 +19,7 @@
     <string name="left_title">错误：</string>
     <string name="uncheck_title">未选：</string>
     <string name="use_time_title">用时：</string>
+    <string name="use_time_and_value">用时：%1$s</string>
     <string name="checked">已选：</string>
     <string name="parse">解析：</string>
     <string name="show_parse">查看解析</string>

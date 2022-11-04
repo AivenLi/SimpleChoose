@@ -96,6 +96,7 @@ class TestPaperDetailModelImpl: BaseModel<TestPaperDetailApi>(TestPaperDetailApi
             val testPaperRecord =
                 TestPaperRecord(
                     title = title,
+                    usetime = useTime,
                     timestamp = System.currentTimeMillis(),
                     score = score,
                     jsonStr = gson.toJson(questionDTOList)

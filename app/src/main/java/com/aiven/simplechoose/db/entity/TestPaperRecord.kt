@@ -8,6 +8,7 @@ data class TestPaperRecord(
     @PrimaryKey(autoGenerate = true)
     val id        : Long = 0,
     val title     : String,
+    val usetime   : Long,
     val timestamp : Long,
     val score     : Float,
     val jsonStr   : String

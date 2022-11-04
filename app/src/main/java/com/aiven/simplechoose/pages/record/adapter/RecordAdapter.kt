@@ -13,6 +13,7 @@ import com.aiven.simplechoose.databinding.ItemRecordBinding
 import com.aiven.simplechoose.db.entity.TestPaperRecord
 import com.aiven.simplechoose.pages.testPaperDetail.TestPaperDetailActivity
 import com.aiven.simplechoose.utils.DateUtils
+import com.aiven.simplechoose.utils.TimeUtils
 import com.aiven.simplechoose.utils.setSingleClickListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -61,6 +62,7 @@ class RecordAdapter(
 
     private fun onBind(viewBinding: ItemRecordBinding, item: TestPaperRecord, position: Int) {
         viewBinding.tvName.text = item.title
+        viewBinding.tvUseTime.text = context.getString(R.string.use_time_and_value, TimeUtils.millionToHourMinuteSecond(item.usetime))
         viewBinding.tvDate.text = DateUtils.timestampToDateFormat(item.timestamp)
         viewBinding.tvScore.text = context.getString(R.string.score, item.score)
         viewBinding.tvScore.setTextColor(getScoreColor(item.score))
