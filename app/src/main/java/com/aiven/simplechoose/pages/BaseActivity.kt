@@ -17,7 +17,7 @@ abstract class BaseActivity<VB: ViewBinding>(
         super.onCreate(savedInstanceState)
         viewBinding = inflate(layoutInflater)
         setContentView(viewBinding.root)
-        TAG = getDebugTAG()
+        TAG = "${getDebugTAG()}-Debug"
         initView()
         initClick()
     }

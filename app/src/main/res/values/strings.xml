@@ -42,6 +42,11 @@
 
     <string name="setting">设置</string>
     <string name="test_paper_times">考试时间</string>
+    <string name="qr_create">生成二维码</string>
+    <string name="save_qr_code">保存二维码到相册</string>
+    <string name="you_need_granted_permission">您需要授予读写文件权限才能保存到相册中</string>
+    <string name="save_success">保存成功：%1$s</string>
+    <string name="save_failure">保存失败：%1$s</string>
     <string name="minute">分钟</string>
     <string name="arg_minute">%1$d分钟</string>
     <string name="choose_time">选择时间</string>
@@ -53,4 +58,11 @@
         1. 本App仅用于学习交流，不得用于商业用途，否则造成的后果自负。\n
         2. 本App所展示的数据均来自网上，收集于此以供学习交流使用。如有侵权，请联系删除，邮箱：604952198@qq.com。\n
     </string>
+    <string name="qr_content_hint">请输入内容</string>
+    <string name="height">高度（px）</string>
+    <string name="width">宽度（px）</string>
+    <string name="qr_size">尺寸(px)</string>
+    <string name="content_can_not_empty">内容不能为空</string>
+    <string name="qr_size_can_not_less_50">尺寸最小为50px</string>
+    <string name="qr_default_size">200</string>
 </resources>

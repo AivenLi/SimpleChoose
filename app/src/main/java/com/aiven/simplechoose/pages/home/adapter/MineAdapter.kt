@@ -12,8 +12,8 @@ class MineAdapter(
     private val data: ArrayList<SettingBean>
 ) : RecyclerView.Adapter<MineAdapter.ViewHolder>() {
 
-    private var onSingleClickListener: OnSingleClickListener? = null
-    fun setOnSingleClickListener(listener: OnSingleClickListener) {
+    private var onSingleClickListener: ((item: SettingBean) -> Unit)? = null
+    fun setOnSingleClickListener(listener: ((item: SettingBean) -> Unit)?) {
         onSingleClickListener = listener
     }
 
@@ -35,7 +35,7 @@ class MineAdapter(
                 imgLeftIcon.setImageResource(item.icon)
             }
             root.setSingleClickListener {
-                onSingleClickListener?.onSingleClickListener(position)
+                onSingleClickListener?.invoke(data[position])
             }
         }
     }

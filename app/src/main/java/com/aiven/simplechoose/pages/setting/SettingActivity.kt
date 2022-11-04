@@ -12,6 +12,7 @@ import com.aiven.simplechoose.pages.BaseActivity
 import com.aiven.simplechoose.pages.setting.adapter.SettingAdapter
 import com.aiven.simplechoose.bean.dto.SettingBean
 import com.aiven.simplechoose.bean.dto.SettingType
+import com.aiven.simplechoose.bean.enums.MineAction
 import com.aiven.simplechoose.utils.Constant
 import com.aiven.simplechoose.utils.setSingleClickListener
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
@@ -110,7 +111,8 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(ActivitySettingBind
             SettingBean(
                 title = getString(R.string.test_paper_times),
                 desc  = secondToMinuteString(testPaperTime),
-                type  = SettingType.CLICK
+                type  = SettingType.CLICK,
+                action = MineAction.TEST_RECORD
             )
         )
         data.add(
@@ -118,7 +120,8 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(ActivitySettingBind
                 title = getString(R.string.click_item_choose_goto_next),
                 desc  = getString(R.string.multi_choose_no_goto_next),
                 type  = SettingType.SWITCH,
-                switch = mmkv.decodeBool(Constant.MMKV_CLCIK_GOTO_NEXT_QUESTION_KEY, true)
+                switch = mmkv.decodeBool(Constant.MMKV_CLCIK_GOTO_NEXT_QUESTION_KEY, true),
+                action = MineAction.TEST_RECORD
             )
         )
     }

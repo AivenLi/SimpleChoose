@@ -33,7 +33,8 @@ ext {
             consecutive_scroller        : "4.6.1",
             big_imageview_pager         : "6.1.3",
             android_picker_view         : "4.1.9",
-            gson                        : "2.8.9"
+            gson                        : "2.8.9",
+            zxing                       : "3.3.0",
     ]
 
     dependencies = [
@@ -75,5 +76,6 @@ ext {
             bigImageViewPager                      : "com.github.SherlockGougou:BigImageViewPager:androidx-${versions.big_imageview_pager}",
             androidPickerView                      : "com.contrarywind:Android-PickerView:${versions.android_picker_view}",
             gson                                   : "com.google.code.gson:gson:${versions.gson}",
+            zxing                                  : "com.google.zxing:core:${versions.zxing}",
     ]
 }
