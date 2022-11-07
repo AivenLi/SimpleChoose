@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.aiven.qcc.ErrorCorrectionLevel
 import com.aiven.qcc.OnQRCreateListener
 import com.aiven.qcc.QRCreator
 import com.aiven.simplechoose.R
@@ -32,6 +33,7 @@ import java.io.FileOutputStream
 class QRCodeActivity : BaseActivity<ActivityQrCodeBinding>(ActivityQrCodeBinding::inflate) {
 
     private var bitmap: Bitmap? = null
+    private var addLogo = true
 
     companion object {
         fun start(context: Context) {
@@ -61,10 +63,20 @@ class QRCodeActivity : BaseActivity<ActivityQrCodeBinding>(ActivityQrCodeBinding
                 return@setSingleClickListener
             }
             Log.d(TAG, "Content: $content, Size: $size")
-//            val bitmap = BitmapFactory.decodeResource(this@QRCodeActivity.resources, R.drawable.ic_app)
             QRCreator.Builder()
                 .setContent(content)
                 .setSize(size)
+                .apply {
+                    if (addLogo) {
+                        val bitmap = BitmapFactory.decodeResource(
+                            this@QRCodeActivity.resources,
+                            R.drawable.ic_app
+                        )
+                        setLogoBitmap(bitmap)
+                        setRecycleLogoBitmap(true)
+                        setErrorCorrectionLevel(ErrorCorrectionLevel.H)
+                    }
+                }
                 .setColorBlack(Color.RED)
                 .setColorWhite(Color.GREEN)
                 .setOnQRCreatorListener(object : OnQRCreateListener {
@@ -91,6 +103,14 @@ class QRCodeActivity : BaseActivity<ActivityQrCodeBinding>(ActivityQrCodeBinding
             if (hasReadWritePermission()) {
                 doSaveBitmapToPhotos()
             }
+        }
+        viewBinding.lytAddLogo.setSingleClickListener {
+            if (addLogo) {
+                viewBinding.imgChooseView.setImageResource(R.drawable.ic_un_choose)
+            } else {
+                viewBinding.imgChooseView.setImageResource(R.drawable.ic_choosed)
+            }
+            addLogo = !addLogo
         }
     }
 

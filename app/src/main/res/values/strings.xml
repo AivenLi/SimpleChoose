@@ -68,4 +68,5 @@
     <string name="content_can_not_empty">内容不能为空</string>
     <string name="qr_size_can_not_less_50">尺寸最小为50px</string>
     <string name="qr_default_size">200</string>
+    <string name="add_logo">添加logo</string>
 </resources>
