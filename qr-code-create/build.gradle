@@ -40,7 +40,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+// scanningCode
+    implementation 'cn.bingoogolapple:bga-qrcode-zxing:1.3.7'
+
     implementation rootProject.ext.dependencies.zxing
     implementation rootProject.ext.dependencies.RxAndroid
     implementation rootProject.ext.dependencies.RxJava
+
+    implementation rootProject.ext.dependencies.glide
 }

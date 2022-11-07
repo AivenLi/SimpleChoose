@@ -1,6 +1,7 @@
 package com.aiven.simplechoose.pages.home
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aiven.qcc.ScanActivity
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.OnSingleClickListener
 import com.aiven.simplechoose.bean.dto.SettingBean
@@ -33,6 +34,13 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                 action = MineAction.QR_CREATE
             ),
             SettingBean(
+                title  = getString(R.string.scan_code),
+                desc   = null,
+                type   = SettingType.CLICK,
+                icon   = R.drawable.ic_scan,
+                action = MineAction.SCAN_CODE
+            ),
+            SettingBean(
                 title  = getString(R.string.setting),
                 desc   = null,
                 type   = SettingType.CLICK,
@@ -52,6 +60,9 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                     }
                     MineAction.TEST_RECORD -> {
                         RecordActivity.start(requireContext())
+                    }
+                    MineAction.SCAN_CODE -> {
+                        ScanActivity.start(requireActivity())
                     }
                 }
             }

@@ -35,6 +35,7 @@ ext {
             android_picker_view         : "4.1.9",
             gson                        : "2.8.9",
             zxing                       : "3.3.0",
+
     ]
 
     dependencies = [
