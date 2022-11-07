@@ -1,6 +1,7 @@
 package com.aiven.qcc
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -16,6 +17,9 @@ import android.view.View
 import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -34,6 +38,7 @@ class ScanActivity : AppCompatActivity(), QRCodeView.Delegate {
     private var setResult = false
     private var resultKey: String? = null
     private var result: String? = null
+    private lateinit var animatorObject: ObjectAnimator
 
     companion object {
 
@@ -85,6 +90,18 @@ class ScanActivity : AppCompatActivity(), QRCodeView.Delegate {
         photoView.setOnClickListener {
             openPhoto()
         }
+        val imageView: ImageView = findViewById(R.id.img_scan_line)
+        val density = resources.displayMetrics.density
+        val screenHeight = resources.displayMetrics.heightPixels
+        val startHeight = screenHeight / 3f - 50f * density
+        val endHeight = screenHeight * (2f / 3f) - 50f * density
+        Log.d(TAG, "T: $screenHeight, S: $startHeight, E: $endHeight")
+        //animatorObject = ObjectAnimator.ofFloat(imageView, "translationY", startHeight, endHeight)
+        val animator = TranslateAnimation(0f, 0f, 0f, endHeight)
+        animator.duration = 3000L
+        animator.repeatCount = Animation.INFINITE
+        imageView.animation = animator
+        animator.startNow()
     }
 
     override fun onStart() {
@@ -115,7 +132,7 @@ class ScanActivity : AppCompatActivity(), QRCodeView.Delegate {
 
     override fun onCameraAmbientBrightnessChanged(isDark: Boolean) {
         //Toast.makeText(this@ScanActivity, "onCameraAmbientBrightnessChanged: $isDark", Toast.LENGTH_SHORT).show()
-        Log.d(TAG, "onCameraAmbientBrightnessChanged: $isDark")
+      //  Log.d(TAG, "onCameraAmbientBrightnessChanged: $isDark")
     }
 
     override fun onScanQRCodeOpenCameraError() {
