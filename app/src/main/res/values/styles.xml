@@ -21,4 +21,38 @@
         <attr name="android:bottomRightRadius" />
     </declare-styleable>
 
+    <declare-styleable name="LinearChartView">
+        <attr name="axisWidth" format="dimension" />
+        <attr name="axisColor" format="color" />
+        <attr name="axisTextX" format="string" />
+        <attr name="axisTextY" format="string" />
+        <attr name="axisYMaxValue" format="integer" />
+        <attr name="axisTextSize" format="dimension" />
+        <attr name="axisTextColor" format="color" />
+        <attr name="chartWidth" format="dimension" />
+        <attr name="chartColor" format="color" />
+        <attr name="chartPointRadius" format="dimension" />
+        <attr name="chartPointColor" format="color" />
+        <attr name="showChartPoint" format="boolean" />
+        <attr name="charPointTextSize" format="dimension" />
+        <attr name="chartPointTextColor" format="color" />
+        <attr name="showChartPointText" format="boolean" />
+        <attr name="showInPage" format="boolean" />
+        <attr name="pageSize" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="SpeedWatch">
+        <attr name="android:startColor" format="color" />
+        <attr name="android:endColor" format="color" />
+        <attr name="indicatorColor" format="color" />
+        <attr name="titleText" format="string" />
+        <attr name="titleTextColor" format="color" />
+        <attr name="titleTextSize" format="dimension" />
+        <attr name="valueTextSize" format="dimension" />
+        <attr name="valueTextColor" format="color" />
+        <attr name="maxValue" format="integer" />
+        <attr name="watchWidth" format="dimension" />
+        <attr name="watchColor" format="color" />
+    </declare-styleable>
+
 </resources>

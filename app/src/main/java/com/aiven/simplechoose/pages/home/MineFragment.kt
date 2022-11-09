@@ -9,6 +9,7 @@ import com.aiven.simplechoose.bean.dto.SettingType
 import com.aiven.simplechoose.bean.enums.MineAction
 import com.aiven.simplechoose.databinding.FragmentMineBinding
 import com.aiven.simplechoose.pages.BaseFragment
+import com.aiven.simplechoose.pages.chart.ChartActivity
 import com.aiven.simplechoose.pages.home.adapter.MineAdapter
 import com.aiven.simplechoose.pages.qrcode.QRCodeActivity
 import com.aiven.simplechoose.pages.record.RecordActivity
@@ -27,6 +28,13 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                 action = MineAction.TEST_RECORD
             ),
             SettingBean(
+                title  = getString(R.string.scan_code),
+                desc   = null,
+                type   = SettingType.CLICK,
+                icon   = R.drawable.ic_scan,
+                action = MineAction.SCAN_CODE
+            ),
+            SettingBean(
                 title  = getString(R.string.qr_create),
                 desc   = null,
                 type   = SettingType.CLICK,
@@ -34,11 +42,11 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                 action = MineAction.QR_CREATE
             ),
             SettingBean(
-                title  = getString(R.string.scan_code),
+                title  = getString(R.string.chart),
                 desc   = null,
                 type   = SettingType.CLICK,
-                icon   = R.drawable.ic_scan,
-                action = MineAction.SCAN_CODE
+                icon   = R.drawable.ic_baseline_insert_chart_outlined_24,
+                action = MineAction.CHART_VIEW
             ),
             SettingBean(
                 title  = getString(R.string.setting),
@@ -63,6 +71,9 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                     }
                     MineAction.SCAN_CODE -> {
                         ScanActivity.start(requireActivity())
+                    }
+                    MineAction.CHART_VIEW -> {
+                        ChartActivity.start(requireContext())
                     }
                 }
             }

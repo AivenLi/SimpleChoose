@@ -41,6 +41,7 @@
     <string name="http_server_error">服务器错误，请稍后再试！</string>
     <string name="http_not_found">无法连接服务器，请稍后再试！</string>
 
+    <string name="chart">图表</string>
     <string name="setting">设置</string>
     <string name="test_paper_times">考试时间</string>
     <string name="scan_code">扫一扫</string>
