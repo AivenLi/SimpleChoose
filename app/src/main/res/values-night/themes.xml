@@ -62,6 +62,19 @@
         <item name="android:textSize">@dimen/text_item_title</item>
     </style>
 
+    <style name="ActionBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="abc_leftIconRes">@drawable/ic_back</item>
+        <item name="abc_leftIconColor">@color/page_title</item>
+        <item name="abc_titleTextColor">@color/page_title</item>
+        <item name="android:background">@color/main</item>
+        <item name="abc_leftIconClickToFinish">true</item>
+        <item name="ab_statusBarColor">@color/transparent</item>
+        <item name="ab_statusBarMode">light</item>
+        <item name="ab_immersion">immersed</item>
+    </style>
+
     <!-- 弹窗效果 -->
     <style name="DialogShowHideStyle">
         <item name="android:windowEnterAnimation">@anim/dialog_show</item>

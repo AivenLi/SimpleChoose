@@ -10,5 +10,9 @@ class Constant {
 
         const val UPDATE_APP_DONE_FILENAME = "simple_choose"
         const val UPDATE_APP_TEMP_FILENAME = UPDATE_APP_DONE_FILENAME + ".temp"
+        const val REQUEST_READ_WRITE_PERMISSION = 5678
+        const val REQUEST_CAMREA_PERMISSION = 5679
+        const val REQUEST_OPEN_PHOTO = 5680
+        const val REQUEST_OPEN_CAMERA = 5681
     }
 }

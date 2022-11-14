@@ -125,6 +125,8 @@ dependencies {
     implementation rootProject.ext.dependencies.mmkv
 
     implementation rootProject.ext.dependencies.androidPickerView
+    implementation rootProject.ext.dependencies.luban
+    implementation rootProject.ext.dependencies.goweiiActionBarEx
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

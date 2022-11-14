@@ -1,5 +1,10 @@
 package com.aiven.simplechoose.utils
 
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
+import android.provider.MediaStore
 import android.view.View
 import android.widget.Checkable
 import com.aiven.simplechoose.R
@@ -100,4 +105,45 @@ fun <T> Single<T>.doSql(dbCallback: DBCallback<T>) {
                 dbCallback.onDBFinish()
             }
         })
+}
+
+fun grantedPermission(grants: IntArray): Boolean {
+    var granted = true
+    for (g in grants) {
+        if (g != PackageManager.PERMISSION_GRANTED) {
+            granted = false
+            break
+        }
+    }
+    return granted
+}
+
+fun grantedPermission(map: Map<String, Boolean>): Boolean {
+    var granted = true
+    val iterator = map.entries.iterator()
+    for ((_, value) in map) {
+        if (!value) {
+            granted = false
+            break
+        }
+    }
+    return granted
+}
+
+inline fun Intent.getImageFromPhoto(activity: Activity): String? {
+    val uri = data
+    uri?.let { u ->
+        val cursor: Cursor? = activity.contentResolver
+            .query(u, arrayOf(MediaStore.Images.Media.DATA), null, null, null)
+        cursor?.let { c ->
+            if (c.moveToFirst()) {
+                val value = c.getColumnIndex(MediaStore.Images.Media.DATA)
+                if (value >= 0) {
+                    return c.getString(value)
+                }
+            }
+        }
+        cursor?.close()
+    }
+    return null
 }

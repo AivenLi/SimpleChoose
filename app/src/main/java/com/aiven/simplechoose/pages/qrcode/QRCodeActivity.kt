@@ -22,6 +22,8 @@ import com.aiven.qcc.QRCreator
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.databinding.ActivityQrCodeBinding
 import com.aiven.simplechoose.pages.BaseActivity
+import com.aiven.simplechoose.utils.Constant
+import com.aiven.simplechoose.utils.grantedPermission
 import com.aiven.simplechoose.utils.setSingleClickListener
 import com.bumptech.glide.Glide
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -124,15 +126,8 @@ class QRCodeActivity : BaseActivity<ActivityQrCodeBinding>(ActivityQrCodeBinding
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 5678) {
-            var granted = true
-            for (p in grantResults) {
-                if (p != PackageManager.PERMISSION_GRANTED) {
-                    granted = false
-                    break
-                }
-            }
-            if (granted) {
+        if (requestCode == Constant.REQUEST_READ_WRITE_PERMISSION) {
+            if (grantedPermission(grantResults)) {
                 doSaveBitmapToPhotos()
             } else {
                 toast(getString(R.string.you_need_granted_permission))
@@ -195,29 +190,5 @@ class QRCodeActivity : BaseActivity<ActivityQrCodeBinding>(ActivityQrCodeBinding
                 error = error.substring(error.indexOf(':') + 1)
                 toast(getString(R.string.save_failure, error))
             })
-    }
-
-    private fun hasReadWritePermission(): Boolean {
-        if (ContextCompat.checkSelfPermission(
-                this@QRCodeActivity,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(
-                this@QRCodeActivity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this@QRCodeActivity,
-                arrayOf(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                ),
-                5678
-            )
-            return false
-        } else {
-            return true
-        }
     }
 }

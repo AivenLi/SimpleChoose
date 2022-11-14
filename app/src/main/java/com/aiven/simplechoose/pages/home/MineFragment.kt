@@ -11,6 +11,7 @@ import com.aiven.simplechoose.databinding.FragmentMineBinding
 import com.aiven.simplechoose.pages.BaseFragment
 import com.aiven.simplechoose.pages.chart.ChartActivity
 import com.aiven.simplechoose.pages.home.adapter.MineAdapter
+import com.aiven.simplechoose.pages.imagecompress.ImageCompressActivity
 import com.aiven.simplechoose.pages.qrcode.QRCodeActivity
 import com.aiven.simplechoose.pages.record.RecordActivity
 import com.aiven.simplechoose.pages.setting.SettingActivity
@@ -49,6 +50,13 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                 action = MineAction.CHART_VIEW
             ),
             SettingBean(
+                title  = getString(R.string.image_compress),
+                desc   = null,
+                type   = SettingType.CLICK,
+                icon   = R.drawable.ic_image_compress,
+                action = MineAction.IMAGE_COMPRESS
+            ),
+            SettingBean(
                 title  = getString(R.string.setting),
                 desc   = null,
                 type   = SettingType.CLICK,
@@ -74,6 +82,9 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                     }
                     MineAction.CHART_VIEW -> {
                         ChartActivity.start(requireContext())
+                    }
+                    MineAction.IMAGE_COMPRESS -> {
+                        ImageCompressActivity.start(requireContext())
                     }
                 }
             }

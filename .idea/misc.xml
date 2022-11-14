@@ -16,6 +16,7 @@
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_baseline_radio_button_checked_24.xml" value="0.12135416666666667" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_launcher_background.xml" value="0.12135416666666667" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/main_btn_bg.xml" value="0.13541666666666666" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/main_color_seek_bar.xml" value="0.1578125" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/progress_bar_horizontal.xml" value="0.13541666666666666" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_a0a0a0_bg.xml" value="0.12395833333333334" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_10_alpha_aa_black_bg.xml" value="0.16770833333333332" />
@@ -27,9 +28,10 @@
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_20_white_bg.xml" value="0.13072916666666667" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/radius_50_ededed_bg.xml" value="0.11822916666666666" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_home.xml" value="0.152" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_image_compress.xml" value="0.264" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_linear_chart.xml" value="0.13229166666666667" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
-        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_qr_code.xml" value="0.6" />
+        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_qr_code.xml" value="0.12" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_record.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_result.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_setting.xml" value="0.13541666666666666" />

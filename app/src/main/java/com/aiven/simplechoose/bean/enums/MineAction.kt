@@ -6,7 +6,8 @@ enum class MineAction {
     SETTING(1),
     QR_CREATE(2),
     SCAN_CODE(3),
-    CHART_VIEW(4);
+    CHART_VIEW(4),
+    IMAGE_COMPRESS(5);
 
     val action: Int
     constructor(action: Int) {

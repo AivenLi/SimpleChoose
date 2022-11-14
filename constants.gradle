@@ -35,7 +35,7 @@ ext {
             android_picker_view         : "4.1.9",
             gson                        : "2.8.9",
             zxing                       : "3.3.0",
-
+            luban                       : "1.1.8",
     ]
 
     dependencies = [
@@ -78,5 +78,6 @@ ext {
             androidPickerView                      : "com.contrarywind:Android-PickerView:${versions.android_picker_view}",
             gson                                   : "com.google.code.gson:gson:${versions.gson}",
             zxing                                  : "com.google.zxing:core:${versions.zxing}",
+            luban                                  : "top.zibin:Luban:${versions.luban}",
     ]
 }

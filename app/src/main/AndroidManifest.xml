@@ -18,6 +18,11 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleChoose">
+        <activity android:name=".pages.imagecompress.ImageCompressActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
+            android:exported="false"
+            android:launchMode="singleTop"
+            />
         <activity android:name=".pages.chart.ChartActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
             android:exported="false"

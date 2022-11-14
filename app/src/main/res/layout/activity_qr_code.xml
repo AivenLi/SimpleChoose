@@ -23,15 +23,16 @@
             app:tint="?colorPageTitle"
             android:padding="3dp"
             />
+
         <TextView
             android:id="@+id/tv_page_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/qr_create"
-            android:textSize="@dimen/text_page_title"
-            android:textColor="?colorPageTitle"
             android:gravity="center"
-            />
+            android:text="@string/qr_create"
+            android:textColor="?colorPageTitle"
+            android:textSize="@dimen/text_page_title"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <EditText
         android:id="@+id/edt_content"
