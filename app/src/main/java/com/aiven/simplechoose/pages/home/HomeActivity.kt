@@ -3,6 +3,7 @@ package com.aiven.simplechoose.pages.home
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,8 +11,17 @@ import androidx.viewpager2.widget.ViewPager2
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.ViewPager2FragmentAdapter
 import com.aiven.simplechoose.databinding.ActivityHomeBinding
+import com.aiven.simplechoose.db.DBCallback
+import com.aiven.simplechoose.db.SimpleDataBase
+import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
 import com.aiven.simplechoose.pages.BaseActivity
+import com.aiven.simplechoose.utils.doSql
 import com.google.android.material.navigation.NavigationBarView
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(
     ActivityHomeBinding::inflate

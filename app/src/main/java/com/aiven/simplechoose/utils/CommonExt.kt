@@ -30,6 +30,9 @@ inline fun <T: View> T.setSingleClickListener(timeout: Long = 1000, crossinline 
     }
 }
 
+/**
+ * 该方法不执行失败不回调onFinish
+ * */
 fun Completable.doSql(dbCallback: DBCallback<Unit>?) {
     this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -44,7 +47,6 @@ fun Completable.doSql(dbCallback: DBCallback<Unit>?) {
 
             override fun onError(e: Throwable) {
                 dbCallback?.onDBError(e.toString())
-                dbCallback?.onDBFinish()
             }
         })
 }

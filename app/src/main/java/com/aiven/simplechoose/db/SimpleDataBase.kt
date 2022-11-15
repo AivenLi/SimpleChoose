@@ -4,15 +4,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.aiven.simplechoose.app.task.TaskApp
+import com.aiven.simplechoose.db.dao.InsertUpdateTestDao
 import com.aiven.simplechoose.db.dao.TestPaperRecordDao
+import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
 import com.aiven.simplechoose.db.entity.TestPaperRecord
+import com.aiven.simplechoose.db.migrations.Migration_2_3
 import com.aiven.simplechoose.db.migrations.TestRecordMigration_1_2
 
 @Database(
     entities = [
-        TestPaperRecord::class
+        TestPaperRecord::class,
+        InsertUpdateTestEntity::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class SimpleDataBase : RoomDatabase() {
@@ -32,6 +36,7 @@ abstract class SimpleDataBase : RoomDatabase() {
                     "SIMPLE_CHOOSE_DB"
                 )
                     .addMigrations(TestRecordMigration_1_2())
+                    .addMigrations((Migration_2_3()))
                     //.allowMainThreadQueries()
                     .build()
         }
@@ -40,4 +45,6 @@ abstract class SimpleDataBase : RoomDatabase() {
     }
 
     abstract fun testPaperRecordDao() : TestPaperRecordDao
+
+    abstract fun insertUpdateTestDao(): InsertUpdateTestDao
 }
