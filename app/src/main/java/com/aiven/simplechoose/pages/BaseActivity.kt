@@ -3,13 +3,16 @@ package com.aiven.simplechoose.pages
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
 import com.aiven.simplechoose.utils.Constant
+import java.util.*
 
 abstract class BaseActivity<VB: ViewBinding>(
     private val inflate: ((layoutInflater: LayoutInflater) -> VB)
@@ -17,6 +20,12 @@ abstract class BaseActivity<VB: ViewBinding>(
 
     protected lateinit var viewBinding: VB
     protected lateinit var TAG: String
+
+    companion object {
+//        private var lastOptTimeStamp = System.currentTimeMillis()
+//
+//        fun getLastOptTime(): Long = lastOptTimeStamp
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +35,14 @@ abstract class BaseActivity<VB: ViewBinding>(
         initView()
         initClick()
     }
+
+//    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+//        if (ev?.action == MotionEvent.ACTION_UP) {
+//            Log.d(TAG, "有点击事件，更新时间")
+//            lastOptTimeStamp = System.currentTimeMillis()
+//        }
+//        return super.dispatchTouchEvent(ev)
+//    }
 
     protected fun toast(msg: String) {
         toast(msg, Toast.LENGTH_SHORT)

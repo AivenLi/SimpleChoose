@@ -3,6 +3,8 @@ package com.aiven.simplechoose.pages.home
 
 import android.content.Context
 import android.content.Intent
+import android.os.Looper
+import android.os.Message
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -15,6 +17,8 @@ import com.aiven.simplechoose.db.DBCallback
 import com.aiven.simplechoose.db.SimpleDataBase
 import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
 import com.aiven.simplechoose.pages.BaseActivity
+import com.aiven.simplechoose.utils.ActivityManager
+import com.aiven.simplechoose.utils.WeakHandler
 import com.aiven.simplechoose.utils.doSql
 import com.google.android.material.navigation.NavigationBarView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -29,6 +33,20 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(
 
     private var curIndex = 0
     private var exitTime = 0L
+
+//    private val handler by lazy {
+//        object : WeakHandler(Looper.getMainLooper()) {
+//            override fun handleMessage(msg: Message?) {
+//                if (msg?.what == 1111) {
+//                    if ((System.currentTimeMillis() - BaseActivity.getLastOptTime()) / 1000L >= 30) {
+//                        Log.d(TAG, "30s无操作，退出所有界面除了home")
+//                        ActivityManager.finishAll(this@HomeActivity)
+//                    }
+//                    sendEmptyMessageDelayed(1111, 2000L)
+//                }
+//            }
+//        }
+//    }
 
     companion object {
         fun start(context: Context) {
@@ -56,6 +74,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(
             }
         })
         removeNavigationBottomLongClickToast()
+        //handler.sendEmptyMessageDelayed(1111, 2000L)
     }
 
     override fun initClick() {
