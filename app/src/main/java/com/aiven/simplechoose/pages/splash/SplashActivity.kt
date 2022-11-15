@@ -83,17 +83,19 @@ class SplashActivity: BaseActivity<ActivitySplashBinding>(ActivitySplashBinding:
         handler = object : Handler(Looper.getMainLooper()) {
             override fun handleMessage(msg: Message) {
                 if (msg.what == 1023) {
-                    if (!Settings.canDrawOverlays(this@SplashActivity)) {
-                        val intent =
-                            Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
-                        startActivityForResult(intent, 10000)
-                    } else {
-                        val floatManager = FloatManager.getInstance(this@SplashActivity)
-                        floatManager.startFloat()
-                        floatManager.setFloatViewVisible()
-                        HomeActivity.start(this@SplashActivity)
-                        finish()
-                    }
+//                    if (!Settings.canDrawOverlays(this@SplashActivity)) {
+//                        val intent =
+//                            Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
+//                        startActivityForResult(intent, 10000)
+//                    } else {
+//                        val floatManager = FloatManager.getInstance(this@SplashActivity)
+//                        floatManager.startFloat()
+//                        floatManager.setFloatViewVisible()
+//                        HomeActivity.start(this@SplashActivity)
+//                        finish()
+//                    }
+                    HomeActivity.start(this@SplashActivity)
+                    finish()
                 }
             }
         }

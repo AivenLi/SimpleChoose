@@ -12,7 +12,7 @@ import com.aiven.simplechoose.net.cache.CacheUtil
  * @author  : AivenLi
  * @date    : 2022/8/6 12:45
  * */
-open class TaskApp: FloatApp() {
+open class TaskApp: Application() {
 
     override fun onCreate() {
         super.onCreate()

@@ -52,9 +52,9 @@ object RetrofitUtil: Task {
         return OkHttpClient.Builder()
             .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
             .readTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
-            //.addInterceptor(TokenInterceptor())
+            .addInterceptor(TokenInterceptor())
             .addInterceptor(LogInterceptor())
-            .addInterceptor(com.aiven.hfl.LogInterceptor(FloatManager.getInstance(null).handler))
+            //.addInterceptor(com.aiven.hfl.LogInterceptor(FloatManager.getInstance(null).handler))
             .build()
     }
 }

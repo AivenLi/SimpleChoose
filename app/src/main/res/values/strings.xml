@@ -26,6 +26,7 @@
     <string name="number_2_bit">%1$.2f</string>
     <string name="percent_2_bit">%1$.2f%%</string>
     <string name="percent">%1$d%%</string>
+    <string name="kb">%1$dK</string>
     <string name="arg_2_string_string">%1$s. %2$s</string>
     <string name="arg_3_string_number_string">%1$s%2$d. %3$s</string>
     <string name="no_parse">暂无解析</string>
@@ -79,4 +80,5 @@
     <string name="qr_default_size">200</string>
     <string name="add_logo">添加logo</string>
     <string name="choose_image">选择图片</string>
+    <string name="please_compress_image_first">请先压缩图片</string>
 </resources>
