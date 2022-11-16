@@ -22,7 +22,7 @@ abstract class BaseFragment<VB: ViewBinding>(private val inflate: (layout: Layou
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        TAG = getFTAG()
+        TAG = "${getFTAG()}-Debug"
     }
 
     override fun onCreateView(

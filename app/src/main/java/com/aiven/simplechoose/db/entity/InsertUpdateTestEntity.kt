@@ -12,5 +12,7 @@ data class InsertUpdateTestEntity(
 
     val age: Int = 0,
 
-    val updateTime: Long = 0
+    val updateTime: Long = 0,
+
+    val encodeKey: ByteArray? = null
 )

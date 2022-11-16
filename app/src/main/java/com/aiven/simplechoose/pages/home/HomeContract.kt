@@ -1,7 +1,9 @@
 package com.aiven.simplechoose.pages.home
 
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.bean.dto.UpdateAppDTO
+import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
 import com.aiven.simplechoose.mvp.IModel
 import com.aiven.simplechoose.mvp.IPresenter
 import com.aiven.simplechoose.mvp.IView
@@ -16,6 +18,10 @@ interface HomeContract {
         fun getQuestionListTypeFailure(baseError: BaseError)
 
         fun checkAppUpdateSuccess(updateAppDTO: UpdateAppDTO)
+
+        fun updateFindById(insertUpdateTestEntity: InsertUpdateTestEntity)
+
+        fun getLifecycleScope(): LifecycleCoroutineScope
     }
 
     interface Presenter: IPresenter<View> {
@@ -23,6 +29,8 @@ interface HomeContract {
         fun getQuestionTypeList()
 
         fun checkAppUpdate()
+
+        fun findById(id: String)
     }
 
     interface Model: IModel {
@@ -30,5 +38,9 @@ interface HomeContract {
         fun getQuestionTypeList(requestCallback: RequestCallback<ArrayList<TestPaperTypeDTO>>)
 
         fun checkAppUpdate(requestCallback: RequestCallback<UpdateAppDTO>)
+
+        suspend fun findById(id: String): InsertUpdateTestEntity?
+
+      //  fun findByIdCoroutine(id: String): InsertUpdateTestEntity
     }
 }

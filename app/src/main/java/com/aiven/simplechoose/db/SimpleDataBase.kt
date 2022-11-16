@@ -9,6 +9,7 @@ import com.aiven.simplechoose.db.dao.TestPaperRecordDao
 import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
 import com.aiven.simplechoose.db.entity.TestPaperRecord
 import com.aiven.simplechoose.db.migrations.Migration_2_3
+import com.aiven.simplechoose.db.migrations.Migration_3_4
 import com.aiven.simplechoose.db.migrations.TestRecordMigration_1_2
 
 @Database(
@@ -16,7 +17,7 @@ import com.aiven.simplechoose.db.migrations.TestRecordMigration_1_2
         TestPaperRecord::class,
         InsertUpdateTestEntity::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class SimpleDataBase : RoomDatabase() {
@@ -37,6 +38,7 @@ abstract class SimpleDataBase : RoomDatabase() {
                 )
                     .addMigrations(TestRecordMigration_1_2())
                     .addMigrations((Migration_2_3()))
+                    .addMigrations(Migration_3_4())
                     //.allowMainThreadQueries()
                     .build()
         }

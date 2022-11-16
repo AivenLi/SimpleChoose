@@ -1,11 +1,13 @@
 package com.aiven.simplechoose.pages.home
 
+import android.util.Log
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.bean.dto.UpdateAppDTO
 import com.aiven.simplechoose.mvp.BasePresenter
 import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.net.callback.RequestCallback
 import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.launch
 
 class HomePresenter: BasePresenter<HomeContract.Model, HomeContract.View>(), HomeContract.Presenter {
 
@@ -49,5 +51,19 @@ class HomePresenter: BasePresenter<HomeContract.Model, HomeContract.View>(), Hom
 
             }
         })
+    }
+
+    override fun findById(id: String) {
+        mView?.getLifecycleScope()?.launch {
+            runCatching {
+                Log.d("HomeFragment-Debug", "runcatching里面，线程：${Thread.currentThread().name}")
+                mModel?.findById(id)!!
+            }.onSuccess {
+                Log.d("HomeFragment-Debug", "onSuccess里面，线程：${Thread.currentThread().name}")
+                mView?.updateFindById(it)
+            }.onFailure {
+                Log.d("HomeFragment-Debug", "查询失败：${it.toString()}, 线程：${Thread.currentThread().name}")
+            }
+        }
     }
 }

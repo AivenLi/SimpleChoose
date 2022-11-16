@@ -1,12 +1,18 @@
 package com.aiven.simplechoose.pages.home
 
+import android.util.Log
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.bean.dto.UpdateAppDTO
+import com.aiven.simplechoose.db.SimpleDataBase
+import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
 import com.aiven.simplechoose.mvp.BaseModel
 import com.aiven.simplechoose.net.BaseRequest
 import com.aiven.simplechoose.net.callback.RequestCallback
 import com.aiven.simplechoose.pages.home.api.HomeApi
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 class HomeModelImpl: BaseModel<HomeApi>(HomeApi::class.java), HomeContract.Model {
 
@@ -27,4 +33,17 @@ class HomeModelImpl: BaseModel<HomeApi>(HomeApi::class.java), HomeContract.Model
             requestCallback
         )
     }
+
+    override suspend fun findById(id: String): InsertUpdateTestEntity? {
+        Log.d("HomeFragment-Debug", "查询前，线程：${Thread.currentThread().name}")
+        val insertUpdateTestEntity = SimpleDataBase.getInstance().insertUpdateTestDao().findByIdCoroutine(id)
+        Log.d("HomeFragment-Debug", "查询后，线程：${Thread.currentThread().name}")
+        return insertUpdateTestEntity
+    }
+
+
+//    override fun findByIdCoroutine(id: String): InsertUpdateTestEntity {
+//        val insertUpdateTestDao = SimpleDataBase.getInstance().insertUpdateTestDao()
+//
+//    }
 }

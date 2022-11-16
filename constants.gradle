@@ -28,6 +28,7 @@ ext {
             disklrucache                : "2.0.2",
             swipelayout                 : "1.2.0@aar",
             room                        : "2.4.2",
+            room_coroutines             : "2.3.0",
             kotlinx_coroutines          : "1.4.2",
             androidx_life_scope         : "2.2.0-alpha01",
             consecutive_scroller        : "4.6.1",
@@ -36,6 +37,7 @@ ext {
             gson                        : "2.8.9",
             zxing                       : "3.3.0",
             luban                       : "1.1.8",
+            lifycycleRuntime            : "2.3.1"
     ]
 
     dependencies = [
@@ -70,6 +72,7 @@ ext {
             roomRuntime                            : "androidx.room:room-runtime:${versions.room}",
             roomCompiler                           : "androidx.room:room-compiler:${versions.room}",
             roomRxJava                             : "androidx.room:room-rxjava3:${versions.room}",
+            roomCoroutines                         : "androidx.room:room-ktx:${versions.room}",
             kotlinxConroutines                     : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinx_coroutines}",
             kotlinxConroutinesAndroid              : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinx_coroutines}",
             androidxLifeScope                      : "androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx_life_scope}",

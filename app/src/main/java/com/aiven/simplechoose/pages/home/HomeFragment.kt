@@ -1,18 +1,24 @@
 package com.aiven.simplechoose.pages.home
 
 import android.util.Log
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.bean.dto.UpdateAppDTO
 import com.aiven.simplechoose.databinding.FragmentHomeBinding
+import com.aiven.simplechoose.db.SimpleDataBase
+import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
 import com.aiven.simplechoose.mvp.MVPFragment
 import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.pages.home.adapter.TestPaperTypeAdapter
 import com.aiven.simplechoose.utils.Constant
+import com.aiven.simplechoose.view.SimpleChooseView
 import com.aiven.updateapp.bean.UpdateAppBean
 import com.aiven.updateapp.util.UpdateAppUtil
 import com.google.gson.Gson
 import com.kennyc.view.MultiStateView
+import kotlinx.coroutines.launch
 
 class HomeFragment : MVPFragment<FragmentHomeBinding, HomeContract.View, HomeContract.Presenter>(
     FragmentHomeBinding::inflate
@@ -47,6 +53,7 @@ class HomeFragment : MVPFragment<FragmentHomeBinding, HomeContract.View, HomeCon
         viewBinding.multiStatView.viewState = MultiStateView.ViewState.LOADING
         mPresenter.getQuestionTypeList()
         mPresenter.checkAppUpdate()
+        //mPresenter.findById("123")
     }
 
     override fun getQuestionListTypeSuccess(testPaperTypeDTOList: ArrayList<TestPaperTypeDTO>) {
@@ -102,5 +109,13 @@ class HomeFragment : MVPFragment<FragmentHomeBinding, HomeContract.View, HomeCon
 
     override fun getFTAG(): String {
         return HomeFragment::class.java.simpleName
+    }
+
+    override fun getLifecycleScope(): LifecycleCoroutineScope {
+        return lifecycleScope
+    }
+
+    override fun updateFindById(insertUpdateTestEntity: InsertUpdateTestEntity) {
+        Log.d(TAG, "查询成功：$insertUpdateTestEntity, 线程：${Thread.currentThread().name}")
     }
 }

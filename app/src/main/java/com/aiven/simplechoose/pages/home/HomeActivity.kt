@@ -16,7 +16,9 @@ import com.aiven.simplechoose.databinding.ActivityHomeBinding
 import com.aiven.simplechoose.db.DBCallback
 import com.aiven.simplechoose.db.SimpleDataBase
 import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
+import com.aiven.simplechoose.net.RetrofitUtil
 import com.aiven.simplechoose.pages.BaseActivity
+import com.aiven.simplechoose.pages.home.api.HomeApi
 import com.aiven.simplechoose.utils.ActivityManager
 import com.aiven.simplechoose.utils.WeakHandler
 import com.aiven.simplechoose.utils.doSql
@@ -26,6 +28,10 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(
     ActivityHomeBinding::inflate

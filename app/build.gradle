@@ -118,6 +118,7 @@ dependencies {
     implementation rootProject.ext.dependencies.roomRuntime
     kapt rootProject.ext.dependencies.roomCompiler
     implementation rootProject.ext.dependencies.roomRxJava
+    implementation rootProject.ext.dependencies.roomCoroutines
     
     // 点击图片查看大图
     implementation rootProject.ext.dependencies.bigImageViewPager
@@ -127,6 +128,10 @@ dependencies {
     implementation rootProject.ext.dependencies.androidPickerView
     implementation rootProject.ext.dependencies.luban
     implementation rootProject.ext.dependencies.goweiiActionBarEx
+
+    implementation rootProject.ext.dependencies.kotlinxConroutines
+    implementation rootProject.ext.dependencies.kotlinxConroutinesAndroid
+    implementation rootProject.ext.dependencies.androidxLifeScope
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
