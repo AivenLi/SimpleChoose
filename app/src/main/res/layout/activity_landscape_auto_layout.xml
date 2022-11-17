@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="500mm"
+        android:layout_height="500mm"
+        android:text="This Is AutoSize Test"
+        android:textSize="20mm"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@color/black"
+        android:layout_marginStart="710mm"
+        android:layout_marginTop="290mm"
+        />
+</FrameLayout>

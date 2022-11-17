@@ -133,6 +133,9 @@ dependencies {
     implementation rootProject.ext.dependencies.kotlinxConroutinesAndroid
     implementation rootProject.ext.dependencies.androidxLifeScope
 
+    //implementation 'com.zhy:autolayout:1.4.5'
+    implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -141,4 +144,5 @@ dependencies {
     implementation project(path: ':http-float-log')
     implementation project(path: ':file-download')
     implementation project(path: ':qr-code-create')
+    //implementation project(path: ':auto-layout')
 }

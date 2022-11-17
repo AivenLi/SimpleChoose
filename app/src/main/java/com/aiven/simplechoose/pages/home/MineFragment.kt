@@ -12,6 +12,7 @@ import com.aiven.simplechoose.pages.BaseFragment
 import com.aiven.simplechoose.pages.chart.ChartActivity
 import com.aiven.simplechoose.pages.home.adapter.MineAdapter
 import com.aiven.simplechoose.pages.imagecompress.ImageCompressActivity
+import com.aiven.simplechoose.pages.landscaps.LandscapeAutoLayoutActivity
 import com.aiven.simplechoose.pages.qrcode.QRCodeActivity
 import com.aiven.simplechoose.pages.record.RecordActivity
 import com.aiven.simplechoose.pages.setting.SettingActivity
@@ -57,6 +58,13 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                 action = MineAction.IMAGE_COMPRESS
             ),
             SettingBean(
+                title  = getString(R.string.auto_layout),
+                desc   = null,
+                type   = SettingType.CLICK,
+                icon   = R.drawable.ic_baseline_insert_chart_outlined_24,
+                action = MineAction.AUTO_LAYOUT
+            ),
+            SettingBean(
                 title  = getString(R.string.setting),
                 desc   = null,
                 type   = SettingType.CLICK,
@@ -85,6 +93,9 @@ class MineFragment : BaseFragment<FragmentMineBinding>(FragmentMineBinding::infl
                     }
                     MineAction.IMAGE_COMPRESS -> {
                         ImageCompressActivity.start(requireContext())
+                    }
+                    MineAction.AUTO_LAYOUT -> {
+                        LandscapeAutoLayoutActivity.start(requireContext())
                     }
                 }
             }
