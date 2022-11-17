@@ -81,6 +81,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(
         })
         removeNavigationBottomLongClickToast()
         //handler.sendEmptyMessageDelayed(1111, 2000L)
+        // 假装我在这里改了东西，哈哈哈
     }
 
     override fun initClick() {
