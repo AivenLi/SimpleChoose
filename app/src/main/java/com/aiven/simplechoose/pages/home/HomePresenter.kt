@@ -1,8 +1,10 @@
 package com.aiven.simplechoose.pages.home
 
 import android.util.Log
+import com.aiven.simplechoose.bean.dto.TestBinDTO
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.bean.dto.UpdateAppDTO
+import com.aiven.simplechoose.bean.vo.TestBinVo
 import com.aiven.simplechoose.mvp.BasePresenter
 import com.aiven.simplechoose.net.callback.BaseError
 import com.aiven.simplechoose.net.callback.RequestCallback
@@ -65,5 +67,46 @@ class HomePresenter: BasePresenter<HomeContract.Model, HomeContract.View>(), Hom
                 Log.d("HomeFragment-Debug", "查询失败：${it.toString()}, 线程：${Thread.currentThread().name}")
             }
         }
+    }
+
+    override fun testBin(testBinVo: TestBinVo) {
+        mModel?.testBin(testBinVo, object : RequestCallback<Void> {
+            override fun onSuccess(data: Void?) {
+                Log.d("-Debug", "结果：$data")
+            }
+
+            override fun onFailure(error: BaseError) {
+                Log.d("-Debug", "错误：$error")
+            }
+
+        })
+    }
+
+    override fun selectBin() {
+        mModel?.selectBin(object : RequestCallback<List<TestBinDTO>> {
+            override fun onSuccess(data: List<TestBinDTO>?) {
+                if (!data.isNullOrEmpty()) {
+                    var right = true
+                    var a: Byte = 0x00
+                    val testBinDTO = data[0]
+                    testBinDTO.text?.let {
+                        val bytes = it.toByteArray()
+                        Log.d("-Debug", "长度不够：${bytes.size}")
+                        for (i in 0 until 2048) {
+                            if (a++ != bytes[i]) {
+                                Log.d("-Debug", "第${i}个开始不一致")
+                                right = false
+                                break
+                            }
+                        }
+                        Log.d("-Debug", "数值一致：$right")
+                    }
+                }
+            }
+
+            override fun onFailure(error: BaseError) {
+
+            }
+        })
     }
 }

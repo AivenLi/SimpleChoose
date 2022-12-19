@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.bean.dto.UpdateAppDTO
+import com.aiven.simplechoose.bean.vo.TestBinVo
 import com.aiven.simplechoose.databinding.FragmentHomeBinding
 import com.aiven.simplechoose.db.SimpleDataBase
 import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
@@ -53,7 +54,6 @@ class HomeFragment : MVPFragment<FragmentHomeBinding, HomeContract.View, HomeCon
         viewBinding.multiStatView.viewState = MultiStateView.ViewState.LOADING
         mPresenter.getQuestionTypeList()
         mPresenter.checkAppUpdate()
-        //mPresenter.findById("123")
     }
 
     override fun getQuestionListTypeSuccess(testPaperTypeDTOList: ArrayList<TestPaperTypeDTO>) {

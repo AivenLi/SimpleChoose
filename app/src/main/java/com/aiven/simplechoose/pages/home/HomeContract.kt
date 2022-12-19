@@ -1,8 +1,10 @@
 package com.aiven.simplechoose.pages.home
 
 import androidx.lifecycle.LifecycleCoroutineScope
+import com.aiven.simplechoose.bean.dto.TestBinDTO
 import com.aiven.simplechoose.bean.dto.TestPaperTypeDTO
 import com.aiven.simplechoose.bean.dto.UpdateAppDTO
+import com.aiven.simplechoose.bean.vo.TestBinVo
 import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
 import com.aiven.simplechoose.mvp.IModel
 import com.aiven.simplechoose.mvp.IPresenter
@@ -31,6 +33,10 @@ interface HomeContract {
         fun checkAppUpdate()
 
         fun findById(id: String)
+
+        fun testBin(testBinVo: TestBinVo)
+
+        fun selectBin()
     }
 
     interface Model: IModel {
@@ -42,5 +48,9 @@ interface HomeContract {
         suspend fun findById(id: String): InsertUpdateTestEntity?
 
       //  fun findByIdCoroutine(id: String): InsertUpdateTestEntity
+
+        fun testBin(testBinVo: TestBinVo, requestCallback: RequestCallback<Void>)
+
+        fun selectBin(callback: RequestCallback<List<TestBinDTO>>)
     }
 }
