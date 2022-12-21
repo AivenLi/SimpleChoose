@@ -1,37 +1,31 @@
 package com.aiven.simplechoose.pages.home
 
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Looper
-import android.os.Message
-import android.util.Log
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Environment
+import android.provider.Contacts
+import android.provider.Settings
 import android.view.MenuItem
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.adapter.ViewPager2FragmentAdapter
 import com.aiven.simplechoose.databinding.ActivityHomeBinding
-import com.aiven.simplechoose.db.DBCallback
-import com.aiven.simplechoose.db.SimpleDataBase
-import com.aiven.simplechoose.db.entity.InsertUpdateTestEntity
-import com.aiven.simplechoose.net.RetrofitUtil
 import com.aiven.simplechoose.pages.BaseActivity
-import com.aiven.simplechoose.pages.home.api.HomeApi
-import com.aiven.simplechoose.utils.ActivityManager
-import com.aiven.simplechoose.utils.WeakHandler
-import com.aiven.simplechoose.utils.doSql
+import com.aiven.simplechoose.utils.*
+import com.aiven.updateapp.util.InstallApk
 import com.google.android.material.navigation.NavigationBarView
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.File
+
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(
     ActivityHomeBinding::inflate
@@ -82,6 +76,124 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(
         removeNavigationBottomLongClickToast()
         //handler.sendEmptyMessageDelayed(1111, 2000L)
         // 假装我在这里改了东西，哈哈哈
+//        if (hasInstallPermission()) {
+//            installApk()
+//        } else if (hasReadWritePermissionNoRequest()) {
+//            installApk()
+//        }
+        if (hasReadWritePermission()) {
+            installApk()
+        }
+//        val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+//        startActivity(intent)
+    }
+
+    private fun hasInstallPermission(): Boolean {
+        return if ((ContextCompat.checkSelfPermission(
+                this@HomeActivity,
+                Manifest.permission.INSTALL_PACKAGES
+            ) != PackageManager.PERMISSION_GRANTED) ||
+            (ContextCompat.checkSelfPermission(
+                this@HomeActivity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED) ||
+            (ContextCompat.checkSelfPermission(
+                this@HomeActivity,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED)
+        ) {
+            ActivityCompat.requestPermissions(
+                this@HomeActivity,
+                arrayOf(
+                    Manifest.permission.INSTALL_PACKAGES,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                23454
+            )
+            false
+        } else {
+            true
+        }
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == Constant.REQUEST_READ_WRITE_PERMISSION) {
+            var granted = true
+            for (g in grantResults) {
+                if (g != PackageManager.PERMISSION_GRANTED) {
+                    granted = false
+                    break
+                }
+            }
+            if (granted) {
+                installApk()
+            }
+        }
+    }
+
+    private fun installApk() {
+        val filename = "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath}${File.separator}SimpleChoose_Debug_1.0.0_1_2022-12-19_05_47_48.apk"
+        val file = File(filename)
+        if (file.exists()) {
+            InstallApk.install(this@HomeActivity, file.absolutePath)
+        }
+//        val observable = Observable.create<String> { emitter ->
+//            Thread.sleep(5000)
+//            runCatching {
+//                val httpURLConnection =
+//                    URL("http://192.168.5.37:5767/school/springboot/20221213/SimpleChoose_Debug_1.0.0_1_2022-12-19_05_16_31.apk").openConnection() as HttpURLConnection
+//                httpURLConnection.readTimeout = 5000
+//                httpURLConnection.connectTimeout = 5000
+//                httpURLConnection.connect()
+//                if (httpURLConnection.responseCode == 200) {
+//                    Log.d(TAG, "连接成功，开始下载")
+//                    val size = httpURLConnection.contentLength
+//                    Log.d(TAG, "文件大小: $size")
+//                    val inputStream = httpURLConnection.inputStream
+//                    val file = File("${cacheDir.absolutePath}${File.separator}test.apk")
+//                    val outputStream = FileOutputStream(file)
+//                    var n: Int;
+//                    val byteArray = ByteArray(4096)
+//                    do {
+//                        n = inputStream.read(byteArray)
+//                        if (n == -1) {
+//                            break
+//                        }
+//                        outputStream.write(byteArray, 0, n)
+//                    } while (n != -1)
+//                    outputStream.flush()
+//                    outputStream.close()
+//                    inputStream.close()
+//                    httpURLConnection.disconnect()
+//                    Log.d(TAG, "下载完毕")
+//                    file.absolutePath
+//                } else {
+//                    throw Throwable("下载失败：${httpURLConnection.responseCode}")
+//                }
+//            }.onSuccess {
+//                emitter.onNext(it)
+//            }.onFailure {
+//                Log.d(TAG, "下载错误：${it}")
+//            }
+//        }
+//        observable.subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe {
+//                Log.d(TAG, "开始安装App1: $it")
+//                PackageManagerCompatP.install(
+//                    applicationContext,
+//                    it,
+//                    packageManager
+//                )
+//            }
+//
     }
 
     override fun initClick() {
