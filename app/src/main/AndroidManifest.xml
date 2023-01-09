@@ -58,7 +58,7 @@
             android:exported="false"
             android:launchMode="singleTop"
             />
-        <activity android:name=".pages.splash.SplashActivity"
+        <activity android:name=".pages.test.TestActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
             android:exported="true"
             android:launchMode="singleTop"
@@ -69,6 +69,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".pages.splash.SplashActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Splash"
+            >
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".pages.setting.SettingActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"

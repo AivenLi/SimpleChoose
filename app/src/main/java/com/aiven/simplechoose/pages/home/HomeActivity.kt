@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.Contacts
 import android.provider.Settings
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ActivityCompat
@@ -24,6 +25,11 @@ import com.aiven.simplechoose.pages.BaseActivity
 import com.aiven.simplechoose.utils.*
 import com.aiven.updateapp.util.InstallApk
 import com.google.android.material.navigation.NavigationBarView
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
 
 
@@ -56,6 +62,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(
         }
     }
 
+    private lateinit var disablepose: Disposable
     override fun initView() {
         val fragments = arrayListOf<Fragment>(
             HomeFragment(),
@@ -74,18 +81,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(
             }
         })
         removeNavigationBottomLongClickToast()
-        //handler.sendEmptyMessageDelayed(1111, 2000L)
-        // 假装我在这里改了东西，哈哈哈
-//        if (hasInstallPermission()) {
-//            installApk()
-//        } else if (hasReadWritePermissionNoRequest()) {
-//            installApk()
-//        }
-        if (hasReadWritePermission()) {
-            installApk()
-        }
-//        val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-//        startActivity(intent)
     }
 
     private fun hasInstallPermission(): Boolean {
