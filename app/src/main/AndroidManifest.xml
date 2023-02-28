@@ -64,11 +64,11 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.Splash"
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".pages.splash.SplashActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
@@ -76,11 +76,11 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.Splash"
             >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".pages.setting.SettingActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"

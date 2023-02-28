@@ -11,9 +11,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
+import android.view.animation.Interpolator;
+import android.widget.OverScroller;
 import android.widget.Scroller;
 
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 
 import com.aiven.simplechoose.R;
 
@@ -23,6 +26,11 @@ import java.util.List;
  * 折线图
  * */
 public class LinearChartView extends View {
+
+    private static final int INVALID_POINTER = -1;
+    public static final int SCROLL_STATE_IDLE = 0;
+    public static final int SCROLL_STATE_DRAGGING = 1;
+    public static final int SCROLL_STATE_SETTLING = 2;
 
     private Paint paint;
 
@@ -166,6 +174,15 @@ public class LinearChartView extends View {
 
     private VelocityTracker velocityTracker;
     private Scroller scroller;
+
+    //f(x) = (x-1)^5 + 1
+    private static final Interpolator sQuinticInterpolator = new Interpolator() {
+        @Override
+        public float getInterpolation(float t) {
+            t -= 1.0f;
+            return t * t * t * t * t + 1.0f;
+        }
+    };
 
     public LinearChartView(Context context) {
         this(context, null);
@@ -452,4 +469,107 @@ public class LinearChartView extends View {
             this.title  = title;
         }
     }
+
+//    private void resetTouch() {
+//        if (mVelocityTracker != null) {
+//            mVelocityTracker.clear();
+//        }
+//    }
+//
+//    private void setScrollState(int state) {
+//        if (state == mScrollState) {
+//            return;
+//        }
+//        mScrollState = state;
+//        if (state != SCROLL_STATE_SETTLING) {
+//            mViewFlinger.stop();
+//        }
+//    }
+
+    private class ViewFlinger implements Runnable {
+
+        private int mLastFlingY = 0;
+        private OverScroller mScroller;
+        private boolean mEatRunOnAnimationRequest = false;
+        private boolean mReSchedulePostAnimationCallback = false;
+
+        public ViewFlinger() {
+            mScroller = new OverScroller(getContext(), sQuinticInterpolator);
+        }
+
+        @Override
+        public void run() {
+            disableRunOnAnimationRequests();
+            final OverScroller scroller = mScroller;
+            if (scroller.computeScrollOffset()) {
+                final int y = scroller.getCurrY();
+                int dy = y - mLastFlingY;
+                mLastFlingY = y;
+           //     constrainScrollBy(0, dy);
+                postOnAnimation();
+            }
+            enableRunOnAnimationRequests();
+        }
+
+        public void fling(int velocityY) {
+            mLastFlingY = 0;
+          //  setScrollState(SCROLL_STATE_SETTLING);
+            mScroller.fling(0, 0, 0, velocityY, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            postOnAnimation();
+        }
+
+        public void stop() {
+            removeCallbacks(this);
+            mScroller.abortAnimation();
+        }
+
+        private void disableRunOnAnimationRequests() {
+            mReSchedulePostAnimationCallback = false;
+            mEatRunOnAnimationRequest = true;
+        }
+
+        private void enableRunOnAnimationRequests() {
+            mEatRunOnAnimationRequest = false;
+            if (mReSchedulePostAnimationCallback) {
+                postOnAnimation();
+            }
+        }
+
+        void postOnAnimation() {
+            if (mEatRunOnAnimationRequest) {
+                mReSchedulePostAnimationCallback = true;
+            } else {
+                removeCallbacks(this);
+                ViewCompat.postOnAnimation(LinearChartView.this, this);
+            }
+        }
+    }
+
+//    private void constrainScrollBy(int dx, int dy) {
+//        Rect viewport = new Rect();
+//        getGlobalVisibleRect(viewport);
+//        int height = viewport.height();
+//        int width = viewport.width();
+//
+//        int scrollX = getScrollX();
+//        int scrollY = getScrollY();
+//
+//        //右边界
+//        if (mWidth - scrollX - dx < width) {
+//            dx = mWidth - scrollX - width;
+//        }
+//        //左边界
+//        if (-scrollX - dx > 0) {
+//            dx = -scrollX;
+//        }
+//        //下边界
+//        if (mHeight - scrollY - dy < height) {
+//            dy = mHeight - scrollY - height;
+//        }
+//        //上边界
+//        if (scrollY + dy < 0) {
+//            dy = -scrollY;
+//        }
+//        scrollBy(dx, dy);
+//    }
 }

@@ -7,6 +7,8 @@ plugins {
 
 android {
     compileSdk rootProject.ext.android.compileSdk
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 
     signingConfigs {
         debug {
@@ -144,5 +146,7 @@ dependencies {
     implementation project(path: ':http-float-log')
     implementation project(path: ':file-download')
     implementation project(path: ':qr-code-create')
+
+    implementation project(path: ':aes-code')
     //implementation project(path: ':auto-layout')
 }
