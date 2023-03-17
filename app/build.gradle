@@ -83,6 +83,7 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation rootProject.ext.dependencies.androidKtx
     implementation rootProject.ext.dependencies.androidCompat
@@ -146,7 +147,4 @@ dependencies {
     implementation project(path: ':http-float-log')
     implementation project(path: ':file-download')
     implementation project(path: ':qr-code-create')
-
-    implementation project(path: ':aes-code')
-    //implementation project(path: ':auto-layout')
 }
