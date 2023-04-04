@@ -3,11 +3,9 @@ package com.aiven.simplechoose.pages.splash
 import android.content.Intent
 import android.os.*
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.Nullable
-import com.aiven.acode.MyAesUtil
 import com.aiven.hfl.util.FloatManager
 import com.aiven.simplechoose.R
 import com.aiven.simplechoose.databinding.ActivitySplashBinding
@@ -21,7 +19,6 @@ import com.aiven.simplechoose.utils.notch.RomUtils
 import com.aiven.simplechoose.utils.notch.XiaoMiNotchUtils
 import com.aiven.simplechoose.utils.setSingleClickListener
 import com.tencent.mmkv.MMKV
-import java.io.File
 
 /**
  * @author  : AivenLi
