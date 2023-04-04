@@ -21,6 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleChoose">
 
+        <activity android:name=".pages.listtest.ListTestActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            />
+
         <activity android:name=".pages.landscaps.LandscapeAutoLayoutActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
             android:exported="false"

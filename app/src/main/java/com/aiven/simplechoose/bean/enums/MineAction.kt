@@ -8,7 +8,8 @@ enum class MineAction {
     SCAN_CODE(3),
     CHART_VIEW(4),
     IMAGE_COMPRESS(5),
-    AUTO_LAYOUT(6);
+    AUTO_LAYOUT(6),
+    LIST_TEST(7);
 
     val action: Int
     constructor(action: Int) {

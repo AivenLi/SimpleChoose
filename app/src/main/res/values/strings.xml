@@ -83,4 +83,5 @@
     <string name="choose_image">选择图片</string>
     <string name="please_compress_image_first">请先压缩图片</string>
     <string name="accessibility_auto_install">无障碍开发——自动安装</string>
+    <string name="list_test">多级列表测试</string>
 </resources>
