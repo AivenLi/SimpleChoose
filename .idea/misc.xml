@@ -4,16 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/activity_home.xml" value="0.24375" />
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/activity_qr_code.xml" value="0.2826086956521739" />
         <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/activity_splash.xml" value="0.24270833333333333" />
         <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/dialog_show_test_paper_check_list.xml" value="0.24270833333333333" />
         <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/dialog_yes_no.xml" value="0.18072916666666666" />
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/fragment_home.xml" value="0.20244565217391305" />
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/fragment_mine.xml" value="0.2826086956521739" />
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/item_level_one.xml" value="0.22760416666666666" />
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/item_lv1.xml" value="0.16770833333333332" />
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/item_lv3.xml" value="0.14635416666666667" />
         <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/item_test_paper_check.xml" value="0.24270833333333333" />
+        <entry key="..\:/Android/Projects/SimpleChoose/app/src/main/res/layout/list_item.xml" value="0.22760416666666666" />
         <entry key="..\:/Android/Projects/SimpleChoose/http-float-log/src/main/res/layout/item_http_log.xml" value="0.2826086956521739" />
+        <entry key="..\:/Android/Projects/SimpleChoose/qr-code-create/src/main/res/layout/activity_scan_result.xml" value="0.2826086956521739" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/border_black_1_dp_bg.xml" value="0.1" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/btn_main_bg.xml" value="0.18177083333333333" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/btn_warning_bg.xml" value="0.13541666666666666" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.15052083333333333" />
-        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_baseline_insert_chart_outlined_24.xml" value="0.1735" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_baseline_radio_button_checked_24.xml" value="0.12135416666666667" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/ic_launcher_background.xml" value="0.12135416666666667" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/drawable/main_btn_bg.xml" value="0.13541666666666666" />
@@ -32,7 +39,6 @@
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_image_compress.xml" value="0.10400000000000001" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_landscape_auto_layout.xml" value="0.1" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_linear_chart.xml" value="0.13229166666666667" />
-        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_list_test.xml" value="0.22135416666666666" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_qr_code.xml" value="0.12" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/activity_record.xml" value="0.176" />
@@ -49,9 +55,6 @@
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/fragment_mine.xml" value="0.264" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_choose.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_choose_answer.xml" value="0.264" />
-        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_lv1.xml" value="0.22135416666666666" />
-        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_lv2.xml" value="0.22135416666666666" />
-        <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_lv3.xml" value="0.22135416666666666" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_record.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_setting.xml" value="0.176" />
         <entry key="..\:/android_demo/SimpleChoose/app/src/main/res/layout/item_setting_click.xml" value="0.11277173913043478" />

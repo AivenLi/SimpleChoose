@@ -17,6 +17,7 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
 
     override fun initView() {
         viewBinding.recyclerView.adapter = MultiAdapter(this, getData())
+     //   viewBinding.recyclerView.adapter = MyAdapter(getItemData())
         viewBinding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
@@ -27,6 +28,7 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
     override fun getDebugTAG(): String {
         return ListTestActivity::class.java.simpleName
     }
+
 
     private fun getData(): ArrayList<MultiBean> {
         val list = ArrayList<MultiBean>()
@@ -45,7 +47,7 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
                     isFirst = false,
                     isSecond = true,
                     isOpen = false,
-                    title = "第${i + 1}条二级数据",
+                    title = "第${j + 1}条二级数据，父级ID：${i + 1}",
                     childList = ArrayList()
                 )
                 item.childList!!.add(subItem)
@@ -55,7 +57,7 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
                         isFirst = false,
                         isSecond = false,
                         isOpen = false,
-                        title = "第${i + 1}条三级数据",
+                        title = "第${k + 1}条三级数据，父级ID：${j + 1}, 祖父级ID：${i + 1}",
                         childList = null
                     )
                     subItem.childList!!.add(thirdItem)

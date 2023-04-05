@@ -25,7 +25,7 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|fontScale|density|orientation"
             android:exported="false"
             android:launchMode="singleTop"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             />
 
         <activity android:name=".pages.landscaps.LandscapeAutoLayoutActivity"

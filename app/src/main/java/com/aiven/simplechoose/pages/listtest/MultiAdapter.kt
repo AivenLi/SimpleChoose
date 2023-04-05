@@ -1,6 +1,7 @@
 package com.aiven.simplechoose.pages.listtest
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ class MultiAdapter(
         private const val TYPE_V1 = 0
         private const val TYPE_V2 = 1
         private const val TYPE_V3 = 2
+        private const val TAG = "MultiAdapter-Debug"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -53,7 +55,6 @@ class MultiAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val firstPos = getFirstItemPos(position)
         when (getItemViewType(position)) {
             TYPE_V1 -> {
                 bindLv1((holder as Lv1ViewHolder).viewBinding, data[position], position)
@@ -68,29 +69,37 @@ class MultiAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (data.isEmpty()) {
-            0
-        } else {
-            var count = 0
-            for (first in data) {
-                count++
-                if (first.isOpen && !first.childList.isNullOrEmpty()) {
-                    count += first.childList!!.size
-                    for (second in first.childList!!) {
-                        if (second.isSecond && !second.childList.isNullOrEmpty()) {
-                            count += second.childList!!.size
-                        }
-                    }
-                }
-            }
-            count
-        }
+//        return if (data.isEmpty()) {
+//            0
+//        } else {
+//            var count = 0
+//            for (first in data) {
+//                count++
+//                if (first.isOpen && !first.childList.isNullOrEmpty()) {
+//                    count += first.childList!!.size
+//                    for (second in first.childList!!) {
+//                        if (second.isSecond && !second.childList.isNullOrEmpty()) {
+//                            count += second.childList!!.size
+//                        }
+//                    }
+//                }
+//            }
+//            count
+//        }
+        return data.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (isFirstItemPos(position)) {
+//        return if (isFirstItemPos(position)) {
+//            TYPE_V1
+//        } else if (isSecondItemPos(position)) {
+//            TYPE_V2
+//        } else {
+//            TYPE_V3
+//        }
+        return if (data[position].isFirst) {
             TYPE_V1
-        } else if (isSecondItemPos(position)) {
+        } else if (data[position].isSecond) {
             TYPE_V2
         } else {
             TYPE_V3
@@ -103,17 +112,22 @@ class MultiAdapter(
             item.isOpen = !item.isOpen
             if (!item.childList.isNullOrEmpty()) {
                 val pos = position + 1
-                var size = item.childList!!.size
                 if (item.isOpen) {
-                    notifyItemRangeInserted(pos, size)
+                    data.addAll(pos, item.childList!!)
+                    notifyItemRangeInserted(pos, item.childList!!.size)
+                    notifyItemRangeChanged(pos, data.size - pos)
                 } else {
-                    for (sub in item.childList!!) {
-                        sub.isOpen = false
-                        if (!sub.childList.isNullOrEmpty()) {
-                            size += sub.childList!!.size
+                    val beforeSize = data.size
+                    var count = 0
+                    while (pos < data.size) {
+                        if (data[pos].isFirst) {
+                            break
                         }
+                        data.removeAt(pos)
+                        count++
                     }
-                    notifyItemRangeRemoved(pos, size)
+                    notifyItemRangeRemoved(pos, count)
+                    notifyItemRangeChanged(pos, beforeSize - count - pos)
                 }
             }
         }
@@ -125,11 +139,23 @@ class MultiAdapter(
             item.isOpen = !item.isOpen
             if (!item.childList.isNullOrEmpty()) {
                 val pos = position + 1
-                val size = item.childList!!.size
                 if (item.isOpen) {
-                    notifyItemRangeInserted(pos, size)
+                    data.addAll(pos, item.childList!!)
+                    notifyItemRangeInserted(pos, item.childList!!.size)
+                    notifyItemRangeChanged(pos, data.size - pos)
                 } else {
-                    notifyItemRangeRemoved(pos, size)
+                    val beforeSize = data.size
+                    var count = 0
+                    while (pos < data.size) {
+                        if (!data[pos].isFirst && !data[pos].isSecond) {
+                            count++
+                            data.removeAt(pos)
+                        } else {
+                            break
+                        }
+                    }
+                    notifyItemRangeRemoved(pos, count)
+                    notifyItemRangeChanged(pos, beforeSize - count - pos)
                 }
             }
         }
