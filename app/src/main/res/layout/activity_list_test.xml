@@ -3,13 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <per.goweii.actionbarex.common.ActionBarCommon
-        android:id="@+id/abc"
-        style="@style/ActionBarStyle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
@@ -18,6 +11,27 @@
         android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@id/abc"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <FrameLayout
+        android:id="@+id/flt_parent_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/abc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <include
+            android:id="@+id/lv1"
+            layout="@layout/item_lv1"
+            />
+    </FrameLayout>
+    <per.goweii.actionbarex.common.ActionBarCommon
+        android:id="@+id/abc"
+        style="@style/ActionBarStyle"
+        app:abc_titleText="@string/list_test"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />

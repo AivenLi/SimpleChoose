@@ -16,9 +16,9 @@ class MultiAdapter(
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        private const val TYPE_V1 = 0
-        private const val TYPE_V2 = 1
-        private const val TYPE_V3 = 2
+        const val TYPE_V1 = 0
+        const val TYPE_V2 = 1
+        const val TYPE_V3 = 2
         private const val TAG = "MultiAdapter-Debug"
     }
 
@@ -69,34 +69,10 @@ class MultiAdapter(
     }
 
     override fun getItemCount(): Int {
-//        return if (data.isEmpty()) {
-//            0
-//        } else {
-//            var count = 0
-//            for (first in data) {
-//                count++
-//                if (first.isOpen && !first.childList.isNullOrEmpty()) {
-//                    count += first.childList!!.size
-//                    for (second in first.childList!!) {
-//                        if (second.isSecond && !second.childList.isNullOrEmpty()) {
-//                            count += second.childList!!.size
-//                        }
-//                    }
-//                }
-//            }
-//            count
-//        }
         return data.size
     }
 
     override fun getItemViewType(position: Int): Int {
-//        return if (isFirstItemPos(position)) {
-//            TYPE_V1
-//        } else if (isSecondItemPos(position)) {
-//            TYPE_V2
-//        } else {
-//            TYPE_V3
-//        }
         return if (data[position].isFirst) {
             TYPE_V1
         } else if (data[position].isSecond) {

@@ -2,11 +2,20 @@ package com.aiven.simplechoose.pages.listtest
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aiven.simplechoose.databinding.ActivityListTestBinding
 import com.aiven.simplechoose.pages.BaseActivity
 
 class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBinding::inflate) {
+
+    private val data = getData()
+    private lateinit var layoutManager: LinearLayoutManager
+    private var fixedViewHeight = 0
+    private var fixedViewOldY = 0f
+    private var prevItem: MultiBean? = null
 
     companion object {
         fun start(context: Context) {
@@ -16,9 +25,82 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
     }
 
     override fun initView() {
-        viewBinding.recyclerView.adapter = MultiAdapter(this, getData())
+        viewBinding.fltParentItem.postDelayed({
+            fixedViewOldY = viewBinding.fltParentItem.y
+        }, 300)
+        viewBinding.lv1.tvTitle.text = data[0].title
+        viewBinding.recyclerView.adapter = MultiAdapter(this, data)
      //   viewBinding.recyclerView.adapter = MyAdapter(getItemData())
-        viewBinding.recyclerView.layoutManager = LinearLayoutManager(this)
+        layoutManager = LinearLayoutManager(this)
+        viewBinding.recyclerView.layoutManager = layoutManager
+        viewBinding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                fixedViewHeight = viewBinding.fltParentItem.height
+            }
+            /**
+             * 向上滑动，dy为正数，反之为负数
+             * */
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (data.size <= 1) {
+                    return
+                }
+                val firstItemPosition = layoutManager.findFirstVisibleItemPosition()
+                val firstView = layoutManager.findViewByPosition(firstItemPosition)!!
+                val firstItem = data[firstItemPosition]
+                val secondItemPosition = layoutManager.findFirstVisibleItemPosition() + 1
+                val secondView = layoutManager.findViewByPosition(secondItemPosition)!!
+                val secondItem = data[secondItemPosition]
+                if (dy > 0) {
+                    if (dy < viewBinding.abc.height) {
+                        if (isFixed(secondItem)) {
+                            val secondViewY = secondView.y
+                            if (secondViewY < fixedViewHeight) {
+                                viewBinding.fltParentItem.y = fixedViewOldY + (secondViewY - fixedViewHeight)
+                            }
+                        }
+                        if (!isFixed(firstItem) && firstItem.isFirst) {
+                            val secondViewY = firstView.y
+                            if (secondViewY < fixedViewHeight) {
+                                viewBinding.fltParentItem.y = fixedViewOldY + (secondViewY - fixedViewHeight)
+                            }
+                        }
+                    } else {
+                        viewBinding.fltParentItem.y = fixedViewOldY
+                    }
+                    if (isFixed(firstItem)) {
+                        if (firstView.y <= 0) {
+                            viewBinding.fltParentItem.y = fixedViewOldY
+                        }
+                    }
+                } else {
+                    if (isFixed(secondItem)) {
+                        val secondViewY = secondView.y
+                        if (secondViewY < fixedViewHeight) {
+                            viewBinding.fltParentItem.y = recyclerView.y + (secondViewY - fixedViewHeight)
+                        } else {
+                            viewBinding.fltParentItem.y = fixedViewOldY
+                        }
+                    } else {
+                        if (firstItemPosition == 0 && firstView.y == 0.00f) {
+                            viewBinding.fltParentItem.y = fixedViewOldY
+                        }
+                    }
+                }
+                if (prevItem != null) {
+                    viewBinding.lv1.tvTitle.text = prevItem!!.title
+                }
+            }
+        })
+    }
+
+    private fun isFixed(item: MultiBean?): Boolean {
+        return if (item == null) {
+            false
+        } else {
+            item.isFirst && item.isOpen && !item.childList.isNullOrEmpty()
+        }
     }
 
     override fun initClick() {
