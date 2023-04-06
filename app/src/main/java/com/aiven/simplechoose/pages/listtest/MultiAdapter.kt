@@ -102,9 +102,10 @@ class MultiAdapter(
     }
 
     fun openFirstItem(position: Int) {
-        val pos = position + 1
-        val item = data[pos]
+        val item = data[position]
+        item.isOpen = true
         if (!item.childList.isNullOrEmpty()) {
+            val pos = position + 1
             data.addAll(pos, item.childList!!)
             notifyItemRangeInserted(pos, item.childList!!.size)
             notifyItemRangeChanged(pos, data.size - pos)
