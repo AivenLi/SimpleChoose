@@ -82,28 +82,56 @@ class MultiAdapter(
         }
     }
 
+    fun closeFirstItem(position: Int) {
+        val item = data[position]
+        item.isOpen = false
+        if (!item.childList.isNullOrEmpty()) {
+            val pos = position + 1
+            val beforeSize = data.size
+            var count = 0
+            while (pos < data.size) {
+                if (data[pos].isFirst) {
+                    break
+                }
+                data.removeAt(pos)
+                count++
+            }
+            notifyItemRangeRemoved(pos, count)
+            notifyItemRangeChanged(pos, beforeSize - count - pos)
+        }
+    }
+
+    fun openFirstItem(position: Int) {
+        val pos = position + 1
+        val item = data[pos]
+        if (!item.childList.isNullOrEmpty()) {
+            data.addAll(pos, item.childList!!)
+            notifyItemRangeInserted(pos, item.childList!!.size)
+            notifyItemRangeChanged(pos, data.size - pos)
+        }
+    }
+
     private fun bindLv1(viewBinding: ItemLv1Binding, item: MultiBean, position: Int) {
         viewBinding.tvTitle.text = item.title
         viewBinding.root.setSingleClickListener {
             item.isOpen = !item.isOpen
             if (!item.childList.isNullOrEmpty()) {
-                val pos = position + 1
+                //val pos = position + 1
                 if (item.isOpen) {
-                    data.addAll(pos, item.childList!!)
-                    notifyItemRangeInserted(pos, item.childList!!.size)
-                    notifyItemRangeChanged(pos, data.size - pos)
+                    openFirstItem(position)
                 } else {
-                    val beforeSize = data.size
-                    var count = 0
-                    while (pos < data.size) {
-                        if (data[pos].isFirst) {
-                            break
-                        }
-                        data.removeAt(pos)
-                        count++
-                    }
-                    notifyItemRangeRemoved(pos, count)
-                    notifyItemRangeChanged(pos, beforeSize - count - pos)
+                    closeFirstItem(position)
+//                    val beforeSize = data.size
+//                    var count = 0
+//                    while (pos < data.size) {
+//                        if (data[pos].isFirst) {
+//                            break
+//                        }
+//                        data.removeAt(pos)
+//                        count++
+//                    }
+//                    notifyItemRangeRemoved(pos, count)
+//                    notifyItemRangeChanged(pos, beforeSize - count - pos)
                 }
             }
         }

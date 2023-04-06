@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aiven.simplechoose.databinding.ActivityListTestBinding
 import com.aiven.simplechoose.pages.BaseActivity
+import com.aiven.simplechoose.utils.setSingleClickListener
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBinding::inflate) {
 
@@ -15,7 +18,11 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
     private lateinit var layoutManager: LinearLayoutManager
     private var fixedViewHeight = 0
     private var fixedViewOldY = 0f
-    private var prevItem: MultiBean? = null
+    private val fixedStack = Stack<MultiPosBean>()
+    private val itemCreator = Stack<MultiPosBean>()
+    private var currentItem: MultiPosBean? = null
+    private lateinit var adapter: MultiAdapter
+    private lateinit var multiPosBean: MultiPosBean
 
     companion object {
         fun start(context: Context) {
@@ -25,11 +32,13 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
     }
 
     override fun initView() {
+        multiPosBean = MultiPosBean(data[0], 0)
         viewBinding.fltParentItem.postDelayed({
             fixedViewOldY = viewBinding.fltParentItem.y
         }, 300)
         viewBinding.lv1.tvTitle.text = data[0].title
-        viewBinding.recyclerView.adapter = MultiAdapter(this, data)
+        adapter = MultiAdapter(this, data)
+        viewBinding.recyclerView.adapter = adapter
      //   viewBinding.recyclerView.adapter = MyAdapter(getItemData())
         layoutManager = LinearLayoutManager(this)
         viewBinding.recyclerView.layoutManager = layoutManager
@@ -52,6 +61,7 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
                 val secondItemPosition = layoutManager.findFirstVisibleItemPosition() + 1
                 val secondView = layoutManager.findViewByPosition(secondItemPosition)!!
                 val secondItem = data[secondItemPosition]
+                var topItem: MultiPosBean? = null
                 if (dy > 0) {
                     if (dy < viewBinding.abc.height) {
                         if (secondItem.isFirst) {
@@ -70,13 +80,15 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
                         viewBinding.fltParentItem.y = fixedViewOldY
                     }
                     if (isFixed(firstItem)) {
+                        if (fixedStack.isEmpty() || fixedStack.peek().multiBean != firstItem) {
+                            Log.d(TAG, "吸顶item，入栈：${firstItem.title}")
+                            fixedStack.push(createMultiPosBean(firstItem, firstItemPosition))
+                        }
                         if (firstView.y <= 0) {
                             viewBinding.fltParentItem.y = fixedViewOldY
                         }
-                        if (dy > 1) {
-
-                        }
                     }
+                    topItem = null
                 } else {
                     if (secondItem.isFirst) {
                         val secondViewY = secondView.y
@@ -90,12 +102,54 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
                             viewBinding.fltParentItem.y = fixedViewOldY
                         }
                     }
+                    if (fixedStack.isNotEmpty() && fixedStack.peek().multiBean == firstItem) {
+                        recycleMultiPosBean(fixedStack.pop())
+                    }
+                    topItem = if (!firstItem.isFirst && fixedStack.isNotEmpty()) {
+                        fixedStack.peek()
+                    } else {
+                        null
+                    }
                 }
                 if (firstItem.isFirst) {
                     viewBinding.lv1.tvTitle.text = firstItem.title
+                    currentItem = multiPosBean
+                    multiPosBean.multiBean = firstItem
+                    multiPosBean.position = firstItemPosition
+                }
+                if (topItem != null) {
+                    viewBinding.lv1.tvTitle.text = topItem.multiBean.title
+                    currentItem = topItem
                 }
             }
         })
+        viewBinding.fltParentItem.setSingleClickListener {
+            if (currentItem != null && currentItem!!.multiBean.isFirst) {
+                if (currentItem!!.multiBean.isOpen) {
+                    adapter.closeFirstItem(currentItem!!.position)
+                } else {
+                    adapter.openFirstItem(currentItem!!.position)
+                }
+            }
+        }
+    }
+
+    private fun createMultiPosBean(item: MultiBean, position: Int): MultiPosBean {
+        return if (itemCreator.isEmpty()) {
+            MultiPosBean(
+                item,
+                position
+            )
+        } else {
+            itemCreator.pop().apply {
+                multiBean = item
+                this.position = position
+            }
+        }
+    }
+
+    private fun recycleMultiPosBean(multiPosBean: MultiPosBean) {
+        itemCreator.push(multiPosBean)
     }
 
     private fun isFixed(item: MultiBean?): Boolean {
