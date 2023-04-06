@@ -54,7 +54,7 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
                 val secondItem = data[secondItemPosition]
                 if (dy > 0) {
                     if (dy < viewBinding.abc.height) {
-                        if (isFixed(secondItem)) {
+                        if (secondItem.isFirst) {
                             val secondViewY = secondView.y
                             if (secondViewY < fixedViewHeight) {
                                 viewBinding.fltParentItem.y = fixedViewOldY + (secondViewY - fixedViewHeight)
@@ -73,9 +73,12 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
                         if (firstView.y <= 0) {
                             viewBinding.fltParentItem.y = fixedViewOldY
                         }
+                        if (dy > 1) {
+
+                        }
                     }
                 } else {
-                    if (isFixed(secondItem)) {
+                    if (secondItem.isFirst) {
                         val secondViewY = secondView.y
                         if (secondViewY < fixedViewHeight) {
                             viewBinding.fltParentItem.y = recyclerView.y + (secondViewY - fixedViewHeight)
@@ -88,8 +91,8 @@ class ListTestActivity: BaseActivity<ActivityListTestBinding>(ActivityListTestBi
                         }
                     }
                 }
-                if (prevItem != null) {
-                    viewBinding.lv1.tvTitle.text = prevItem!!.title
+                if (firstItem.isFirst) {
+                    viewBinding.lv1.tvTitle.text = firstItem.title
                 }
             }
         })
